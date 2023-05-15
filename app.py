@@ -4,12 +4,12 @@ from helpers.database import db, migrate
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db.init_app(app)
 migrate.__init__(app, db)
 api = Api(app)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 
