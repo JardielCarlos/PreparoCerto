@@ -15,7 +15,7 @@ api = Api(app)
 
 class User(Resource):
   def get(self):
-    return {'hell|o': 'world'}
+    return {'hello': 'Rhavy'}
 
 api.add_resource(User, '/')
 
