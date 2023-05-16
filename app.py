@@ -4,7 +4,6 @@ from helpers.database import db, migrate
 from resource.users import Users
 
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
