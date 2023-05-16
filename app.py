@@ -13,11 +13,7 @@ migrate.__init__(app, db)
 api = Api(app)
 
 
-class User(Resource):
-  def get(self):
-    return {'hello': 'Rhavy'}
-
-api.add_resource(User, '/')
+api.add_resource(Users, '/')
 
 if __name__ == '__main__':
   app.run(debug=True)
