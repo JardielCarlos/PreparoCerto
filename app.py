@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from helpers.database import db, migrate
+from resource.users import Users
 
 app = Flask(__name__)
 
@@ -12,12 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@loca
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-
-class User(Resource):
-  def get(self):
-    return {'hell|o': 'world'}
-
-api.add_resource(User, '/')
+api.add_resource(Users, '/')
 
 if __name__ == '__main__':
   app.run(debug=True)
