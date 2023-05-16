@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from helpers.database import db, migrate
-from resource.users import Users
+from resource.usuarios import Usuarios
 
 app = Flask(__name__)
 
@@ -13,7 +13,7 @@ migrate.__init__(app, db)
 api = Api(app)
 
 
-api.add_resource(Users, '/')
+api.add_resource(Usuarios, '/')
 
 if __name__ == '__main__':
   app.run(debug=True)
