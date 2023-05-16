@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from helpers.database import db, migrate
-from resource.users import Users
+from resource.usuarios import Usuarios
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
@@ -12,11 +12,7 @@ migrate.__init__(app, db)
 api = Api(app)
 
 
-class User(Resource):
-  def get(self):
-    return {'hello': 'Rhavy'}
-
-api.add_resource(User, '/')
+api.add_resource(Usuarios, '/')
 
 if __name__ == '__main__':
   app.run(debug=True)
