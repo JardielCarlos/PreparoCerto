@@ -1,7 +1,7 @@
 from flask_restful import fields
 from helpers.database import db
 
-userFields = {}
+userFields = {'id': fields.Integer, 'nome': fields.String, 'email': fields.String, 'senha': fields.String, 'tipo':fields.String}
 
 class Usuario(db.Model):
   __tablename__ = "tb_usuario"
