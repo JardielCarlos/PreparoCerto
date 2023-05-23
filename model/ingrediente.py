@@ -1,7 +1,7 @@
 from flask_restful import fields
 from helpers.database import db
 
-ingredientsFields = {'id': fields.Integer, 'nome': fields.String, 'pb': fields.Float, 'un': fields.Float, 'ipc': fields.Float, 'pl': fields.Float, 'pc': fields.Float ,'embalagem': fields.Float, 'preco': fields.Float, 'custPrep': fields.Float}
+ingredientsFields = {'id': fields.Integer, 'nome': fields.String, 'pb': fields.Float 'un': fields.Float, 'ipc': fields.Float, 'pl': fields.Float, 'pc': fields.Float 'embalagem': fields.Float, 'preco': fields.Float, 'custPrep': fields.Float}
 
 class Ingrediente(db.Model):
   id = db.Column(db.Integer, primary_key=True)

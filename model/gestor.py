@@ -1,8 +1,7 @@
 from flask_restful import fields
 from helpers.database import db
-from model.usuario import Usuario 
+from model.usuario import Usuario
 
-gestorFields = {'id': fields.Integer, 'nome': fields.String, 'email': fields.String, 'senha': fields.String, 'tipo':fields.String}
 
 class Gestor(Usuario):
   __tablename__ = "tb_gestor"
