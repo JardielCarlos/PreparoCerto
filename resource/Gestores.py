@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
-from model.gestor import Gestor, userFields
+from model.gestor import Gestor
+from model.usuario import userFields
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
