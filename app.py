@@ -15,6 +15,7 @@ migrate.__init__(app, db)
 api = Api(app)
 
 
+
 api.add_resource(Usuarios, '/')
 api.add_resource(Gestores, '/gestor')
 
