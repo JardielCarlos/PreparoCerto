@@ -2,11 +2,11 @@ from flask import Flask
 from flask_restful import Api
 from helpers.database import db, migrate
 from resource.usuarios import Usuarios
-from resource.Gestores import Gestores
+from resource.gestores import Gestores
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:124356@localhost:5432/Pweb2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # db = SQLAlchemy(app)
