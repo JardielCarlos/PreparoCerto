@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
-from model.gestor import Gestor, gestorFields
+from model.gestor import Gestor, userFields
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
@@ -9,7 +9,7 @@ parser.add_argument("senha", type=str, help="senha não informado", required=Tru
 
 class Gestores(Resource):
   def get(self):
-    return marshal(Gestor.query.all(), gestorFields), 200
+    return marshal(Gestor.query.all(), userFields), 200
   
   def post(self):
     args = parser.parse_args()
@@ -18,4 +18,4 @@ class Gestores(Resource):
     db.session.add(gestor)
     db.session.commit()
 
-    return marshal(gestor, gestorFields), 201
+    return marshal(gestor, userFields), 201
