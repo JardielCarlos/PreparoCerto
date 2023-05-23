@@ -16,10 +16,7 @@ class Usuario(db.Model):
     'polymorphic_identity': 'usuario',
     'polymorphic_on': tipo
   }
-
-  tipo_usuario = db.Column("tipo_usuario", String(50))
-  __mapper_args__ = {"polymorphic_on": tipo_usuario}
-
+  
   def __init__(self, nome, email, senha):
     self.nome = nome
     self.email = email
