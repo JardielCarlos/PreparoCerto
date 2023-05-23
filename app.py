@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from helpers.database import db, migrate
 from resource.usuarios import Usuarios
+from resource.Gestores import Gestores
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ api = Api(app)
 
 
 api.add_resource(Usuarios, '/')
+api.add_resource(Gestores, '/gestor')
 
 if __name__ == '__main__':
   app.run(debug=True)
