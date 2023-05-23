@@ -8,14 +8,14 @@ class Preparacao(db.Model):
   nome = db.Column(db.String, nullable=False)
   componente = db.Column(db.String, nullable=False)
   medidaPorcao = db.Column(db.String, nullable=False)
-  tempoPreparo = db.Column(db.int, nullable=False)
-  rendimento = db.Column(db.float, nullable=False)
-  numPorcao = db.Column(db.float, nullable=False)
-  pesoPorcao = db.Column(db.float, nullable=False)
-  ic = db.Column(db.float, nullable=False)
-  fcg = db.Column(db.float, nullable=False)
-  custoPreparo = db.Column(db.float, nullable=False)
-  custoPorcao = db.Column(db.float, nullable=False)
+  tempoPreparo = db.Column(db.Integer, nullable=False)
+  rendimento = db.Column(db.Float, nullable=False)
+  numPorcao = db.Column(db.Float, nullable=False)
+  pesoPorcao = db.Column(db.Float, nullable=False)
+  ic = db.Column(db.Float, nullable=False)
+  fcg = db.Column(db.Float, nullable=False)
+  custoPreparo = db.Column(db.Float, nullable=False)
+  custoPorcao = db.Column(db.Float, nullable=False)
 
   def __init__(self, nome, componente, medidaPorcao, tempoPreparo, rendimento, numPorcao, ic, fcg, custoPreparo):
     self.nome = nome
