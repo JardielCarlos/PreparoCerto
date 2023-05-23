@@ -1,9 +1,9 @@
 from flask_restful import fields
 from helpers.database import db
-
+from model.usuario import Usuario
 userFields = {}
 
-class Gestor(user.User):
+class Gestor(Usuario):
   __tablename__="gestor"
 
   def __repr__(self):
