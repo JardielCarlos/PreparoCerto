@@ -8,7 +8,7 @@ class Empresa(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
   cnpj = db.Column(db.String, nullable=False, unique=True)
-  gestor_id = db.Column(db.Integer,nullable=False,db.Foreingkey('gestor.id'))
+  gestor_id = db.Column(db.Integer, db.Foreingkey('gestor.id'))
 
   def __init__(self, nome, cnpj):
     self.nome = nome

@@ -1,6 +1,5 @@
 from flask_restful import fields
 from helpers.database import db
-from sqlalchemy.types import String
 
 userFields = {}
 
@@ -11,6 +10,12 @@ class Usuario(db.Model):
   nome = db.Column(db.String, nullable=False)
   email = db.Column(db.String, nullable=False, unique=True)
   senha = db.Column(db.String, nullable=False)
+  tipo = db.Column(db.String, nullable=False)
+
+  __mapper_args__ = {
+    'polymorphic_identity': 'usuario',
+    'polymorphic_on': tipo
+  }
 
   tipo_usuario = db.Column("tipo_usuario", String(50))
   __mapper_args__ = {"polymorphic_on": tipo_usuario}
