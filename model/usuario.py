@@ -1,10 +1,11 @@
 from flask_restful import fields
 from helpers.database import db
+
 userFields = {}
 
 class Usuario(db.Model):
   __tablename__ = "tb_usuario"
-
+  
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
   email = db.Column(db.String, nullable=False, unique=True)
@@ -16,10 +17,13 @@ class Usuario(db.Model):
     'polymorphic_on': tipo
   }
 
+  tipo_usuario = db.Column("tipo_usuario", String(50))
+  __mapper_args__ = {"polymorphic_on": tipo_usuario}
+
   def __init__(self, nome, email, senha):
     self.nome = nome
     self.email = email
     self.senha = senha
 
   def __repr__(self):
-    return f'<User {self.nome}>'
+    return f"<User {self.nome}>"
