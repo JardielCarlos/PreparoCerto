@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from helpers.database import db, migrate
 from resource.usuarios import Usuarios
-from resource.Gestores import Gestores
+from resource.gestores import Gestores
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
