@@ -1,9 +1,9 @@
 from flask_restful import fields
 from helpers.database import db
+from model.usuario import Usuario
 
-userFields = {}
 
-class Preparador(user.User):
+class Preparador(Usuario):
   __tablename__="preparador"
 
   def __repr__(self):
