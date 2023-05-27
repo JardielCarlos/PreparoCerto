@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from helpers.database import db, migrate
-from resource.preparadores import Preparadores
+from resource.preparadores import Preparadores, PreparadorId
 from resource.gestores import Gestores, GestorId
 
 app = Flask(__name__)
@@ -15,8 +15,9 @@ api = Api(app)
 
 
 api.add_resource(Gestores, '/gestores')
-api.add_resource(GestorId, '/gestor/<int:idUser>')
+api.add_resource(GestorId, '/gestor/<int:id>')
 api.add_resource(Preparadores, '/preparadores')
+api.add_resource(PreparadorId, '/preparador/<int:id>')
 
 if __name__ == '__main__':
   app.run(debug=True)

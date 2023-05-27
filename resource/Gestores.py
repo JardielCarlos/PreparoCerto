@@ -7,9 +7,9 @@ from model.mensagem import Message, msgError
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("nome", type=str, help="Nome não informado", required=True)
-parser.add_argument("email", type=str, help="email não informado", required=True)
-parser.add_argument("senha", type=str, help="senha não informado", required=True)
+parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
+parser.add_argument("email", type=str, help="email nao informado", required=True)
+parser.add_argument("senha", type=str, help="senha nao informado", required=True)
 
 class Gestores(Resource):
   def get(self):
@@ -18,6 +18,7 @@ class Gestores(Resource):
   
   def post(self):
     args = parser.parse_args()
+
     try:
       gestor = Gestor(args['nome'], args["email"], args['senha'])
 
@@ -31,32 +32,30 @@ class Gestores(Resource):
 
       codigo = Message(2, "Error ao cadastrar o Gestor")
       return marshal(codigo, msgError), 400
-
-
   
 class GestorId(Resource):
-  def get(self, idUser):
-    gestor = Gestor.query.get(idUser)
+  def get(self, id):
+    gestor = Gestor.query.get(id)
 
     if gestor is None:
-      logger.error(f"Gestor de id: {idUser} não encontrado")
+      logger.error(f"Gestor de id: {id} nao encontrado")
 
-      codigo = Message(1, f"Gestor de id: {idUser} não encontrado")
+      codigo = Message(1, f"Gestor de id: {id} nao encontrado")
       return marshal(codigo, msgError), 404
     
     logger.info(f"Gestor de id: {gestor.id} Listado com Sucesso")
     return marshal(gestor, userFields), 200
   
-  def put(self, idUser):
+  def put(self, id):
     args = parser.parse_args()
 
     try:
-      userBd = Gestor.query.get(idUser)
+      userBd = Gestor.query.get(id)
 
       if userBd is None:
-        logger.error(f"Gestor de id: {idUser} não encontrado")
+        logger.error(f"Gestor de id: {id} nao encontrado")
 
-        codigo = Message(1, f"Gestor de id: {idUser} não encontrado")
+        codigo = Message(1, f"Gestor de id: {id} nao encontrado")
         return marshal(codigo, msgError), 404
       
       userBd.nome = args["nome"]
@@ -66,7 +65,7 @@ class GestorId(Resource):
       db.session.add(userBd)
       db.session.commit()
       
-      logger.info(f"Gestor de id: {idUser} atualizado com Sucesso")
+      logger.info(f"Gestor de id: {id} atualizado com Sucesso")
       return marshal(userBd, userFields), 200
     
     except:
@@ -74,21 +73,19 @@ class GestorId(Resource):
 
       codigo = Message(2, "Error ao Atualizar o Gestor")
       return marshal(codigo, msgError), 400
-      
-    
   
-  def delete(self, idUser):
+  def delete(self, id):
 
-    userBd = Gestor.query.get(idUser)
+    userBd = Gestor.query.get(id)
 
     if userBd is None:
-      logger.error(f"Gestor de id: {idUser} não encontrado")
+      logger.error(f"Gestor de id: {id} nao encontrado")
 
-      codigo = Message(1, f"Gestor de id: {idUser} não encontrado")
+      codigo = Message(1, f"Gestor de id: {id} nao encontrado")
       return marshal(codigo, msgError), 404
 
     db.session.delete(userBd)
     db.session.commit()
     
-    logger.info(f"Gestor de id: {idUser} deletado com sucesso")
+    logger.info(f"Gestor de id: {id} deletado com sucesso")
     return {}, 200
