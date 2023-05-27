@@ -1,11 +1,12 @@
 from flask import Flask
 from flask_restful import Api
 from helpers.database import db, migrate
+
 from resource.preparadores import Preparadores, PreparadorId
 from resource.gestores import Gestores, GestorId
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:124356@localhost:5432/Pweb2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
