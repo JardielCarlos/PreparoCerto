@@ -20,3 +20,31 @@ class Gestores(Resource):
     db.session.commit()
 
     return marshal(gestor, userFields), 201
+  
+class GestorId(Resource):
+  def get(self, idUser):
+    gestor = Gestor.query.get(idUser)
+    return marshal(gestor, userFields), 200
+  
+  def put(self, idUser):
+    args = parser.parse_args()
+
+    userBd = Gestor.query.get(idUser)
+
+    userBd.nome = args["nome"]
+    userBd.email = args["email"]
+    userBd.senha = args["senha"]
+
+    db.session.add(userBd)
+    db.session.commit()
+    
+    return marshal(userBd, userFields), 200
+  
+  def delete(self, idUser):
+
+    useBd = Gestor.query.get(idUser)
+
+    db.session.delete(useBd)
+    db.session.commit()
+
+    return {}, 200
