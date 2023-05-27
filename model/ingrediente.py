@@ -6,14 +6,14 @@ ingredientsFields = {'id': fields.Integer, 'nome': fields.String, 'pb': fields.F
 class Ingrediente(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
-  pb = db.Column(db.float, nullable=False)
-  un = db.Column(db.float, nullable=False)
-  ipc = db.Column(db.float, nullable=False)
-  pl = db.Column(db.float,nullable=False)
-  pc = db.Column(db.float, nullable=False)
-  embalagem = db.Column(db.float, nullable=False)
-  preco = db.Column(db.float, nullable=False)
-  custPrep = db.Column(db.float, nullable=False)
+  pb = db.Column(db.Float, nullable=False)
+  un = db.Column(db.Float, nullable=False)
+  ipc = db.Column(db.Float, nullable=False)
+  pl = db.Column(db.Float,nullable=False)
+  pc = db.Column(db.Float, nullable=False)
+  embalagem = db.Column(db.Float, nullable=False)
+  preco = db.Column(db.Float, nullable=False)
+  custPrep = db.Column(db.Float, nullable=False)
 
   def __init__(self, nome, pb, un, ipc, pl, pc, embalagem, preco, custPrep):
     self.nome = nome
