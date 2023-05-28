@@ -4,27 +4,29 @@ from helpers.database import db
 ingredienteFields = {'id': fields.Integer, 'nome': fields.String, 'pb': fields.Float, 'un': fields.Float, 'ipc': fields.Float, 'pl': fields.Float, 'pc': fields.Float, 'embalagem': fields.Float, 'preco': fields.Float, 'custPrep': fields.Float}
 
 class Ingrediente(db.Model):
+  __tablename__ = 'tb_ingrediente'
+  
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
-  pb = db.Column(db.Float, nullable=False)
-  un = db.Column(db.Float, nullable=False)
-  ipc = db.Column(db.Float, nullable=False)
-  pl = db.Column(db.Float,nullable=False)
-  pc = db.Column(db.Float, nullable=False)
+  pesoBruto = db.Column(db.Float, nullable=False)
+  unidade = db.Column(db.String, nullable=False)
+  indicadorParteComestivel = db.Column(db.Float, nullable=False)
+  pesoLiquido = db.Column(db.Float,nullable=False)
+  perCapita = db.Column(db.Float, nullable=False)
   embalagem = db.Column(db.Float, nullable=False)
   preco = db.Column(db.Float, nullable=False)
-  custPrep = db.Column(db.Float, nullable=False)
+  custPreparacao = db.Column(db.Float, nullable=False)
 
-  def __init__(self, nome, pb, un, ipc, pl, pc, embalagem, preco, custPrep):
-    self.nome = nome
-    self.pb = pb
-    self.un = un
-    self.ipc = ipc
-    self.pl = pl
-    self.pc = pc
-    self.embalagem = embalagem
-    self.preco = preco
-    self.custPrep = custPrep
+  def __init__(self, nome, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, embalagem, preco, custPreparacao):
+   self.nome = nome
+   self.pesoBruto = pesoBruto
+   self.unidade = unidade
+   self.indicadorParteComestivel = indicadorParteComestivel
+   self.pesoLiquido = pesoLiquido
+   self.perCapita = perCapita
+   self.embalagem = embalagem
+   self.preco = preco
+   self.custPreparacao = custPreparacao
 
   def __repr__(self):
     return f'<Ingrediente {self}>'
