@@ -69,9 +69,9 @@ class GestorId(Resource):
       return marshal(userBd, userFields), 200
     
     except:
-      logger.error("Error ao cadastrar o Gestor")
+      logger.error("Error ao atualizar o Gestor")
 
-      codigo = Message(2, "Error ao Atualizar o Gestor")
+      codigo = Message(2, "Error ao atualizar o Gestor")
       return marshal(codigo, msgError), 400
   
   def delete(self, id):
