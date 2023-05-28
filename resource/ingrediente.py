@@ -7,19 +7,20 @@ from model.mensagem import Message, msgError
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
-parser.add_argument("pesoBruto", type=str, help="pesoBruto nao informado", required=True)
+parser.add_argument("pesoBruto", type=float, help="pesoBruto nao informado", required=True)
 parser.add_argument("unidade", type=str, help="unidade nao informado", required=True)
-parser.add_argument("indicadorParteComestivel", type=str, help="indicadorParteComestivel nao informado", required=True)
-parser.add_argument("pesoLiquido", type=str, help="pesoLiquido nao informado", required=True)
-parser.add_argument("perCapita", type=str, help="perCapita nao informado", required=True)
-parser.add_argument("embalagem", type=str, help="embalagem nao informado", required=True)
-parser.add_argument("preco", type=str, help="preco nao informado", required=True)
-parser.add_argument("custoPreparacao", type=str, help="custoPreparacao nao informado", required=True)
+parser.add_argument("indicadorParteComestivel", type=float, help="indicadorParteComestivel nao informado", required=True)
+parser.add_argument("pesoLiquido", type=float, help="pesoLiquido nao informado", required=True)
+parser.add_argument("perCapita", type=float, help="perCapita nao informado", required=True)
+parser.add_argument("embalagem", type=float, help="embalagem nao informado", required=True)
+parser.add_argument("preco", type=float, help="preco nao informado", required=True)
+parser.add_argument("custoPreparacao", type=float, help="custoPreparacao nao informado", required=True)
 
-class Ingrediente(Resource):
+class Ingredientes(Resource):
     def get(self):
       logger.info("Ingredientes listados com Sucesso")
       return marshal(Ingrediente.query.all(), ingredienteFields), 200
+    
     def post(self):
       args = parser.parse_args()
       try:
