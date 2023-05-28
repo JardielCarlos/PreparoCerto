@@ -10,11 +10,12 @@ class Empresa(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
   cnpj = db.Column(db.String, nullable=False, unique=True)
-  id_gestor = db.Column(db.Integer, db.ForeignKey("tb_gestor.id"))
+  id_gestor = db.Column(db.Integer, db.ForeignKey("tb_gestor.usuario_id"))
 
-  def __init__(self, nome, cnpj):
+  def __init__(self, nome, cnpj, id_gestor):
     self.nome = nome
     self.cnpj = cnpj
+    self.id_gestor = id_gestor
 
   def __repr__(self):
     return f'<Empresa {self.nome}>'
