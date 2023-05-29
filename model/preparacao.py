@@ -29,6 +29,7 @@ class Preparacao(db.Model):
     self.fcg = fcg
     self.custoPreparo = custoPreparo
     self.custoPorcao = custoPreparo / numPorcao
+    self
 
   def __repr__(self):
     return f'<Preparacao {self}>'

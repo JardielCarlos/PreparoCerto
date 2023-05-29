@@ -8,7 +8,7 @@ parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
 parser.add_argument("cnpj", type=str, help="CNPJ nao informado", required=True)
-parser.add_argument("id_gestor", type=str, help="id do gestor nao informado", required=False)
+parser.add_argument("id_proprietario", type=str, help="id do proprietario nao informado", required=False)
 
 class Empresas(Resource):
   def get(self):
@@ -19,8 +19,8 @@ class Empresas(Resource):
     args = parser.parse_args()
 
     try:
-      empresa = Empresa(args['nome'], args["cnpj"], args['id_gestor'])
-      if empresa.id_gestor is None:
+      empresa = Empresa(args['nome'], args["cnpj"], args['id_proprietario'])
+      if empresa.id_proprietario is None:
         logger.error("Id do gestor nao informado")
 
         codigo = Message(1, "Id do gestor nao informado")
