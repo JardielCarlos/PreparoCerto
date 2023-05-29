@@ -7,10 +7,10 @@ from model.mensagem import Message, msgError
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
-parser.add_argument("cnpj", type=str, help="Nome nao informado", required=True)
-parser.add_argument("id_gestor", type=str, help="Nome nao informado", required=True)
+parser.add_argument("cnpj", type=str, help="CNPJ nao informado", required=True)
+parser.add_argument("id_proprietario", type=str, help="id do proprietario nao informado", required=False)
 
-class Empresa(Resource):
+class Empresas(Resource):
   def get(self):
     logger.info("Empresas listadas com Sucesso")
     return marshal(Empresa.query.all(), empresaFields), 200
@@ -19,7 +19,12 @@ class Empresa(Resource):
     args = parser.parse_args()
 
     try:
-      empresa = Empresa(args['nome'], args["cnpj"], args['id_gestor'])
+      empresa = Empresa(args['nome'], args["cnpj"], args['id_proprietario'])
+      if empresa.id_proprietario is None:
+        logger.error("Id do gestor nao informado")
+
+        codigo = Message(1, "Id do gestor nao informado")
+        return marshal(codigo, msgError), 400
 
       db.session.add(empresa)
       db.session.commit()
@@ -59,8 +64,7 @@ class EmpresaId(Resource):
         return marshal(codigo, msgError), 404
       
       empresaBd.nome = args["nome"]
-      empresaBd.email = args["cnpj"]
-      empresaBd.senha = args["id_gestor"]
+      empresaBd.cnpj = args["cnpj"]
 
       db.session.add(empresaBd)
       db.session.commit()
