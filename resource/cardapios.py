@@ -47,13 +47,13 @@ class CardapioId(Resource):
 
     try:
       cardapioBd = Cardapio.query.get(id)
-      if cardapio is None:
+      if cardapioBd is None:
         logger.error(f"Cardapio de id: {id} nao encontrado")
 
         codigo = Message(1, f"Cardapio de id: {id} nao encontrado")
         return marshal(codigo, msgError), 404
       
-      cardapio.nome = args['nome']
+      cardapioBd.nome = args['nome']
 
       db.session.add(cardapioBd)
       db.session.commit()

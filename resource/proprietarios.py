@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
-from model.proprietario import Proprietario from model.usuario import userFields
+from model.proprietario import Proprietario 
+from model.usuario import userFields
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 
