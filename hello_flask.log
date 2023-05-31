@@ -1,20 +1,2 @@
-2023-05-31 07:58:28,141 WARNING _internal _log  * Debugger is active!
-2023-05-31 07:58:28,144 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-05-31 07:58:37,252 ERROR empresa put Empresa de id: 2 nao encontrado
-2023-05-31 07:58:37,253 INFO _internal _log 127.0.0.1 - - [31/May/2023 07:58:37] "[33mPUT /empresa/2 HTTP/1.1[0m" 404 -
-2023-05-31 07:58:43,706 ERROR empresa put Empresa de id: 1 nao encontrado
-2023-05-31 07:58:43,707 INFO _internal _log 127.0.0.1 - - [31/May/2023 07:58:43] "[33mPUT /empresa/1 HTTP/1.1[0m" 404 -
-2023-05-31 07:58:48,113 INFO empresa get Empresas listadas com Sucesso
-2023-05-31 07:58:48,123 INFO _internal _log 127.0.0.1 - - [31/May/2023 07:58:48] "GET /empresas HTTP/1.1" 200 -
-2023-05-31 07:58:57,584 INFO empresa put Empresa de id: 6 atualizado com Sucesso
-2023-05-31 07:58:57,587 INFO _internal _log 127.0.0.1 - - [31/May/2023 07:58:57] "PUT /empresa/6 HTTP/1.1" 200 -
-2023-05-31 07:59:06,637 ERROR empresa post Error ao cadastrar o Empresa
-2023-05-31 07:59:06,638 INFO _internal _log 127.0.0.1 - - [31/May/2023 07:59:06] "[31m[1mPOST /empresas HTTP/1.1[0m" 400 -
-2023-05-31 07:59:16,468 ERROR empresa post Error ao cadastrar o Empresa
-2023-05-31 07:59:16,468 INFO _internal _log 127.0.0.1 - - [31/May/2023 07:59:16] "[31m[1mPOST /empresas HTTP/1.1[0m" 400 -
-2023-05-31 08:00:00,738 INFO proprietarios post Proprietario de id: 3 criado com sucesso
-2023-05-31 08:00:00,739 INFO _internal _log 127.0.0.1 - - [31/May/2023 08:00:00] "[35m[1mPOST /proprietarios HTTP/1.1[0m" 201 -
-2023-05-31 08:00:23,736 INFO empresa post Empresa de id: 7 criado com sucesso
-2023-05-31 08:00:23,737 INFO _internal _log 127.0.0.1 - - [31/May/2023 08:00:23] "[35m[1mPOST /empresas HTTP/1.1[0m" 201 -
-2023-05-31 08:00:39,135 INFO empresa get Empresas listadas com Sucesso
-2023-05-31 08:00:39,138 INFO _internal _log 127.0.0.1 - - [31/May/2023 08:00:39] "GET /empresas HTTP/1.1" 200 -
+2023-05-31 08:04:53,648 WARNING _internal _log  * Debugger is active!
+2023-05-31 08:04:53,650 INFO _internal _log  * Debugger PIN: 932-881-758
