@@ -9,7 +9,7 @@ parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
 parser.add_argument("cnpj", type=str, help="CNPJ nao informado", required=True)
-parser.add_argument("proprietario", type=dict, help="proprietario nao informado", required=True)
+parser.add_argument("proprietario", type=dict, help="proprietario nao informado", required=False)
 
 class Empresas(Resource):
   def get(self):
@@ -19,35 +19,29 @@ class Empresas(Resource):
   def post(self):
     args = parser.parse_args()
 
-    # try:
-    proprietarioId = args["proprietario"]['id']
-    print(proprietarioId)
-    proprietario = Proprietario.query.filter_by(id=proprietarioId)
-    if proprietario is None:
-      print("Não veio nada")
-    else:
-      print("Veio alguma coisa")
-      print(proprietario)
+    try:
+      proprietarioId = args["proprietario"]['id']
+      proprietario = Proprietario.query.get(proprietarioId)
 
-    
-    empresa = Empresa(args['nome'], args["cnpj"], proprietario)
-    if empresa is None:
-      logger.error("Id do gestor nao informado")
+      if proprietario is None:
+        logger.error(f"Proprietario de id: {proprietarioId} nao encontrado")
 
-      codigo = Message(1, "Id do gestor nao informado")
+        codigo = Message(1, f"Proprietario de id: {proprietarioId} nao encontrado")
+        return marshal(codigo, msgError), 404
+
+      empresa = Empresa(args['nome'], args["cnpj"], proprietario)
+
+      db.session.add(empresa)
+      db.session.commit()
+
+      logger.info(f"Empresa de id: {empresa.id} criado com sucesso")
+      return marshal(empresa, empresaFields), 201
+
+    except:
+      logger.error("Error ao cadastrar o Empresa")
+
+      codigo = Message(2, "Error ao cadastrar a empresa verifique os campos")
       return marshal(codigo, msgError), 400
-
-    db.session.add(empresa)
-    db.session.commit()
-
-    logger.info(f"Empresa de id: {empresa.id} criado com sucesso")
-    return marshal(empresa, empresaFields), 201
-
-    # except:
-    #   logger.error("Error ao cadastrar o Empresa")
-
-    #   codigo = Message(2, "Error ao cadastrar o Empresa")
-    #   return marshal(codigo, msgError), 400
     
 class EmpresaId(Resource):
   def get(self, id):
