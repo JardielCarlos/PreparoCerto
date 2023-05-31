@@ -11,14 +11,12 @@ from resource.preparacoes import Preparacoes, PreparacaoId
 from resource.cardapios import Cardapios, CardapioId
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/Pweb2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate.__init__(app, db)
 api = Api(app)
-
-
 
 api.add_resource(Gestores, '/gestores')
 api.add_resource(GestorId, '/gestor/<int:id>')

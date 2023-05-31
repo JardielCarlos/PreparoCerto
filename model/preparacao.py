@@ -4,6 +4,8 @@ from helpers.database import db
 preparacaoFields = {'id': fields.Integer, 'nome': fields.String, 'componente': fields.String, 'medidaPorcao': fields.String, 'tempoPreparo': fields.Integer, 'rendimento': fields.Float, 'numPorcao': fields.Float, 'pesoPorcao': fields.Float, 'ic': fields.Float, 'fcg': fields.Float,'custoPreparo': fields.Float,'custoPorcao': fields.Float}
 
 class Preparacao(db.Model):
+  __tablename__ = "tb_preparacao"
+
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
   componente = db.Column(db.String, nullable=False)
@@ -29,7 +31,6 @@ class Preparacao(db.Model):
     self.fcg = fcg
     self.custoPreparo = custoPreparo
     self.custoPorcao = custoPreparo / numPorcao
-    self
 
   def __repr__(self):
     return f'<Preparacao {self}>'
