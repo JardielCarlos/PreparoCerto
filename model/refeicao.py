@@ -1,7 +1,7 @@
 from flask_restful import fields
 from helpers.database import db
 
-refeicaoFields = {}
+refeicaoFields = {'id': fields.Integer, 'nome': fields.String}
 
 class Refeicao(db.Model):
     __tablename__ = "tb_refeicao"
