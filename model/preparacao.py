@@ -1,7 +1,7 @@
 from flask_restful import fields
 from helpers.database import db
 
-preparacaoFields = {'id': fields.Integer, 'nome': fields.String, 'componente': fields.String, 'medidaPorcao': fields.String, 'tempoPreparo': fields.Integer, 'rendimento': fields.Float, 'numPorcao': fields.Float, 'pesoPorcao': fields.Float, 'ic': fields.Float, 'fcg': fields.Float,'custoPreparo': fields.Float,'custoPorcao': fields.Float}
+preparacaoFields = {'id': fields.Integer, 'nome': fields.String, 'componente': fields.String, 'medidaPorcao': fields.String, 'tempoPreparo': fields.Integer, 'rendimento': fields.Float, 'numPorcao': fields.Float, 'pesoPorcao': fields.Float, 'indicadorConversao': fields.Float, 'fatorCorrecaoGlobal': fields.Float,'custoPreparo': fields.Float,'custoPorcao': fields.Float}
 
 class Preparacao(db.Model):
   __tablename__ = "tb_preparacao"
@@ -14,12 +14,12 @@ class Preparacao(db.Model):
   rendimento = db.Column(db.Float, nullable=False)
   numPorcao = db.Column(db.Float, nullable=False)
   pesoPorcao = db.Column(db.Float, nullable=False)
-  ic = db.Column(db.Float, nullable=False)
-  fcg = db.Column(db.Float, nullable=False)
+  indicadorConversao = db.Column(db.Float, nullable=False)
+  fatorCorrecaoGlobal = db.Column(db.Float, nullable=False)
   custoPreparo = db.Column(db.Float, nullable=False)
   custoPorcao = db.Column(db.Float, nullable=False)
 
-  def __init__(self, nome, componente, medidaPorcao, tempoPreparo, rendimento, numPorcao, ic, fcg, custoPreparo):
+  def __init__(self, nome, componente, medidaPorcao, tempoPreparo, rendimento, numPorcao, indicadorConversao, fatorCorrecaoGlobal, custoPreparo):
     self.nome = nome
     self.componente = componente
     self.medidaPorcao = medidaPorcao
@@ -27,8 +27,8 @@ class Preparacao(db.Model):
     self.rendimento = rendimento
     self.numPorcao = numPorcao
     self.pesoPorcao = rendimento / numPorcao
-    self.ic = ic
-    self.fcg = fcg
+    self.indicadorConversao = indicadorConversao
+    self.fatorCorrecaoGlobal = fatorCorrecaoGlobal
     self.custoPreparo = custoPreparo
     self.custoPorcao = custoPreparo / numPorcao
 
