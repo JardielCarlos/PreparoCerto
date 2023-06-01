@@ -6,6 +6,8 @@ class Proprietario(Usuario):
 
   usuario_id = db.Column(db.Integer ,db.ForeignKey("tb_usuario.id"), primary_key=True)
 
+  # empresa = db.relationship("Empresa", backref="tb_proprietario")
+
   __mapper_args__ = {"polymorphic_identity": "proprietario"}
 
   def __init__(self, nome, email, senha):

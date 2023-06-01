@@ -4,7 +4,6 @@ from helpers.database import db
 cardapioFields = {'id': fields.Integer, 'nome': fields.String}
 
 class Cardapio(db.Model):
-
   __tablename__="tb_cardapio"
 
   id = db.Column(db.Integer, primary_key=True)
