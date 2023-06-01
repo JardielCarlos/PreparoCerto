@@ -12,8 +12,8 @@ parser.add_argument("medidaPorcao", type=str, help="medidaPorcao nao informado",
 parser.add_argument("tempoPreparo", type=int, help="tempoPreparo nao informado", required=True)
 parser.add_argument("rendimento", type=float, help="rendimento nao informado", required=True)
 parser.add_argument("numPorcao", type=float, help="numPorcao nao informado", required=True)
-parser.add_argument("ic", type=float, help="ic nao informado", required=True)
-parser.add_argument("fcg", type=float, help="fcg nao informado", required=True)
+parser.add_argument("indicadorConversao", type=float, help="indicadorConversao nao informado", required=True)
+parser.add_argument("fatorCorrecaoGlobal", type=float, help="fatorCorrecaoGlobal nao informado", required=True)
 parser.add_argument("custoPreparo", type=float, help="custoPreparo nao informado", required=True)
 
 class Preparacoes(Resource):
@@ -23,19 +23,14 @@ class Preparacoes(Resource):
   
   def post(self):
     args = parser.parse_args()
-    # try:
-    preparacao = Preparacao(args['nome'],args['componente'], args["medidaPorcao"], args['tempoPreparo'], args['rendimento'], args['numPorcao'], args['ic'], args['fcg'], args['custoPreparo'])
+    
+    preparacao = Preparacao(args['nome'],args['componente'], args["medidaPorcao"], args['tempoPreparo'], args['rendimento'], args['numPorcao'], args['indicadorConversao'], args['fatorCorrecaoGlobal'], args['custoPreparo'])
 
     db.session.add(preparacao)
     db.session.commit()
 
     logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
     return marshal(preparacao, preparacaoFields), 201
-    # except:
-    #   logger.error("Erro ao cadastrar a preparacao")
-
-    #   codigo = Message(2, "Erro ao cadastrar a preparacao")
-    #   return marshal(codigo, msgError), 400
     
 class PreparacaoId(Resource):
   def get(self, id):

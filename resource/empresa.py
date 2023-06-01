@@ -31,11 +31,7 @@ class Empresas(Resource):
 
     
     empresa = Empresa(args['nome'], args["cnpj"], proprietario)
-    if empresa is None:
-      logger.error("Id do gestor nao informado")
-
-      codigo = Message(1, "Id do gestor nao informado")
-      return marshal(codigo, msgError), 400
+    
 
     db.session.add(empresa)
     db.session.commit()
