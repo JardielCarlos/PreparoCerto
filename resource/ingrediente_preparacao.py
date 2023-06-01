@@ -29,7 +29,7 @@ class IngredientesPreparacao(Resource):
       codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
       return marshal(codigo, msgError), 404
     elif preparacao is None:
-      codigo = Message(1, f"Preparacao de id: {ingredienteId} não encontrada")
+      codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
       return marshal(codigo, msgError), 404
     
     ingredientePreparacao = IngredientePreparacao(ingrediente, preparacao)
@@ -41,6 +41,11 @@ class IngredientesPreparacao(Resource):
   
 class IngredientesPreparacaoId(Resource):
   def get(self, id):
+
+    ingredientePreparacao = IngredientePreparacao.query.get(id)
+    if ingredientePreparacao is None:
+      codigo = Message(1, f"IngredientePreparacao de id: {id} não encontrado")
+      return marshal(codigo, msgError), 404
     logger.info("Ingrediente-Preparacao listados com sucesso")
     return marshal(IngredientePreparacao.query.get(id), ingredientePreparacaoFields), 200
 
@@ -51,13 +56,19 @@ class IngredientesPreparacaoId(Resource):
     ingredienteId = args['ingrediente']['id']
     preparacaoId = args['preparacao']['id']
 
+    if ingredientePreparacaoBd is None:
+      logger.error(f"IngredientePreparacao de id: {id} nao encontrada")
+
+      codigo = Message(1, f"IngredientePreparacao de id: {id} nao encontrada")
+      return marshal(codigo, msgError), 404
+
     ingrediente = Ingrediente.query.get(ingredienteId)
     preparacao = Preparacao.query.get(preparacaoId)
     if ingrediente is None:
       codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
       return marshal(codigo, msgError), 404
     elif preparacao is None:
-      codigo = Message(1, f"Preparacao de id: {ingredienteId} não encontrada")
+      codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
       return marshal(codigo, msgError), 404
 
     ingredientePreparacaoBd.ingrediente = ingrediente
