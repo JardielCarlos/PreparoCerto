@@ -3,7 +3,6 @@ from helpers.database import db
 from model.usuario import Usuario
 
 class Preparador(Usuario):
-
   __tablename__="tb_preparador"
 
   usuario_id = db.Column(db.Integer, db.ForeignKey("tb_usuario.id"),primary_key=True)

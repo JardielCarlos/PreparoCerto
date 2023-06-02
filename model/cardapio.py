@@ -1,10 +1,11 @@
 from flask_restful import fields
 from helpers.database import db
+from model.refeicao import Refeicao
+from model.ingrediente_preparacao import IngredientePreparacao
 
 cardapioFields = {'id': fields.Integer, 'nome': fields.String}
 
 class Cardapio(db.Model):
-
   __tablename__="tb_cardapio"
 
   id = db.Column(db.Integer, primary_key=True)

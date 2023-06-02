@@ -22,10 +22,10 @@ class Empresas(Resource):
     try:
       proprietarioId = args["proprietario"]['id']
       proprietario = Proprietario.query.get(proprietarioId)
-
+      
       if proprietario is None:
         logger.error(f"Proprietario de id: {proprietarioId} nao encontrado")
-
+        
         codigo = Message(1, f"Proprietario de id: {proprietarioId} nao encontrado")
         return marshal(codigo, msgError), 404
       
@@ -36,11 +36,11 @@ class Empresas(Resource):
 
       logger.info(f"Empresa de id: {empresa.id} criado com sucesso")
       return marshal(empresa, empresaFields), 201
-
+    
     except:
       logger.error("Error ao cadastrar o Empresa")
 
-      codigo = Message(2, "Error ao cadastrar o Empresa")
+      codigo = Message(2, "Error ao cadastrar a empresa verifique os campos")
       return marshal(codigo, msgError), 400
     
 class EmpresaId(Resource):

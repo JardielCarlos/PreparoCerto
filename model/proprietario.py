@@ -1,4 +1,3 @@
-from flask_restful import fields
 from helpers.database import db
 from model.usuario import Usuario
 
