@@ -14,7 +14,7 @@ from resource.refeicoes import Refeicoes, RefeicoesId
 from resource.refeicao_preparacao import RefeicoesPreparacao, RefeicoesPreparacaoId
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/Pweb2"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
