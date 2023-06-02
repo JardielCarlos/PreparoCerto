@@ -9,7 +9,7 @@ parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
 parser.add_argument("cnpj", type=str, help="CNPJ nao informado", required=True)
-parser.add_argument("proprietario", type=dict, help="proprietario nao informado", required=False)
+parser.add_argument("proprietario", type=dict, help="proprietario nao informado", required=True)
 
 class Empresas(Resource):
   def get(self):
@@ -24,11 +24,9 @@ class Empresas(Resource):
     print(proprietarioId)
     proprietario = Proprietario.query.get(proprietarioId)
     if proprietario is None:
-      print("Não veio nada")
-    else:
-      print("Veio alguma coisa")
-      print(proprietario)
-
+      codigo = Message(1, f"Proprietario de id: {proprietarioId} nao encontrado")
+      return marshal(codigo, msgError), 404
+    
     
     empresa = Empresa(args['nome'], args["cnpj"], proprietario)
     
@@ -38,12 +36,6 @@ class Empresas(Resource):
 
     logger.info(f"Empresa de id: {empresa.id} criado com sucesso")
     return marshal(empresa, empresaFields), 201
-
-    # except:
-    #   logger.error("Error ao cadastrar o Empresa")
-
-    #   codigo = Message(2, "Error ao cadastrar o Empresa")
-    #   return marshal(codigo, msgError), 400
     
 class EmpresaId(Resource):
   def get(self, id):
