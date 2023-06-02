@@ -1,32 +1,40 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
-from model.gestor import Gestor
-from model.usuario import userFields
+from model.gestor import Gestor, gestorFields
 from helpers.logger import logger
 from model.mensagem import Message, msgError
+from model.empresa import Empresa
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
 parser.add_argument("email", type=str, help="email nao informado", required=True)
 parser.add_argument("senha", type=str, help="senha nao informado", required=True)
+parser.add_argument("empresa", type=dict, help="Empresa nao informado", required=False)
 
 class Gestores(Resource):
   def get(self):
     logger.info("Gestores listados com Sucesso")
-    return marshal(Gestor.query.all(), userFields), 200
+    return marshal(Gestor.query.all(), gestorFields), 200
   
   def post(self):
     args = parser.parse_args()
 
     try:
-      gestor = Gestor(args['nome'], args["email"], args['senha'])
+      empresa= Empresa.query.get(args['empresa']['id'])
+      if empresa is None:
+        logger.error("Empresa nao encontrada")
+
+        codigo = Message(1, 'empresa não encontrada')
+        return marshal(codigo, msgError)
+      
+      gestor = Gestor(args['nome'], args["email"], args['senha'], empresa)
 
       db.session.add(gestor)
       db.session.commit()
 
       logger.info(f"Gestor de id: {gestor.id} criado com sucesso")
-      return marshal(gestor, userFields), 201
+      return marshal(gestor, gestorFields), 201
     except:
       logger.error("Error ao cadastrar o Gestor")
 
@@ -44,7 +52,7 @@ class GestorId(Resource):
       return marshal(codigo, msgError), 404
     
     logger.info(f"Gestor de id: {gestor.id} Listado com Sucesso")
-    return marshal(gestor, userFields), 200
+    return marshal(gestor, gestorFields), 200
   
   def put(self, id):
     args = parser.parse_args()
@@ -66,7 +74,7 @@ class GestorId(Resource):
       db.session.commit()
       
       logger.info(f"Gestor de id: {id} atualizado com Sucesso")
-      return marshal(userBd, userFields), 200
+      return marshal(userBd, gestorFields), 200
     
     except:
       logger.error("Error ao atualizar o Gestor")

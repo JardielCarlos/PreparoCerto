@@ -17,7 +17,7 @@ parser.add_argument("indicadorConversao", type=float, help="indicadorConversao n
 parser.add_argument("fatorCorrecaoGlobal", type=float, help="fatorCorrecaoGlobal nao informado", required=True)
 parser.add_argument("custoPreparo", type=float, help="custoPreparo nao informado", required=True)
 
-parser.add_argument("empresa", type=dict, help="empresa nao informado", required=True)
+parser.add_argument("empresa", type=dict, help="empresa nao informado", required=False)
 
 class Preparacoes(Resource):
   def get(self):
@@ -66,14 +66,7 @@ class PreparacaoId(Resource):
 
         codigo = Message(1, f"Preparacao de id: {id} nao encontrada")
         return marshal(codigo, msgError), 404
-      
-      empresaId = args["empresa"]["id"]
-
-      empresa = Empresa.query.get(empresaId)
-
-      if empresa is None:
-        codigo = Message(1, f"Empresa de id: {empresaId} nao encontrado")
-        return marshal(codigo, msgError), 404
+  
       
       preparacaoBd.nome = args['nome']
       preparacaoBd.componente = args['componente']
@@ -81,10 +74,9 @@ class PreparacaoId(Resource):
       preparacaoBd.tempoPreparo = args['tempoPreparo']
       preparacaoBd.rendimento = args['rendimento']
       preparacaoBd.numPorcao = args['numPorcao']
-      preparacaoBd.ic = args['ic']
-      preparacaoBd.fcg = args['fcg']
+      preparacaoBd.indicadorConversao = args['indicadorConversao']
+      preparacaoBd.fatorCorrecaoGlobal = args['fatorCorrecaoGlobal']
       preparacaoBd.custoPreparo = args['custoPreparo']
-      preparacaoBd.empresa = empresa
 
       db.session.add(preparacaoBd)
       db.session.commit()
