@@ -1,7 +1,5 @@
 from flask_restful import fields
 from helpers.database import db
-from model.refeicao import Refeicao
-from model.ingrediente_preparacao import IngredientePreparacao
 
 cardapioFields = {'id': fields.Integer, 'nome': fields.String}
 

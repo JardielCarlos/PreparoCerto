@@ -51,34 +51,40 @@ class IngredientesPreparacaoId(Resource):
 
   def put(self, id):
     args = parser.parse_args()
+    try:
 
-    ingredientePreparacaoBd = IngredientePreparacao.query.get(id)
-    ingredienteId = args['ingrediente']['id']
-    preparacaoId = args['preparacao']['id']
+      ingredientePreparacaoBd = IngredientePreparacao.query.get(id)
+      ingredienteId = args['ingrediente']['id']
+      preparacaoId = args['preparacao']['id']
 
-    if ingredientePreparacaoBd is None:
-      logger.error(f"IngredientePreparacao de id: {id} nao encontrada")
+      if ingredientePreparacaoBd is None:
+        logger.error(f"IngredientePreparacao de id: {id} nao encontrada")
 
-      codigo = Message(1, f"IngredientePreparacao de id: {id} nao encontrada")
-      return marshal(codigo, msgError), 404
+        codigo = Message(1, f"IngredientePreparacao de id: {id} nao encontrada")
+        return marshal(codigo, msgError), 404
 
-    ingrediente = Ingrediente.query.get(ingredienteId)
-    preparacao = Preparacao.query.get(preparacaoId)
-    if ingrediente is None:
-      codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
-      return marshal(codigo, msgError), 404
-    elif preparacao is None:
-      codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
-      return marshal(codigo, msgError), 404
+      ingrediente = Ingrediente.query.get(ingredienteId)
+      preparacao = Preparacao.query.get(preparacaoId)
+      if ingrediente is None:
+        codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
+        return marshal(codigo, msgError), 404
+      elif preparacao is None:
+        codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
+        return marshal(codigo, msgError), 404
 
-    ingredientePreparacaoBd.ingrediente = ingrediente
-    ingredientePreparacaoBd.preparacao = preparacao
+      ingredientePreparacaoBd.ingrediente = ingrediente
+      ingredientePreparacaoBd.preparacao = preparacao
 
-    db.session.add(ingredientePreparacaoBd)
-    db.session.commit()
+      db.session.add(ingredientePreparacaoBd)
+      db.session.commit()
 
-    logger.info(f"ingredientePreparacao de id: {id} atualizada com sucesso")
-    return marshal(ingredientePreparacaoBd, ingredientePreparacaoFields)
+      logger.info(f"ingredientePreparacao de id: {id} atualizada com sucesso")
+      return marshal(ingredientePreparacaoBd, ingredientePreparacaoFields)
+    except:
+      logger.error("Erro ao atualizar o IngredientePreaparacao")
+
+      codigo = Message(2, "Erro ao atualizar o IngredientePreaparacao")
+      return marshal(codigo, msgError), 400
   
   def delete(self, id):
     ingredientePreparacaoBd = IngredientePreparacao.query.get(id)
