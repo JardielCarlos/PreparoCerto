@@ -10,9 +10,10 @@ from resource.proprietarios import Proprietarios, ProprietarioId
 from resource.preparacoes import Preparacoes, PreparacaoId
 from resource.cardapios import Cardapios, CardapioId
 from resource.ingrediente_preparacao import IngredientesPreparacao, IngredientesPreparacaoId
+from resource.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/Pweb2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -35,6 +36,9 @@ api.add_resource(Cardapios, '/cardapios')
 api.add_resource(CardapioId, '/cardapio/<int:id>')
 api.add_resource(IngredientesPreparacao, '/ingrediente_preparacao')
 api.add_resource(IngredientesPreparacaoId, '/ingrediente_preparacao/<int:id>')
+api.add_resource(CardapioPreapracoes, '/cardapio_preparacao')
+api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
+
 
 if __name__ == '__main__':
   app.run(debug=True)
