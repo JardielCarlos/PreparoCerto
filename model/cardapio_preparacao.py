@@ -2,6 +2,7 @@ from flask_restful import fields
 from helpers.database import db
 from model.preparacao import preparacaoFields
 from model.cardapio import cardapioFields
+
 cardapioPreparacaoFields = {'id': fields.Integer, 'cardapio': fields.Nested(cardapioFields), 'preparacao': fields.Nested(preparacaoFields)}
 
 class CardapioPreparacao(db.Model):
