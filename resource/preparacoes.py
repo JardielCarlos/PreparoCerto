@@ -26,23 +26,28 @@ class Preparacoes(Resource):
   
   def post(self):
     args = parser.parse_args()
+    try:
+      empresaId = args["empresa"]["id"]
 
-    empresaId = args["empresa"]["id"]
+      empresa = Empresa.query.get(empresaId)
 
-    empresa = Empresa.query.get(empresaId)
+      if empresa is None:
+        codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
+        return marshal(codigo, msgError), 404
+      
+      preparacao = Preparacao(args['nome'],args['componente'], args["medidaPorcao"], args['tempoPreparo'], args['rendimento'], args['numPorcao'], args['indicadorConversao'], args['fatorCorrecaoGlobal'], args['custoPreparo'], empresa)
 
-    if empresa is None:
-      codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
-      return marshal(codigo, msgError), 404
-    
-    preparacao = Preparacao(args['nome'],args['componente'], args["medidaPorcao"], args['tempoPreparo'], args['rendimento'], args['numPorcao'], args['indicadorConversao'], args['fatorCorrecaoGlobal'], args['custoPreparo'], empresa)
+      db.session.add(preparacao)
+      db.session.commit()
 
-    db.session.add(preparacao)
-    db.session.commit()
+      logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
+      return marshal(preparacao, preparacaoFields), 201
+    except:
+      logger.error("Error ao cadastrar preparacao")
 
-    logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
-    return marshal(preparacao, preparacaoFields), 201
-    
+      codigo = Message(2, "Error ao cadastrar preparacao")
+      return marshal(codigo, msgError), 400
+      
 class PreparacaoId(Resource):
   def get(self, id):
     preparacao = Preparacao.query.get(id)

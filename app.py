@@ -13,7 +13,7 @@ from resource.ingrediente_preparacao import IngredientesPreparacao, Ingredientes
 from resource.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/Pweb2"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)

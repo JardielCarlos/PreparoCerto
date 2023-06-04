@@ -19,25 +19,30 @@ class IngredientesPreparacao(Resource):
   
   def post(self):
     args = parser.parse_args()
+    try:
+      ingredienteId = args['ingrediente']['id']
+      preparacaoId = args['preparacao']['id']
 
-    ingredienteId = args['ingrediente']['id']
-    preparacaoId = args['preparacao']['id']
+      ingrediente = Ingrediente.query.get(ingredienteId)
+      preparacao = Preparacao.query.get(preparacaoId)
+      if ingrediente is None:
+        codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
+        return marshal(codigo, msgError), 404
+      elif preparacao is None:
+        codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
+        return marshal(codigo, msgError), 404
+      
+      ingredientePreparacao = IngredientePreparacao(ingrediente, preparacao)
+      db.session.add(ingredientePreparacao)
+      db.session.commit()
 
-    ingrediente = Ingrediente.query.get(ingredienteId)
-    preparacao = Preparacao.query.get(preparacaoId)
-    if ingrediente is None:
-      codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
-      return marshal(codigo, msgError), 404
-    elif preparacao is None:
-      codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
-      return marshal(codigo, msgError), 404
-    
-    ingredientePreparacao = IngredientePreparacao(ingrediente, preparacao)
-    db.session.add(ingredientePreparacao)
-    db.session.commit()
+      logger.info(f"IngredientePreparação de id: {ingredientePreparacao.id} criado com sucesso")
+      return marshal(ingredientePreparacao, ingredientePreparacaoFields), 201
+    except:
+      logger.error("Error ao cadastrar o ingredientePreparacao")
 
-    logger.info(f"IngredientePreparação de id: {ingredientePreparacao.id} criado com sucesso")
-    return marshal(ingredientePreparacao, ingredientePreparacaoFields), 201
+      codigo = Message(2,"Error ao cadastrar o ingredientePreparacao")
+      return marshal(codigo, msgError), 400
   
 class IngredientesPreparacaoId(Resource):
   def get(self, id):
