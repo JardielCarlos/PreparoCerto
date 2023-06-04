@@ -19,28 +19,35 @@ class CardapioPreapracoes(Resource):
   def post(self):
     args = parser.parse_args()
 
-    cardapio = Cardapio.query.get(args["cardapio"]['id'])
-    preparacao = Preparacao.query.get(args["preparacao"]['id'])
+    try:
+      cardapio = Cardapio.query.get(args["cardapio"]['id'])
+      preparacao = Preparacao.query.get(args["preparacao"]['id'])
 
-    if cardapio is None:
-      logger.error("Cardapio não encontrado")
+      if cardapio is None:
+        logger.error("Cardapio não encontrado")
 
-      codigo = Message(1, "Cardapio não encontrado")
-      return marshal(codigo, msgError), 404
+        codigo = Message(1, "Cardapio não encontrado")
+        return marshal(codigo, msgError), 404
+      
+      if preparacao is None:
+        logger.error("preparacao não encontrada")
+
+        codigo = Message(1, "preparacao não encontrada")
+        return marshal(codigo, msgError), 404
+      
+      cardapioPreparacao = CardapioPreparacao(cardapio, preparacao)
+
+      db.session.add(cardapioPreparacao)
+      db.session.commit()
+
+      logger.info(f"CardapioPreparacao de id: {cardapioPreparacao.id} criado com sucesso")
+      return marshal(cardapioPreparacao, cardapioPreparacaoFields), 200
     
-    if preparacao is None:
-      logger.error("preparacao não encontrada")
+    except:
+      logger.error(f"Error ao cadastrar o cardapioPreparacao")
 
-      codigo = Message(1, "preparacao não encontrada")
-      return marshal(codigo, msgError), 404
-    
-    cardapioPreparacao = CardapioPreparacao(cardapio, preparacao)
-
-    db.session.add(cardapioPreparacao)
-    db.session.commit()
-
-    logger.info(f"CardapioPreparacao de id: {cardapioPreparacao.id} criado com sucesso")
-    return marshal(cardapioPreparacao, cardapioPreparacaoFields), 200
+      codigo = Message(2, "Error ao cadastrar o cardapioPreparacao")
+      return marshal(codigo, msgError), 400
   
 class CardapioPreapracaoId(Resource):
   def get(self, id):
