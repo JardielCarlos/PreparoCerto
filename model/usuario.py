@@ -1,5 +1,6 @@
 from flask_restful import fields
 from helpers.database import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 userFields = {'id': fields.Integer, 'nome': fields.String, 'email': fields.String, 'senha': fields.String, 'tipo':fields.String}
 
@@ -20,7 +21,10 @@ class Usuario(db.Model):
   def __init__(self, nome, email, senha):
     self.nome = nome
     self.email = email
-    self.senha = senha
+    self.senha = generate_password_hash(senha)
+
+  def verify_password(self, senha):
+    return check_password_hash(self.senha, senha)
 
   def __repr__(self):
     return f"<User {self.nome}>"
