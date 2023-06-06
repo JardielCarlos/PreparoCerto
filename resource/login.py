@@ -1,17 +1,14 @@
-from flask_restful import Resource, reqparse, marshal, fields, Headers
-from flask import jsonify
+from flask_restful import Resource, reqparse, marshal
 from helpers.logger import logger
 from model.mensagem import Message, msgError
-from model.usuario import Usuario, userFields
+from model.usuario import Usuario
 from model.token import Token, tokenFields
 
-from datetime import datetime, timedelta
-import jwt
+from helpers.auth import token_creator
 parser = reqparse.RequestParser()
 
 parser.add_argument("email", type=str, help="email nao informado", required=True)
 parser.add_argument("senha", type=str, help="senha nao informado", required=True)
-
 
 class Login(Resource):
   def post(self):
@@ -27,8 +24,6 @@ class Login(Resource):
       token = Token("Senha Incorreta ou inexistente")
       return marshal(token, tokenFields), 404
     
-    token = jwt.encode({
-      'Tipo': user.tipo,
-      'exp': datetime.utcnow() + timedelta(minutes=30)
-    }, key='1234', algorithm="HS256")
+    token = token_creator.create(user.tipo)
+
     return {"token": token}, 200

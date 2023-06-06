@@ -5,6 +5,7 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 from model.token import Token, tokenFields
+from helpers.auth import token_verify
 
 import jwt
 
@@ -16,35 +17,11 @@ parser.add_argument("cnpj", type=str, help="CNPJ nao informado", required=True)
 parser.add_argument("proprietario", type=dict, help="proprietario nao informado", required=False)
 
 class Empresas(Resource):
-  def get(self):
-    rawToken = request.headers["Authorization"]
-    if not rawToken:
-      logger.error("Sem token!")
-
-      codigo = Message(1, "Sem token!")
-      return marshal(codigo, msgError), 401
-    
-    try:
-      token = rawToken.split()[1]
-      informationToken = jwt.decode(token, key="1234", algorithms="HS256")
-
-      if informationToken['Tipo'] != 'proprietario':
-        logger.error("Usuario sem autorização suficiente!")
-
-        codigo = Message(1, "Usuario sem autorização suficiente!")
-        return marshal(codigo, msgError), 403
-    except jwt.InvalidSignatureError:
-      token = Token("Token invalido!")
-      return marshal(token, tokenFields), 401
-    
-    except jwt.ExpiredSignatureError:
-      token = Token("Token Expirado!")
-
-      return marshal(token, tokenFields), 401
-    
+  @token_verify
+  def get(self, token):
     logger.info("Empresas listadas com Sucesso")
     return marshal(Empresa.query.all(), empresaFields), 200
-  
+
   def post(self):
     args = parser.parse_args()
 
