@@ -30,7 +30,7 @@ class IngredientesPreparacao(Resource):
   
   def post(self):
     args = parser.parse_args()
-    # try:
+
     preparacaoId = args['preparacao']['id']
     ingredienteId = args['ingrediente']['id']
 
@@ -65,11 +65,6 @@ class IngredientesPreparacao(Resource):
 
     logger.info(f"IngredientePreparação de id: {ingredientePreparacao.id} criado com sucesso")
     return marshal(ingredientePreparacao, ingredientePreparacaoFields), 201
-    # except:
-    #   logger.error("Error ao cadastrar o ingredientePreparacao")
-
-    #   codigo = Message(2,"Error ao cadastrar o ingredientePreparacao")
-    #   return marshal(codigo, msgError), 400
   
 class IngredientesPreparacaoId(Resource):
   def get(self, id):
