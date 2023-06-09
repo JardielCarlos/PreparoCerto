@@ -2,10 +2,10 @@ from flask_restful import Resource, marshal, reqparse
 from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
-from model.cardapio import Cardapio
-from model.preparacao import Preparacao
 
 from model.cardapio_preparacao import CardapioPreparacao, cardapioPreparacaoFields
+from model.cardapio import Cardapio
+from model.preparacao import Preparacao
 
 parser = reqparse.RequestParser()
 
@@ -18,32 +18,36 @@ class CardapioPreapracoes(Resource):
   
   def post(self):
     args = parser.parse_args()
+
     try:
-      pass
+      cardapio = Cardapio.query.get(args["cardapio"]['id'])
+      preparacao = Preparacao.query.get(args["preparacao"]['id'])
+
+      if cardapio is None:
+        logger.error("Cardapio não encontrado")
+
+        codigo = Message(1, "Cardapio não encontrado")
+        return marshal(codigo, msgError), 404
+      
+      if preparacao is None:
+        logger.error("preparacao não encontrada")
+
+        codigo = Message(1, "preparacao não encontrada")
+        return marshal(codigo, msgError), 404
+      
+      cardapioPreparacao = CardapioPreparacao(cardapio, preparacao)
+
+      db.session.add(cardapioPreparacao)
+      db.session.commit()
+
+      logger.info(f"CardapioPreparacao de id: {cardapioPreparacao.id} criado com sucesso")
+      return marshal(cardapioPreparacao, cardapioPreparacaoFields), 200
+    
     except:
-      pass
-    cardapio = Cardapio.query.get(args["cardapio"]['id'])
-    preparacao = Preparacao.query.get(args["preparacao"]['id'])
+      logger.error(f"Error ao cadastrar o cardapioPreparacao")
 
-    if cardapio is None:
-      logger.error("Cardapio não informado")
-
-      codigo = Message(1, "Cardapio não informado")
-      return marshal(codigo, msgError), 404
-    
-    if preparacao is None:
-      logger.error("preparacao não informado")
-
-      codigo = Message(1, "preparacao não informado")
-      return marshal(codigo, msgError), 404
-    
-    cardapioPreparacao = CardapioPreparacao(cardapio, preparacao)
-
-    db.session.add(cardapioPreparacao)
-    db.session.commit()
-
-    logger.info(f"CardapioPreparacao de id: {cardapioPreparacao.id} criado com sucesso")
-    return marshal(cardapioPreparacao, cardapioPreparacaoFields), 200
+      codigo = Message(2, "Error ao cadastrar o cardapioPreparacao")
+      return marshal(codigo, msgError), 400
   
 class CardapioPreapracaoId(Resource):
   def get(self, id):
@@ -65,26 +69,27 @@ class CardapioPreapracaoId(Resource):
       cardapioId = args["cardapio"]["id"]
       preparacaoId = args["preparacao"]["id"]
 
+      cardapio = Cardapio.query.get(cardapioId)
+      preparacao = Preparacao.query.get(preparacaoId)
+
       if cardapioPreparacaoBd is None:
         logger.error(f"CardapioPreparacao de id: {id} nao encontrado")
 
         codigo = Message(1, f"CardapioPreparacao de id: {id} nao encontrado")
         return marshal(codigo, msgError), 404
       
-      elif cardapioId is None:
+      elif cardapio is None:
         logger.error(1, f"Cardapio de id: {id} nao encontrado")
         
         codigo = Message(1, f"Cardapio de id: {id} nao encontrado")
         return marshal(codigo, msgError), 404
       
-      elif preparacaoId is None:
+      elif preparacao is None:
         logger.error(1, f"Preparacao de id: {id} nao encontrado")
 
         codigo = Message(1, f"Preparacao de id: {id} nao encontrado")
         return marshal(codigo, msgError), 404
       
-      cardapio = Cardapio.query.get(cardapioId)
-      preparacao = Preparacao.query.get(preparacaoId)
 
       cardapioPreparacaoBd.cardapio = cardapio
       cardapioPreparacaoBd.preparacao = preparacao

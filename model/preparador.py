@@ -6,6 +6,9 @@ class Preparador(Usuario):
   __tablename__="tb_preparador"
 
   usuario_id = db.Column(db.Integer, db.ForeignKey("tb_usuario.id"),primary_key=True)
+  empresa_id = db.Column(db.Integer, db.ForeignKey("tb_empresa.id"))
+
+  empresa = db.relationship("Empresa", uselist=False)
 
   __mapper_args__ = {"polymorphic_identity": "preparador"}
 

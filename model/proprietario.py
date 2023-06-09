@@ -10,6 +10,7 @@ class Proprietario(Usuario):
 
   def __init__(self, nome, email, senha):
     super().__init__(nome, email, senha)
+    
 
   def __repr__(self):
     return f"<Proprietario {self.nome}>"
