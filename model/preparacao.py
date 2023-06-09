@@ -2,7 +2,11 @@ from flask_restful import fields
 from helpers.database import db
 from model.empresa import empresaFields
 
-preparacaoFields = {'id': fields.Integer, 'nome': fields.String, 'empresa': fields.Nested(empresaFields)}
+preparacaoFields = {
+  'id': fields.Integer,
+  'nome': fields.String,
+  'empresa': fields.Nested(empresaFields)
+  }
 
 class Preparacao(db.Model):
   __tablename__ = "tb_preparacao"

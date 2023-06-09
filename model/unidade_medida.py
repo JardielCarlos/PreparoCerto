@@ -1,7 +1,10 @@
 from flask_restful import fields
 from helpers.database import db
 
-unidadeFields = {'id': fields.Integer, 'sigla': fields.String}
+unidadeFields = {
+  'id': fields.Integer,
+  'sigla': fields.String
+  }
 
 class UnidadeMedida(db.Model):
   __tablename__ = "tb_unidademedida"

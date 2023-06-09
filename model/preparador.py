@@ -2,6 +2,13 @@ from flask_restful import fields
 from helpers.database import db
 from model.usuario import Usuario
 
+preparadorFields = {
+  'id': fields.Integer,
+  'nome': fields.String,
+  'email': fields.String,
+  'senha': fields.String,
+  }
+
 class Preparador(Usuario):
   __tablename__="tb_preparador"
 

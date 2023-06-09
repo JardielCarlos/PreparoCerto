@@ -3,7 +3,13 @@ from helpers.database import db
 from model.usuario import Usuario
 from model.empresa import empresaFields
 
-gestorFields = {'id': fields.Integer, 'nome': fields.String, 'email': fields.String, 'senha': fields.String, "empresa": fields.Nested(empresaFields)}
+gestorFields = {
+  'id': fields.Integer,
+  'nome': fields.String,
+  'email': fields.String,
+  'senha': fields.String,
+  'empresa': fields.Nested(empresaFields)
+  }
 
 class Gestor(Usuario):
   __tablename__ = "tb_gestor"
