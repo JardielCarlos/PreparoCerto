@@ -8,10 +8,10 @@ from model.ingrediente_preparacao import IngredientePreparacao, ingredientePrepa
 
 class FichaTecnicaOperacional(Resource):
     def get(self, id):
-        teste = IngredientePreparacao.query.all()
+        IngredientePreparacaoBd = IngredientePreparacao.query.all()
         lista = []
-        for i in range(len(teste)):
-            fichaTecnica = teste[i]
+        for i in range(len(IngredientePreparacaoBd)):
+            fichaTecnica = IngredientePreparacaoBd[i]
             if fichaTecnica.preparacao_id == id:
                 lista.append(fichaTecnica)
 
@@ -19,10 +19,10 @@ class FichaTecnicaOperacional(Resource):
     
 class FichaTecnicaGerencial(Resource):
     def get(self, id):
-        teste = IngredientePreparacao.query.all()
+        IngredientePreparacaoBd = IngredientePreparacao.query.all()
         lista = []
-        for i in range(len(teste)):
-            fichaTecnica = teste[i]
+        for i in range(len(IngredientePreparacaoBd)):
+            fichaTecnica = IngredientePreparacaoBd[i]
             if fichaTecnica.preparacao_id == id:
                 lista.append(fichaTecnica)
 

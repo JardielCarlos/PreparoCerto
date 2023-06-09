@@ -1,4 +1,2 @@
-2023-06-08 23:39:46,329 WARNING _internal _log  * Debugger is active!
-2023-06-08 23:39:46,347 INFO _internal _log  * Debugger PIN: 144-128-622
-2023-06-08 23:40:30,712 INFO _internal _log 127.0.0.1 - - [08/Jun/2023 23:40:30] "GET /fichatecnicaoperacional/1 HTTP/1.1" 200 -
-2023-06-08 23:40:36,176 INFO _internal _log 127.0.0.1 - - [08/Jun/2023 23:40:36] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-09 11:12:14,760 WARNING _internal _log  * Debugger is active!
+2023-06-09 11:12:14,770 INFO _internal _log  * Debugger PIN: 144-128-622
