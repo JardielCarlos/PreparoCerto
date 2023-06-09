@@ -1,4 +1,10 @@
+from flask_restful import fields
 from helpers.database import db
+
+modoPreparoFields = {
+  "id": fields.Integer,
+  "text": fields.String
+}
 
 class ModoPreparo(db.Model):
   __tablename__ = "tb_modoPreparo"    

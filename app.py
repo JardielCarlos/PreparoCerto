@@ -44,12 +44,10 @@ api.add_resource(CardapioPreapracoes, '/cardapio_preparacao')
 api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
 api.add_resource(FichaTecnicaOperacional, '/fichatecnicaoperacional/<int:id>')
 api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>')
-
 api.add_resource(Unidade, '/unidade')
 api.add_resource(UnidadeId, '/unidade/<int:id>')
 api.add_resource(MedidasCaseiras, '/medidas')
 api.add_resource(MedidaCaseiraId, '/medidas/<int:id>')
-
 api.add_resource(Utensilios, '/utensilios')
 api.add_resource(UtensilioId, '/utensilio/<int:id>')
 
