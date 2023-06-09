@@ -1,11 +1,11 @@
 from flask_restful import fields
 from helpers.database import db
 
-utensilioFields = {'id': fields.Integer, 'nome': fields.String}
+estoqueFields = {'id': fields.Integer, 'nome': fields.String}
 
-class Utensilio(db.Model):
-  __tablename__ = "tb_utensilio"
-  
+class Estoque(db.Model):
+  __tablename__="tb_estoque"
+
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
 
@@ -13,4 +13,4 @@ class Utensilio(db.Model):
     self.nome = nome
 
   def __repr__(self):
-    return f"<Utensilio {self.nome}>"
+    return f'<Estoque {self.nome}>'
