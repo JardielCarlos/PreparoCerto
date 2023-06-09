@@ -1,10 +1,11 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.logger import logger
+
 from model.mensagem import Message, msgError
 from model.usuario import Usuario
-from model.token import Token, tokenFields
 
 from helpers.auth import token_creator
+
 parser = reqparse.RequestParser()
 
 parser.add_argument("email", type=str, help="email nao informado", required=True)
@@ -21,8 +22,8 @@ class Login(Resource):
       return marshal(codigo, msgError), 404
     
     if not user.verify_password(args['senha']):
-      token = Token("Senha Incorreta ou inexistente")
-      return marshal(token, tokenFields), 404
+      codigo = Message(1, "Senha Incorreta ou inexistente")
+      return marshal(codigo, msgError), 404
     
     token = token_creator.create(user.tipo)
 

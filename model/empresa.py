@@ -4,6 +4,8 @@ from model.usuario import userFields
 
 empresaFields = {'id': fields.Integer, 'nome': fields.String, 'cnpj': fields.String, 'proprietario': fields.Nested(userFields)}
 
+empresaFieldsToken = {'empresa': fields.Nested(empresaFields), 'token': fields.String}
+
 class Empresa(db.Model):
   __tablename__="tb_empresa"
 
