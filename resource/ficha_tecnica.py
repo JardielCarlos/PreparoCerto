@@ -27,3 +27,4 @@ class FichaTecnicaGerencial(Resource):
                 lista.append(fichaTecnica)
 
         return marshal(lista, fichaTecnicaGerencialFields), 200
+    

@@ -4,11 +4,13 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 from model.empresa import Empresa
+from model.modo_preparo import ModoPreparo
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
 parser.add_argument("empresa", type=dict, help="empresa nao informado", required=False)
+parser.add_argument("modoPreparo", type=dict, help="Modo de preparo nao informado", required=True)
 
 class Preparacoes(Resource):
   def get(self):
@@ -19,14 +21,19 @@ class Preparacoes(Resource):
     args = parser.parse_args()
     try:
       empresaId = args["empresa"]["id"]
+      modoPreparoId = args["modoPreparo"]["id"]
 
       empresa = Empresa.query.get(empresaId)
+      modoPreparo = ModoPreparo.query.get(modoPreparoId)
 
       if empresa is None:
         codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
         return marshal(codigo, msgError), 404
+      elif modoPreparo is None:
+        codigo = Message(1, f"Modo de preparo de id: {modoPreparoId} não encontrado")
+        return marshal(codigo, msgError), 404
       
-      preparacao = Preparacao(args['nome'], empresa)
+      preparacao = Preparacao(args['nome'], empresa, modoPreparo)
 
       db.session.add(preparacao)
       db.session.commit()
