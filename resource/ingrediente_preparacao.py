@@ -6,11 +6,22 @@ from model.mensagem import Message, msgError
 from model.ingrediente_preparacao import IngredientePreparacao, ingredientePreparacaoFields
 from model.ingrediente import Ingrediente
 from model.preparacao import Preparacao
+from model.unidade_medida import UnidadeMedida
+from model.medida_caseira import MedidaCaseira
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("ingrediente", type=dict, help="ingrediente nao informado", required=True)
 parser.add_argument("preparacao", type=dict, help="preparacao nao informado", required=True)
+parser.add_argument("ingrediente", type=dict, help="ingrediente nao informado", required=True)
+parser.add_argument("pesoBruto", type=float, help="pesoBruto nao informado", required=True)
+parser.add_argument("unidade", type=dict, help="unidade nao informado", required=True)
+parser.add_argument("indicadorParteComestivel", help="indicadorParteComestivel nao informado", type=float, required=True)
+parser.add_argument("pesoLiquido", type=float, help="pesoLiquido nao informado", required=True)
+parser.add_argument("perCapita", type=float, help="perCapita nao informado", required=True)
+parser.add_argument("medidaCaseira", type=dict, help="medidaCaseira nao informado", required=True)
+parser.add_argument("embalagem", type=float, help="embalagem nao informado", required=True)
+parser.add_argument("preco", type=float, help="preco nao informado", required=True)
+parser.add_argument("custoPreparacao",type=float, help="custoPreparacao nao informado", required=True)
 
 class IngredientesPreparacao(Resource):
   def get(self):
@@ -19,30 +30,41 @@ class IngredientesPreparacao(Resource):
   
   def post(self):
     args = parser.parse_args()
-    try:
-      ingredienteId = args['ingrediente']['id']
-      preparacaoId = args['preparacao']['id']
 
-      ingrediente = Ingrediente.query.get(ingredienteId)
-      preparacao = Preparacao.query.get(preparacaoId)
-      if ingrediente is None:
-        codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
-        return marshal(codigo, msgError), 404
-      elif preparacao is None:
-        codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
-        return marshal(codigo, msgError), 404
-      
-      ingredientePreparacao = IngredientePreparacao(ingrediente, preparacao)
-      db.session.add(ingredientePreparacao)
-      db.session.commit()
+    preparacaoId = args['preparacao']['id']
+    ingredienteId = args['ingrediente']['id']
 
-      logger.info(f"IngredientePreparação de id: {ingredientePreparacao.id} criado com sucesso")
-      return marshal(ingredientePreparacao, ingredientePreparacaoFields), 201
-    except:
-      logger.error("Error ao cadastrar o ingredientePreparacao")
+    pesoBruto = args['pesoBruto']
+    
+    unidadeId = args['unidade']['id']
+    
+    indicadorParteComestivel = args['indicadorParteComestivel']
+    pesoLiquido = args['pesoLiquido']
+    perCapita = args['perCapita']
+    medidaCaseiraId = args['medidaCaseira']['id']
+    embalagem = args['embalagem']
+    preco = args['preco']
+    custoPreparacao = args['custoPreparacao']
 
-      codigo = Message(2,"Error ao cadastrar o ingredientePreparacao")
-      return marshal(codigo, msgError), 400
+
+
+    ingrediente = Ingrediente.query.get(ingredienteId)
+    preparacao = Preparacao.query.get(preparacaoId)
+    unidade = UnidadeMedida.query.get(unidadeId)
+    medidaCaseira = MedidaCaseira.query.get(medidaCaseiraId)
+    if ingrediente is None:
+      codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
+      return marshal(codigo, msgError), 404
+    elif preparacao is None:
+      codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrada")
+      return marshal(codigo, msgError), 404
+    
+    ingredientePreparacao = IngredientePreparacao(preparacao, ingrediente, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao)
+    db.session.add(ingredientePreparacao)
+    db.session.commit()
+
+    logger.info(f"IngredientePreparação de id: {ingredientePreparacao.id} criado com sucesso")
+    return marshal(ingredientePreparacao, ingredientePreparacaoFields), 201
   
 class IngredientesPreparacaoId(Resource):
   def get(self, id):

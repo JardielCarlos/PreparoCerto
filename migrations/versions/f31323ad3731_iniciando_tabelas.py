@@ -1,8 +1,8 @@
-"""Initial Commit
+"""Iniciando tabelas
 
-Revision ID: 60f5987cb164
+Revision ID: f31323ad3731
 Revises: 
-Create Date: 2023-06-02 15:08:44.884214
+Create Date: 2023-06-08 21:09:59.316504
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '60f5987cb164'
+revision = 'f31323ad3731'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,18 +23,27 @@ def upgrade():
     sa.Column('nome', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('tb_fichatecnicaoperacional',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('tb_ingrediente',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('nome', sa.String(), nullable=False),
-    sa.Column('pesoBruto', sa.Float(), nullable=False),
-    sa.Column('unidade', sa.String(), nullable=False),
-    sa.Column('indicadorParteComestivel', sa.Float(), nullable=False),
-    sa.Column('pesoLiquido', sa.Float(), nullable=False),
-    sa.Column('perCapita', sa.Float(), nullable=False),
-    sa.Column('embalagem', sa.Float(), nullable=False),
-    sa.Column('preco', sa.Float(), nullable=False),
-    sa.Column('custPreparacao', sa.Float(), nullable=False),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('tb_medidacaseira',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('quantidade', sa.String(), nullable=False),
+    sa.Column('descricao', sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('descricao')
+    )
+    op.create_table('tb_unidademedida',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('sigla', sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('sigla')
     )
     op.create_table('tb_usuario',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -44,11 +53,6 @@ def upgrade():
     sa.Column('tipo', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
-    )
-    op.create_table('tb_preparador',
-    sa.Column('usuario_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['usuario_id'], ['tb_usuario.id'], ),
-    sa.PrimaryKeyConstraint('usuario_id')
     )
     op.create_table('tb_proprietario',
     sa.Column('usuario_id', sa.Integer(), nullable=False),
@@ -74,26 +78,42 @@ def upgrade():
     op.create_table('tb_preparacao',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('nome', sa.String(), nullable=False),
-    sa.Column('componente', sa.String(), nullable=False),
-    sa.Column('medidaPorcao', sa.String(), nullable=False),
-    sa.Column('tempoPreparo', sa.Integer(), nullable=False),
-    sa.Column('rendimento', sa.Float(), nullable=False),
-    sa.Column('numPorcao', sa.Float(), nullable=False),
-    sa.Column('pesoPorcao', sa.Float(), nullable=False),
-    sa.Column('indicadorConversao', sa.Float(), nullable=False),
-    sa.Column('fatorCorrecaoGlobal', sa.Float(), nullable=False),
-    sa.Column('custoPreparo', sa.Float(), nullable=False),
-    sa.Column('custoPorcao', sa.Float(), nullable=False),
     sa.Column('empresa_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['empresa_id'], ['tb_empresa.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('tb_preparador',
+    sa.Column('usuario_id', sa.Integer(), nullable=False),
+    sa.Column('empresa_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['empresa_id'], ['tb_empresa.id'], ),
+    sa.ForeignKeyConstraint(['usuario_id'], ['tb_usuario.id'], ),
+    sa.PrimaryKeyConstraint('usuario_id')
+    )
+    op.create_table('tb_cardapiopreparacao',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('cardapio_id', sa.Integer(), nullable=True),
+    sa.Column('preparacao_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['cardapio_id'], ['tb_cardapio.id'], ),
+    sa.ForeignKeyConstraint(['preparacao_id'], ['tb_preparacao.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('tb_ingredientepreparacao',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('ingrediente_id', sa.Integer(), nullable=True),
     sa.Column('preparacao_id', sa.Integer(), nullable=True),
+    sa.Column('ingrediente_id', sa.Integer(), nullable=True),
+    sa.Column('pesoBruto', sa.Float(), nullable=False),
+    sa.Column('unidade_id', sa.Integer(), nullable=True),
+    sa.Column('indicadorParteComestivel', sa.Float(), nullable=False),
+    sa.Column('pesoLiquido', sa.Float(), nullable=False),
+    sa.Column('perCapita', sa.Float(), nullable=False),
+    sa.Column('medidaCaseira_id', sa.Integer(), nullable=True),
+    sa.Column('embalagem', sa.Float(), nullable=False),
+    sa.Column('preco', sa.Float(), nullable=False),
+    sa.Column('custoPreparacao', sa.Float(), nullable=False),
     sa.ForeignKeyConstraint(['ingrediente_id'], ['tb_ingrediente.id'], ),
+    sa.ForeignKeyConstraint(['medidaCaseira_id'], ['tb_medidacaseira.id'], ),
     sa.ForeignKeyConstraint(['preparacao_id'], ['tb_preparacao.id'], ),
+    sa.ForeignKeyConstraint(['unidade_id'], ['tb_unidademedida.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
@@ -102,12 +122,16 @@ def upgrade():
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('tb_ingredientepreparacao')
+    op.drop_table('tb_cardapiopreparacao')
+    op.drop_table('tb_preparador')
     op.drop_table('tb_preparacao')
     op.drop_table('tb_gestor')
     op.drop_table('tb_empresa')
     op.drop_table('tb_proprietario')
-    op.drop_table('tb_preparador')
     op.drop_table('tb_usuario')
+    op.drop_table('tb_unidademedida')
+    op.drop_table('tb_medidacaseira')
     op.drop_table('tb_ingrediente')
+    op.drop_table('tb_fichatecnicaoperacional')
     op.drop_table('tb_cardapio')
     # ### end Alembic commands ###

@@ -1,5 +1,13 @@
+from flask_restful import fields
 from helpers.database import db
 from model.usuario import Usuario
+
+proprietarioFields = {
+  'id': fields.Integer,
+  'nome': fields.String,
+  'email': fields.String,
+  'senha': fields.String,
+  }
 
 class Proprietario(Usuario):
   __tablename__ = "tb_proprietario"
@@ -10,6 +18,7 @@ class Proprietario(Usuario):
 
   def __init__(self, nome, email, senha):
     super().__init__(nome, email, senha)
+    
 
   def __repr__(self):
     return f"<Proprietario {self.nome}>"
