@@ -4,20 +4,13 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 from model.empresa import Empresa
+from model.modo_preparo import ModoPreparo
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
-parser.add_argument("componente", type=str, help="Componente nao informado", required=True)
-parser.add_argument("medidaPorcao", type=str, help="medidaPorcao nao informado", required=True)
-parser.add_argument("tempoPreparo", type=int, help="tempoPreparo nao informado", required=True)
-parser.add_argument("rendimento", type=float, help="rendimento nao informado", required=True)
-parser.add_argument("numPorcao", type=float, help="numPorcao nao informado", required=True)
-parser.add_argument("indicadorConversao", type=float, help="indicadorConversao nao informado", required=True)
-parser.add_argument("fatorCorrecaoGlobal", type=float, help="fatorCorrecaoGlobal nao informado", required=True)
-parser.add_argument("custoPreparo", type=float, help="custoPreparo nao informado", required=True)
-
 parser.add_argument("empresa", type=dict, help="empresa nao informado", required=False)
+parser.add_argument("modoPreparo", type=dict, help="Modo de preparo nao informado", required=True)
 
 class Preparacoes(Resource):
   def get(self):
@@ -28,14 +21,19 @@ class Preparacoes(Resource):
     args = parser.parse_args()
     try:
       empresaId = args["empresa"]["id"]
+      modoPreparoId = args["modoPreparo"]["id"]
 
       empresa = Empresa.query.get(empresaId)
+      modoPreparo = ModoPreparo.query.get(modoPreparoId)
 
       if empresa is None:
         codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
         return marshal(codigo, msgError), 404
+      elif modoPreparo is None:
+        codigo = Message(1, f"Modo de preparo de id: {modoPreparoId} não encontrado")
+        return marshal(codigo, msgError), 404
       
-      preparacao = Preparacao(args['nome'],args['componente'], args["medidaPorcao"], args['tempoPreparo'], args['rendimento'], args['numPorcao'], args['indicadorConversao'], args['fatorCorrecaoGlobal'], args['custoPreparo'], empresa)
+      preparacao = Preparacao(args['nome'], empresa, modoPreparo)
 
       db.session.add(preparacao)
       db.session.commit()
@@ -71,17 +69,8 @@ class PreparacaoId(Resource):
 
         codigo = Message(1, f"Preparacao de id: {id} nao encontrada")
         return marshal(codigo, msgError), 404
-  
       
       preparacaoBd.nome = args['nome']
-      preparacaoBd.componente = args['componente']
-      preparacaoBd.medidaPorcao = args['medidaPorcao']
-      preparacaoBd.tempoPreparo = args['tempoPreparo']
-      preparacaoBd.rendimento = args['rendimento']
-      preparacaoBd.numPorcao = args['numPorcao']
-      preparacaoBd.indicadorConversao = args['indicadorConversao']
-      preparacaoBd.fatorCorrecaoGlobal = args['fatorCorrecaoGlobal']
-      preparacaoBd.custoPreparo = args['custoPreparo']
 
       db.session.add(preparacaoBd)
       db.session.commit()
