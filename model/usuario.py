@@ -2,7 +2,7 @@ from flask_restful import fields
 from helpers.database import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
-userFields = {'id': fields.Integer, 'nome': fields.String, 'email': fields.String, 'senha': fields.String, 'tipo':fields.String}
+userFields = {'id': fields.Integer, 'nome': fields.String, 'email': fields.String, 'tipo':fields.String}
 
 class Usuario(db.Model):
   __tablename__ = "tb_usuario"

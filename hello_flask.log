@@ -1,0 +1,6 @@
+2023-06-12 10:21:44,016 WARNING _internal _log  * Debugger is active!
+2023-06-12 10:21:44,019 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-12 10:21:51,192 INFO _internal _log 127.0.0.1 - - [12/Jun/2023 10:21:51] "POST /login HTTP/1.1" 200 -
+2023-06-12 10:22:01,548 INFO empresas get Empresas listadas com Sucesso
+2023-06-12 10:22:01,554 INFO _internal _log 127.0.0.1 - - [12/Jun/2023 10:22:01] "GET /empresas HTTP/1.1" 200 -
+2023-06-12 10:22:12,339 INFO _internal _log 127.0.0.1 - - [12/Jun/2023 10:22:12] "[35m[1mPOST /logout HTTP/1.1[0m" 204 -

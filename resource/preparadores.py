@@ -4,6 +4,7 @@ from model.usuario import userFields
 from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
+from sqlalchemy.exc import IntegrityError
 
 parser = reqparse.RequestParser()
 
@@ -26,6 +27,10 @@ class Preparadores (Resource):
 
       logger.info(f"Preparador de id: {preparador.id} criado com sucesso")
       return marshal(preparador, userFields), 201
+    
+    except IntegrityError:
+      codigo = Message(1, "Email ja cadastrado no sistema")
+      return marshal(codigo, msgError)
     except:
       logger.error("Erro ao cadastrar o preparador")
 

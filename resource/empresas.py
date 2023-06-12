@@ -5,6 +5,7 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 from helpers.auth import token_verify
+from sqlalchemy.exc import IntegrityError
 
 parser = reqparse.RequestParser()
 
@@ -55,6 +56,9 @@ class Empresas(Resource):
       data = {'empresa': empresa, 'token': token}
 
       return marshal(data, empresaFieldsToken), 201
+    except IntegrityError:
+      codigo = Message(1, "CNPJ ja cadastrado no sistema")
+      return marshal(codigo, msgError)
     
     except:
       logger.error("Error ao cadastrar o Empresa")

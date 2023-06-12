@@ -12,6 +12,7 @@ from resource.cardapios import Cardapios, CardapioId
 from resource.ingrediente_preparacao import IngredientesPreparacao, IngredientesPreparacaoId
 from resource.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
 from resource.login import Login
+from resource.logout import Logout
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
@@ -22,7 +23,7 @@ cors.init_app(app)
 migrate.__init__(app, db)
 api = Api(app)
 
-api.add_resource(Gestores, '/gestores')
+api.add_resource(Gestores, '/gestor')
 api.add_resource(GestorId, '/gestor/<int:id>')
 api.add_resource(Preparadores, '/preparadores')
 api.add_resource(PreparadorId, '/preparador/<int:id>')
@@ -40,8 +41,9 @@ api.add_resource(IngredientesPreparacao, '/ingrediente_preparacao')
 api.add_resource(IngredientesPreparacaoId, '/ingrediente_preparacao/<int:id>')
 api.add_resource(CardapioPreapracoes, '/cardapio_preparacao')
 api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
-api.add_resource(Login, '/login')
 
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
 
 if __name__ == '__main__':
   app.run(debug=True)
