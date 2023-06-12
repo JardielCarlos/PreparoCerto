@@ -11,6 +11,7 @@ from model.blackList import BlackList
 
 from model.mensagem import Message, msgError
 from model.token import Token, tokenFields
+import time
 
 def token_verify(function: callable) -> callable:
     
