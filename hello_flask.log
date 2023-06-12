@@ -8,4 +8,4 @@
 2023-06-09 16:54:17,162 INFO empresas get Empresas listadas com Sucesso
 2023-06-09 16:54:17,165 INFO _internal _log 127.0.0.1 - - [09/Jun/2023 16:54:17] "GET /empresas HTTP/1.1" 200 -
 2023-06-09 16:54:25,179 INFO utensilios get Utensilios Listados com sucesso
-2023-06-09 16:54:25,182 INFO _internal _log 127.0.0.1 - - [09/Jun/2023 16:54:25] "GET /utensilios HTTP/1.1" 200 -
+2023-06-09 16:54:25,182 INFO _internal _log 127.0.0.1 - - [09/Jun/2023 16:54:25] "GET /utensilios HTTP/1.1" 200 

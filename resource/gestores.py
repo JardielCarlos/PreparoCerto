@@ -4,13 +4,14 @@ from model.gestor import Gestor, gestorFields
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 from model.empresa import Empresa
+from sqlalchemy.exc import IntegrityError
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
 parser.add_argument("email", type=str, help="email nao informado", required=True)
-parser.add_argument("senha", type=str, help="senha nao informado", required=True)
-parser.add_argument("empresa", type=dict, help="Empresa nao informado", required=False)
+parser.add_argument("senha", type=str, help="senha nao informada", required=True)
+parser.add_argument("empresa", type=dict, help="Empresa nao informada", required=False)
 
 class Gestores(Resource):
   def get(self):
@@ -26,7 +27,7 @@ class Gestores(Resource):
         logger.error("Empresa nao encontrada")
 
         codigo = Message(1, 'empresa não encontrada')
-        return marshal(codigo, msgError)
+        return marshal(codigo, msgError), 404
       
       gestor = Gestor(args['nome'], args["email"], args['senha'], empresa)
 
@@ -35,6 +36,15 @@ class Gestores(Resource):
 
       logger.info(f"Gestor de id: {gestor.id} criado com sucesso")
       return marshal(gestor, gestorFields), 201
+    
+    except TypeError:
+      codigo = Message(1, "Empresa nao informada")
+      return marshal(codigo, msgError), 400
+    
+    except IntegrityError:
+      codigo = Message(1, "Email ja cadastrado no sistema")
+      return marshal(codigo, msgError), 400
+    
     except:
       logger.error("Error ao cadastrar o Gestor")
 

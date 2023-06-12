@@ -6,10 +6,9 @@ from model.empresa import empresaFields
 gestorFields = {
   'id': fields.Integer,
   'nome': fields.String,
-  'email': fields.String,
-  'senha': fields.String,
+  'email': fields.String
   'empresa': fields.Nested(empresaFields)
-  }
+}
 
 class Gestor(Usuario):
   __tablename__ = "tb_gestor"
