@@ -2,7 +2,12 @@ from flask_restful import fields
 from helpers.database import db
 from model.usuario import userFields
 
-empresaFields = {'id': fields.Integer, 'nome': fields.String, 'cnpj': fields.String, 'proprietario': fields.Nested(userFields)}
+empresaFields = {
+  'id': fields.Integer,
+  'nome': fields.String,
+  'cnpj': fields.String,
+  'proprietario': fields.Nested(userFields)
+  }
 
 empresaFieldsToken = {'empresa': fields.Nested(empresaFields), 'token': fields.String}
 
