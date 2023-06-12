@@ -23,13 +23,13 @@ class Usuario(db.Model):
         'polymorphic_on': tipo
     }
   
-  def __init__(self, nome, email, senha):
-    self.nome = nome
-    self.email = email
-    self.senha = generate_password_hash(senha)
+    def __init__(self, nome, email, senha):
+      self.nome = nome
+      self.email = email
+      self.senha = generate_password_hash(senha)
 
-  def verify_password(self, senha):
-    return check_password_hash(self.senha, senha)
+    def verify_password(self, senha):
+      return check_password_hash(self.senha, senha)
 
     def __repr__(self):
         return f"<User {self.nome}>"
