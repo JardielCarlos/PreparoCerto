@@ -5,6 +5,9 @@ from helpers.logger import logger
 from model.mensagem import Message, msgError
 from model.empresa import Empresa
 from sqlalchemy.exc import IntegrityError
+from password_strength import PasswordPolicy
+import re
+
 
 parser = reqparse.RequestParser()
 
@@ -21,13 +24,28 @@ class Gestores(Resource):
   def post(self):
     args = parser.parse_args()
 
+    padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    policy = PasswordPolicy.from_names(
+      length =8
+    )
+
     try:
+      
       empresa= Empresa.query.get(args['empresa']['id'])
       if empresa is None:
         logger.error("Empresa nao encontrada")
 
         codigo = Message(1, 'empresa não encontrada')
         return marshal(codigo, msgError), 404
+      
+      if re.match(padrao_email, args['email']) == None:
+        codigo = Message(1, "email no formato errado")
+        return marshal(codigo, msgError), 400
+
+      verifySenha = policy.test(args['senha'])
+      if len(verifySenha) != 0:
+        codigo = Message(1, "senha no formato errado")
+        return marshal(codigo, msgError), 400
       
       gestor = Gestor(args['nome'], args["email"], args['senha'], empresa)
 
@@ -67,6 +85,11 @@ class GestorId(Resource):
   def put(self, id):
     args = parser.parse_args()
 
+    padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    policy = PasswordPolicy.from_names(
+      length =8
+    )
+
     try:
       userBd = Gestor.query.get(id)
 
@@ -75,6 +98,15 @@ class GestorId(Resource):
 
         codigo = Message(1, f"Gestor de id: {id} nao encontrado")
         return marshal(codigo, msgError), 404
+      
+      if re.match(padrao_email, args['email']) == None:
+        codigo = Message(1, "email no formato errado")
+        return marshal(codigo, msgError), 400
+
+      verifySenha = policy.test(args['senha'])
+      if len(verifySenha) != 0:
+        codigo = Message(1, "senha no formato errado")
+        return marshal(codigo, msgError), 400
       
       userBd.nome = args["nome"]
       userBd.email = args["email"]
