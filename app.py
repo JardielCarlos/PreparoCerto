@@ -17,6 +17,7 @@ from resource.medidaCaseira import MedidasCaseiras, MedidaCaseiraId
 from resource.utensilios import Utensilios, UtensilioId
 from resource.login import Login
 from resource.logout import Logout
+from resource.modo_preparo import ModosPreparo, ModosPreparoId
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/Pweb2"
@@ -55,6 +56,8 @@ api.add_resource(Utensilios, '/utensilios')
 api.add_resource(UtensilioId, '/utensilio/<int:id>')
 api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
+api.add_resource(ModosPreparo, '/modospreparo')
+api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
 
 
 if __name__ == '__main__':

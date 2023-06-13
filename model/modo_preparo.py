@@ -7,7 +7,7 @@ modoPreparoFields = {
 }
 
 class ModoPreparo(db.Model):
-  __tablename__ = "tb_modoPreparo"    
+  __tablename__ = "tb_modopreparo"    
 
   id = db.Column(db.Integer, primary_key=True)
   text = db.Column(db.String, nullable=False)
