@@ -26,7 +26,7 @@ class Gestores(Resource):
 
     padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
     policy = PasswordPolicy.from_names(
-      length =8
+      length =9
     )
 
     try:
