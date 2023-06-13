@@ -1,4 +1,4 @@
-2023-06-13 14:43:23,127 WARNING _internal _log  * Debugger is active!
-2023-06-13 14:43:23,130 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-06-13 14:43:24,719 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 14:43:24] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
-2023-06-13 14:45:18,642 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 14:45:18] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-13 15:45:47,610 WARNING _internal _log  * Debugger is active!
+2023-06-13 15:45:47,613 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-13 15:46:03,341 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 15:46:03] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-13 15:46:04,211 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 15:46:04] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
