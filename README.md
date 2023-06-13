@@ -1,4 +1,4 @@
-# Back-End PratoCerto
+# Back-End PratoCerto 🍽️
 ## 	Inicialização do projeto no _Linux_
 
 ### Criação da venv
