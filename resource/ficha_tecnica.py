@@ -6,7 +6,7 @@ from model.mensagem import Message, msgError
 from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialFields
 from model.ingrediente_preparacao import IngredientePreparacao, ingredientePreparacaoFields
 
-class FichaTecnicaOperacional(Resource):
+class jFichaTecnicaOperacional(Resource):
     def get(self, id):
         IngredientePreparacaoBd = IngredientePreparacao.query.all()
         lista = []
