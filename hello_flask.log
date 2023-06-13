@@ -1,8 +1,4 @@
-2023-06-13 11:45:10,254 WARNING _internal _log  * Debugger is active!
-2023-06-13 11:45:10,257 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-06-13 11:45:15,916 INFO gestores get Gestores listados com Sucesso
-2023-06-13 11:45:15,982 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 11:45:15] "GET /gestor HTTP/1.1" 200 -
-2023-06-13 11:46:40,645 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 11:46:40] "[31m[1mPUT /gestor/4 HTTP/1.1[0m" 400 -
-2023-06-13 11:46:47,469 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 11:46:47] "[31m[1mPUT /gestor/4 HTTP/1.1[0m" 400 -
-2023-06-13 11:46:52,073 INFO gestores put Gestor de id: 4 atualizado com Sucesso
-2023-06-13 11:46:52,077 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 11:46:52] "PUT /gestor/4 HTTP/1.1" 200 -
+2023-06-13 14:43:23,127 WARNING _internal _log  * Debugger is active!
+2023-06-13 14:43:23,130 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-13 14:43:24,719 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 14:43:24] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-13 14:45:18,642 INFO _internal _log 127.0.0.1 - - [13/Jun/2023 14:45:18] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
