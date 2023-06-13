@@ -1,7 +1,4 @@
-from flask_restful import Resource, marshal, reqparse
-from helpers.database import db
-from helpers.logger import logger
-from model.mensagem import Message, msgError
+from flask_restful import Resource, marshal
 
 from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialFields
 from model.ingrediente_preparacao import IngredientePreparacao
