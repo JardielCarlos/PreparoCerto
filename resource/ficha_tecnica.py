@@ -4,7 +4,7 @@ from helpers.logger import logger
 from model.mensagem import Message, msgError
 
 from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialFields
-from model.ingrediente_preparacao import IngredientePreparacao, ingredientePreparacaoFields
+from model.ingrediente_preparacao import IngredientePreparacao
 
 class FichaTecnicaOperacional(Resource):
     def get(self, id):
@@ -21,10 +21,13 @@ class FichaTecnicaGerencial(Resource):
     def get(self, id):
         IngredientePreparacaoBd = IngredientePreparacao.query.all()
         lista = []
+        total = 0
         for i in range(len(IngredientePreparacaoBd)):
             fichaTecnica = IngredientePreparacaoBd[i]
             if fichaTecnica.preparacao_id == id:
+                total += fichaTecnica.preco
                 lista.append(fichaTecnica)
+        print(total)
 
         return marshal(lista, fichaTecnicaGerencialFields), 200
     
