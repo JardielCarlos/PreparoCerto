@@ -9,7 +9,7 @@ from resources.empresas import Empresas, EmpresaId
 from resources.proprietarios import Proprietarios, ProprietarioId
 from resources.preparacoes import Preparacoes, PreparacaoId
 from resources.cardapios import Cardapios, CardapioId
-from resources.ingrediente_preparacao import IngredientesPreparacao, IngredientesPreparacaoId
+from resources.preparacao_ingrediente import PreparacaoIngredientes, IngredientesPreparacaoId
 from resources.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
 from resources.ficha_tecnica import FichaTecnicaOperacional, FichaTecnicaGerencial
 from resources.unidade import Unidade, UnidadeId
@@ -42,7 +42,7 @@ api.add_resource(Preparacoes, '/preparacoes')
 api.add_resource(PreparacaoId, '/preparacao/<int:id>')
 api.add_resource(Cardapios, '/cardapios')
 api.add_resource(CardapioId, '/cardapio/<int:id>')
-api.add_resource(IngredientesPreparacao, '/ingrediente_preparacao')
+api.add_resource(PreparacaoIngredientes, '/ingrediente_preparacao')
 api.add_resource(IngredientesPreparacaoId, '/ingrediente_preparacao/<int:id>')
 api.add_resource(CardapioPreapracoes, '/cardapio_preparacao')
 api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
