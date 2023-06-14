@@ -7,12 +7,12 @@ from model.empresa import Empresa
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
-parser.add_argument("empresa", type=dict, help="empresa nao informado", required=True)
+parser.add_argument("nome", type=str, help="Nome não informado", required=True)
+parser.add_argument("empresa", type=dict, help="Empresa não informada", required=True)
 
 class Cardapios(Resource):
   def get(self):
-    logger.info("Cardapios listados com sucesso")
+    logger.info("Cardápios listados com sucesso")
     return marshal(Cardapio.query.all(), cardapioFields), 200
   
   def post(self):
@@ -24,21 +24,21 @@ class Cardapios(Resource):
       empresa = Empresa.query.get(empresaId)
       
       if empresa is None:
-        logger.error(f"Empresa de id: {empresaId} nao encontrado")
+        logger.error(f"Empresa de id: {empresaId} não encontrada")
         
-        codigo = Message(1, f"Empresa de id: {empresaId} nao encontrado")
+        codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
         return marshal(codigo, msgError), 404
 
       cardapio = Cardapio(args['nome'], empresa)
       db.session.add(cardapio)
       db.session.commit()
 
-      logger.info(f"Cardapio de id: {cardapio.id} criado com sucesso")
+      logger.info(f"Cardápio de id: {cardapio.id} criado com sucesso")
       return marshal(cardapio, cardapioFields), 201
     except:
-      logger.error("Erro ao cadastrar o cardapio")
+      logger.error("Erro ao cadastrar o Cardápio")
 
-      codigo = Message(2, "Erro ao cadastrar o cardapio")
+      codigo = Message(2, "Erro ao cadastrar o Cardápio")
       return marshal(codigo, msgError), 400
     
 class CardapioId(Resource):
@@ -46,12 +46,12 @@ class CardapioId(Resource):
     cardapio = Cardapio.query.get(id)
 
     if cardapio is None:
-      logger.error(f"Cardapio de id: {id} nao encontrado")
+      logger.error(f"Cardápio de id: {id} não encontrado")
 
-      codigo = Message(1, f"Cardapio de id: {id} nao encontrado")
+      codigo = Message(1, f"Cardápio de id: {id} não encontrado")
       return marshal(codigo, msgError), 404
     
-    logger.info(f"Cardapior de id: {id} listado com sucesso")
+    logger.info(f"Cardápio de id: {id} listado com sucesso")
     return marshal(cardapio, cardapioFields), 200
   
   def put(self, id):
@@ -60,9 +60,9 @@ class CardapioId(Resource):
     try:
       cardapioBd = Cardapio.query.get(id)
       if cardapioBd is None:
-        logger.error(f"Cardapio de id: {id} nao encontrado")
+        logger.error(f"Cardápio de id: {id} não encontrado")
 
-        codigo = Message(1, f"Cardapio de id: {id} nao encontrado")
+        codigo = Message(1, f"Cardápio de id: {id} não encontrado")
         return marshal(codigo, msgError), 404
       
       cardapioBd.nome = args['nome']
@@ -70,25 +70,25 @@ class CardapioId(Resource):
       db.session.add(cardapioBd)
       db.session.commit()
 
-      logger.info(f"Cardapio de id: {id} atualizado com sucesso")
+      logger.info(f"Cardápio de id: {id} atualizado com sucesso")
       return marshal(cardapioBd, cardapioFields)
     except:
-      logger.error("Erro ao atualizar o Cardapio")
+      logger.error("Erro ao atualizar o Cardápio")
 
-      codigo = Message(2, "Erro ao atualizar o Cardapio")
+      codigo = Message(2, "Erro ao atualizar o Cardápio")
       return marshal(codigo, msgError), 400
     
   def delete(self, id):
     cardapioBd = Cardapio.query.get(id)
 
     if cardapioBd is None:
-      logger.error(f"Cardapio de id: {id} nao encontrado")
+      logger.error(f"Cardápio de id: {id} não encontrado")
 
-      codigo = Message(1, f"Cardapio de id: {id} nao encontrado")
+      codigo = Message(1, f"Cardápio de id: {id} não encontrado")
       return marshal(codigo, msgError), 404
 
     db.session.delete(cardapioBd)
     db.session.commit()
 
-    logger.info(f"Cardapio de id: {id} deletado com sucesso")
+    logger.info(f"Cardápio de id: {id} deletado com sucesso")
     return {}, 200
