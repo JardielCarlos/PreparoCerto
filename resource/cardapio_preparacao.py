@@ -12,7 +12,7 @@ parser = reqparse.RequestParser()
 parser.add_argument("cardapio",  type=dict, help="cardapio nao informado", required=True)
 parser.add_argument("preparacao",  type=dict, help="preparacao nao informado", required=True)
 
-class CardapioPreapracoes(Resource):
+class CardapioPreparacoes(Resource):
   def get(self):
     return marshal(CardapioPreparacao.query.all(), cardapioPreparacaoFields), 200
   
@@ -49,7 +49,7 @@ class CardapioPreapracoes(Resource):
       codigo = Message(2, "Error ao cadastrar o cardapioPreparacao")
       return marshal(codigo, msgError), 400
   
-class CardapioPreapracaoId(Resource):
+class CardapioPreparacaoId(Resource):
   def get(self, id):
     cardapioPreparacao = CardapioPreparacao.query.get(id)
     if cardapioPreparacao is None:

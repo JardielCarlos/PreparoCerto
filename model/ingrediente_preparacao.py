@@ -2,6 +2,8 @@ from flask_restful import fields
 from helpers.database import db
 from model.ingrediente import ingredienteFields
 from model.preparacao import preparacaoFields
+from model.unidade_medida import unidadeFields
+from model.medida_caseira import medidaCaseiraFields
 
 ingredientePreparacaoFields = {'id': fields.Integer, 'ingrediente': fields.Nested(ingredienteFields), 'preparacao': fields.Nested(preparacaoFields)}
 

@@ -47,7 +47,7 @@ class FichaTecnica(db.Model):
 
     def __repr__(self):
         return f'<Ficha Tecnica {self.id}>'
-=======
+
 from model.unidade_medida import unidadeFields
 from model.medida_caseira import medidaCaseiraFields
 from model.ingrediente import ingredienteFields
