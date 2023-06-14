@@ -6,11 +6,11 @@ from model.mensagem import Message, msgError
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("nome", type=str, help="nome nao informada", required=True)
+parser.add_argument("nome", type=str, help="nome não informada", required=True)
 
 class Utensilios(Resource):
   def get(self):
-    logger.info("Utensilios Listados com sucesso")
+    logger.info("Utensilios listados com sucesso")
     return marshal(Utensilio.query.all(), utensilioFields), 200
   
   def post(self):
