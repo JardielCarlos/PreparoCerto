@@ -1,7 +1,6 @@
 from flask_restful import fields
 from helpers.database import db
 from model.empresa import empresaFields
-from model.modo_preparo import modoPreparoFields
 
 preparacaoFields = {
     'id': fields.Integer,
