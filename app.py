@@ -9,7 +9,7 @@ from resources.empresas import Empresas, EmpresaId
 from resources.proprietarios import Proprietarios, ProprietarioId
 from resources.preparacoes import Preparacoes, PreparacaoId
 from resources.cardapios import Cardapios, CardapioId
-from resources.preparacao_ingrediente import PreparacaoIngredientes, IngredientesPreparacaoId
+from resources.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoIngredientesId
 from resources.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
 from resources.ficha_tecnica import FichaTecnicaOperacional, FichaTecnicaGerencial
 from resources.unidade import Unidade, UnidadeId
@@ -20,7 +20,7 @@ from resources.logout import Logout
 from resources.modo_preparo import ModosPreparo, ModosPreparoId
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -43,7 +43,7 @@ api.add_resource(PreparacaoId, '/preparacao/<int:id>')
 api.add_resource(Cardapios, '/cardapios')
 api.add_resource(CardapioId, '/cardapio/<int:id>')
 api.add_resource(PreparacaoIngredientes, '/ingrediente_preparacao')
-api.add_resource(IngredientesPreparacaoId, '/ingrediente_preparacao/<int:id>')
+api.add_resource(PreparacaoIngredientesId, '/ingrediente_preparacao/<int:id>')
 api.add_resource(CardapioPreapracoes, '/cardapio_preparacao')
 api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
 api.add_resource(FichaTecnicaOperacional, '/fichatecnicaoperacional/<int:id>')
@@ -58,7 +58,6 @@ api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(ModosPreparo, '/modospreparo')
 api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
