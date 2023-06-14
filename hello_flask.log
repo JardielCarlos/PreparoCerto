@@ -1,4 +1,2 @@
-2023-06-14 09:28:25,427 WARNING _internal _log  * Debugger is active!
-2023-06-14 09:28:25,436 INFO _internal _log  * Debugger PIN: 144-128-622
-2023-06-14 09:28:26,122 INFO preparadores get Preparadores listados com sucesso
-2023-06-14 09:28:26,269 INFO _internal _log 127.0.0.1 - - [14/Jun/2023 09:28:26] "GET /preparadores HTTP/1.1" 200 -
+2023-06-14 09:31:54,022 WARNING _internal _log  * Debugger is active!
+2023-06-14 09:31:54,037 INFO _internal _log  * Debugger PIN: 144-128-622

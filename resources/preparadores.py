@@ -20,31 +20,31 @@ class Preparadores (Resource):
   
   def post(self):
     args = parser.parse_args()
-    # try:
-    empresaId = args['empresa']
-    empresa = Empresa.query.get(empresaId)
-    if empresa is None:
-      logger.error(f"Empresa de id: {empresaId} nao encontrado")
+    try:
+      empresaId = args['empresa']
+      empresa = Empresa.query.get(empresaId)
+      if empresa is None:
+        logger.error(f"Empresa de id: {empresaId} nao encontrado")
 
-      codigo = Message(1, f"Empresa de id: {empresaId} nao encontrado")
-      return marshal(codigo, msgError), 404
+        codigo = Message(1, f"Empresa de id: {empresaId} nao encontrado")
+        return marshal(codigo, msgError), 404
 
-    preparador = Preparador(args['nome'], args['email'], args['senha'], empresa)
+      preparador = Preparador(args['nome'], args['email'], args['senha'], empresa)
 
-    db.session.add(preparador)
-    db.session.commit()
+      db.session.add(preparador)
+      db.session.commit()
 
-    logger.info(f"Preparador de id: {preparador.id} criado com sucesso")
-    return marshal(preparador, preparadorFields), 201
+      logger.info(f"Preparador de id: {preparador.id} criado com sucesso")
+      return marshal(preparador, preparadorFields), 201
     
-    # except IntegrityError:
-    #   codigo = Message(1, "Email ja cadastrado no sistema")
-    #   return marshal(codigo, msgError)
-    # except:
-    #   logger.error("Erro ao cadastrar o preparador")
+    except IntegrityError:
+      codigo = Message(1, "Email ja cadastrado no sistema")
+      return marshal(codigo, msgError)
+    except:
+      logger.error("Erro ao cadastrar o preparador")
 
-    #   codigo = Message(2, "Erro ao cadastrar o preparador")
-    #   return marshal(codigo, msgError), 400
+      codigo = Message(2, "Erro ao cadastrar o preparador")
+      return marshal(codigo, msgError), 400
     
 class PreparadorId(Resource):
   def get(self, id):
