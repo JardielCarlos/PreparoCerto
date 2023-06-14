@@ -20,7 +20,7 @@ from resources.logout import Logout
 from resources.modo_preparo import ModosPreparo, ModosPreparoId
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/PreparoCerto"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)

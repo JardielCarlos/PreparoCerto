@@ -1,8 +1,8 @@
-"""iniciando
+"""empty message
 
-Revision ID: c33b4c56c965
+Revision ID: ff8c63991128
 Revises: 
-Create Date: 2023-06-14 08:50:34.541567
+Create Date: 2023-06-14 10:27:20.683720
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c33b4c56c965'
+revision = 'ff8c63991128'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -72,7 +72,6 @@ def upgrade():
     )
     op.create_table('tb_cardapio',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('nome', sa.String(), nullable=False),
     sa.Column('empresa_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['empresa_id'], ['tb_empresa.id'], ),
     sa.PrimaryKeyConstraint('id')
