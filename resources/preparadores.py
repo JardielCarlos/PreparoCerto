@@ -1,41 +1,50 @@
 from flask_restful import Resource, marshal, reqparse
-from model.preparador import Preparador
-from model.usuario import userFields
+from model.preparador import Preparador, preparadorFields
 from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 from sqlalchemy.exc import IntegrityError
+from model.empresa import Empresa
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
 parser.add_argument("email", type=str, help="Email nao informado", required=True)
-parser.add_argument("senha", type=str, help="Senha nao informado",required=True)
+parser.add_argument("senha", type=str, help="Senha nao informado", required=True)
+parser.add_argument("empresa", type=dict, help="Empresa nao informado", required=True)
 
 class Preparadores (Resource):
   def get(self):
     logger.info("Preparadores listados com sucesso")
-    return marshal(Preparador.query.all(), userFields), 200
+    return marshal(Preparador.query.all(), preparadorFields), 200
   
   def post(self):
     args = parser.parse_args()
-    try:
-      preparador = Preparador(args['nome'], args['email'], args['senha'])
+    # try:
+    empresaId = args['empresa']
+    empresa = Empresa.query.get(empresaId)
+    if empresa is None:
+      logger.error(f"Empresa de id: {empresaId} nao encontrado")
 
-      db.session.add(preparador)
-      db.session.commit()
+      codigo = Message(1, f"Empresa de id: {empresaId} nao encontrado")
+      return marshal(codigo, msgError), 404
 
-      logger.info(f"Preparador de id: {preparador.id} criado com sucesso")
-      return marshal(preparador, userFields), 201
+    preparador = Preparador(args['nome'], args['email'], args['senha'], empresa)
+
+    db.session.add(preparador)
+    db.session.commit()
+
+    logger.info(f"Preparador de id: {preparador.id} criado com sucesso")
+    return marshal(preparador, preparadorFields), 201
     
-    except IntegrityError:
-      codigo = Message(1, "Email ja cadastrado no sistema")
-      return marshal(codigo, msgError)
-    except:
-      logger.error("Erro ao cadastrar o preparador")
+    # except IntegrityError:
+    #   codigo = Message(1, "Email ja cadastrado no sistema")
+    #   return marshal(codigo, msgError)
+    # except:
+    #   logger.error("Erro ao cadastrar o preparador")
 
-      codigo = Message(2, "Erro ao cadastrar o preparador")
-      return marshal(codigo, msgError), 400
+    #   codigo = Message(2, "Erro ao cadastrar o preparador")
+    #   return marshal(codigo, msgError), 400
     
 class PreparadorId(Resource):
   def get(self, id):
@@ -48,7 +57,7 @@ class PreparadorId(Resource):
       return marshal(codigo, msgError), 404
     
     logger.info(f"Preparador de id: {id} listado com sucesso")
-    return marshal(preparador, userFields), 200
+    return marshal(preparador, preparadorFields), 200
   
   def put(self, id):
     args = parser.parse_args()
@@ -69,7 +78,7 @@ class PreparadorId(Resource):
       db.session.commit()
 
       logger.info(f"Preparador de id: {id} atualizado com sucesso")
-      return marshal(userBd, userFields)
+      return marshal(userBd, preparadorFields)
     except:
       logger.error("Erro ao atualizar o Preparador")
 
