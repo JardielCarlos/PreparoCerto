@@ -2,8 +2,7 @@ from flask_restful import Resource, marshal, reqparse
 from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
-
-from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialFields
+from model.cardapio import CardapioPreaparacao,cardapioPreparacaoFields
 from model.ingrediente_preparacao import IngredientePreparacao, ingredientePreparacaoFields
 
 class FichaTecnicaOperacional(Resource):

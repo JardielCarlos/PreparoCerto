@@ -9,6 +9,8 @@ empresaFields = {
   'proprietario': fields.Nested(userFields)
   }
 
+empresaFieldsToken = {'empresa': fields.Nested(empresaFields), 'token': fields.String}
+
 class Empresa(db.Model):
   __tablename__="tb_empresa"
 

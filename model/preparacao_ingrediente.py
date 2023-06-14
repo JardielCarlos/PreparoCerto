@@ -20,8 +20,10 @@ ingredientePreparacaoFields = {
     'preco': fields.Float,
     'custoPreparacao': fields.Float
     }
-class IngredientePreparacao(db.Model):
-    __tablename__ = "tb_ingredientepreparacao"
+
+
+class PreparacaoIngrediente(db.Model):
+    __tablename__ = "tb_preparacao_ingrediente"
 
     id = db.Column(db.Integer, primary_key=True)
     preparacao_id = db.Column(db.Integer, db.ForeignKey("tb_preparacao.id"))
@@ -43,7 +45,8 @@ class IngredientePreparacao(db.Model):
     indicadorParteComestivel = db.Column(db.Float, nullable=False)
     pesoLiquido = db.Column(db.Float, nullable=False)
     perCapita = db.Column(db.Float, nullable=False)
-    medidaCaseira_id = db.Column(db.Integer, db.ForeignKey("tb_medidacaseira.id"))
+    medidaCaseira_id = db.Column(
+        db.Integer, db.ForeignKey("tb_medidacaseira.id"))
     embalagem = db.Column(db.Float, nullable=False)
     preco = db.Column(db.Float, nullable=False)
     custoPreparacao = db.Column(db.Float, nullable=False)
@@ -60,7 +63,6 @@ class IngredientePreparacao(db.Model):
     ingrediente = db.relationship("Ingrediente", uselist=False)
     unidade = db.relationship("UnidadeMedida", uselist=False)
     medidaCaseira = db.relationship("MedidaCaseira", uselist=False)
-    
 
     def __init__(self, preparacao, ingrediente, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao):
         self.preparacao = preparacao
@@ -77,7 +79,6 @@ class IngredientePreparacao(db.Model):
         self.embalagem = embalagem
         self.preco = preco
         self.custoPreparacao = custoPreparacao
-        
 
     def __repr__(self):
-      return f'<IngredientePreparacao {self.id}>'
+        return f'<IngredientePreparacao {self.id}>'

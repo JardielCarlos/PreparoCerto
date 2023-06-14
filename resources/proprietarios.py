@@ -4,6 +4,7 @@ from model.proprietario import Proprietario
 from model.usuario import userFields
 from helpers.logger import logger
 from model.mensagem import Message, msgError
+from sqlalchemy.exc import IntegrityError
 
 parser = reqparse.RequestParser()
 
@@ -27,6 +28,10 @@ class Proprietarios(Resource):
 
       logger.info(f"Proprietario de id: {proprietario.id} criado com sucesso")
       return marshal(proprietario, userFields), 201
+    
+    except IntegrityError:
+      codigo = Message(1, "Email ja cadastrado no sistema")
+      return marshal(codigo, msgError)
     except:
       logger.error("Error ao cadastrar o Proprietario")
 
