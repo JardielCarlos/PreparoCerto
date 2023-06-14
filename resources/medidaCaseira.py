@@ -7,13 +7,13 @@ from model.medida_caseira import MedidaCaseira, medidaCaseiraFields
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("quantidade", type=str, help="quantidade nao informada", required=True)
-parser.add_argument("descricao", type=str, help="descricao nao informada", required=True)
+parser.add_argument("quantidade", type=str, help="Quantidade não informada", required=True)
+parser.add_argument("descricao", type=str, help="Descricao não informada", required=True)
 
 class MedidasCaseiras(Resource):
     
     def get(self):
-      logger.info("Medidas caseiras listada com Sucesso")
+      logger.info("Medidas caseiras listada com sucesso")
       return marshal(MedidaCaseira.query.all(), medidaCaseiraFields), 200
     
     def post(self):
@@ -46,9 +46,9 @@ class MedidaCaseiraId(Resource):
       medidaBd = MedidaCaseira.query.get(id)
 
       if medidaBd is None:
-        logger.error(f"Medida Caseira de id: {id} nao encontrado")
+        logger.error(f"Medida Caseira de id: {id} não encontrada")
 
-        codigo = Message(1, f"Medida Caseira de id: {id} nao encontrado")
+        codigo = Message(1, f"Medida Caseira de id: {id} não encontrada")
         return marshal(codigo, msgError), 404
       
       medidaBd.quantidade = args["quantidade"]
@@ -57,23 +57,23 @@ class MedidaCaseiraId(Resource):
       db.session.add(medidaBd)
       db.session.commit()
 
-      logger.info(f"Medida caseira de id: {id} atualizado com sucesso")
+      logger.info(f"Medida caseira de id: {id} atualizada com sucesso")
       return marshal(medidaBd, medidaCaseiraFields), 200
     except:
-      logger.error("Erro ao atualizar a medida caseira")
-      codigo = Message(2, "Erro ao atualizar a medida caseira")
+      logger.error("Erro ao atualizar a Medida Caseira")
+      codigo = Message(2, "Erro ao atualizar a Medida Caseira")
       return marshal(codigo, msgError)
     
   def delete(self, id):
     medidaBd = MedidaCaseira.query.get(id)
     
     if medidaBd is None:
-      logger.error(f"Medida caseira de id: {id} nao encontrado")
-      codigo = Message(1, f"Medida caseira de id: {id} nao encontrado")
+      logger.error(f"Medida Caseira de id: {id} não encontrada")
+      codigo = Message(1, f"Medida Caseira de id: {id} não encontrada")
       return marshal(codigo, msgError), 404
     
     db.session.delete(medidaBd)
     db.session.commit()
 
-    logger.info(f"Medida caseira de id: {id} deletado com sucesso")
+    logger.info(f"Medida Caseira de id: {id} deletada com sucesso")
     return {}, 200

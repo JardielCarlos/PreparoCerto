@@ -8,10 +8,8 @@ from helpers.auth.token_handler import token_creator
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("email", type=str,
-                    help="email nao informado", required=True)
-parser.add_argument("senha", type=str,
-                    help="senha nao informado", required=True)
+parser.add_argument("email", type=str, help="Email não informado", required=True)
+parser.add_argument("senha", type=str, help="Senha não informada", required=True)
 
 
 class Login(Resource):
