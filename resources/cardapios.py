@@ -14,7 +14,7 @@ class Cardapios(Resource):
   def get(self):
     logger.info("Cardápios listados com sucesso")
     return marshal(Cardapio.query.all(), cardapioFields), 200
-  
+
   def post(self):
     args = parser.parse_args()
     try:
@@ -22,10 +22,10 @@ class Cardapios(Resource):
       empresaId = args['empresa']['id']
 
       empresa = Empresa.query.get(empresaId)
-      
+
       if empresa is None:
         logger.error(f"Empresa de id: {empresaId} não encontrada")
-        
+
         codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
         return marshal(codigo, msgError), 404
 
@@ -40,7 +40,7 @@ class Cardapios(Resource):
 
       codigo = Message(2, "Erro ao cadastrar o Cardápio")
       return marshal(codigo, msgError), 400
-    
+
 class CardapioId(Resource):
   def get(self, id):
     cardapio = Cardapio.query.get(id)
@@ -50,10 +50,10 @@ class CardapioId(Resource):
 
       codigo = Message(1, f"Cardápio de id: {id} não encontrado")
       return marshal(codigo, msgError), 404
-    
+
     logger.info(f"Cardápio de id: {id} listado com sucesso")
     return marshal(cardapio, cardapioFields), 200
-  
+
   def put(self, id):
     args = parser.parse_args()
 
@@ -64,7 +64,7 @@ class CardapioId(Resource):
 
         codigo = Message(1, f"Cardápio de id: {id} não encontrado")
         return marshal(codigo, msgError), 404
-      
+
       cardapioBd.nome = args['nome']
 
       db.session.add(cardapioBd)
@@ -77,7 +77,7 @@ class CardapioId(Resource):
 
       codigo = Message(2, "Erro ao atualizar o Cardápio")
       return marshal(codigo, msgError), 400
-    
+
   def delete(self, id):
     cardapioBd = Cardapio.query.get(id)
 
