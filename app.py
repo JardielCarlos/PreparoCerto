@@ -18,7 +18,7 @@ from resources.utensilios import Utensilios, UtensilioId
 from resources.login import Login
 from resources.logout import Logout
 from resources.modo_preparo import ModosPreparo, ModosPreparoId
-
+from resources.usuario import Usuarios
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -58,6 +58,7 @@ api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(ModosPreparo, '/modospreparo')
 api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
+api.add_resource(Usuarios, '/usuarios')
 
 if __name__ == '__main__':
     app.run(debug=True)
