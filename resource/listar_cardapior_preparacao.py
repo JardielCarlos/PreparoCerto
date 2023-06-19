@@ -1,29 +1,19 @@
-from flask_restful import Resource, marshal, reqparse
-from helpers.database import db
-from helpers.logger import logger
-from model.mensagem import Message, msgError
-from model.cardapio import CardapioPreaparacao,cardapioPreparacaoFields
-from model.ingrediente_preparacao import IngredientePreparacao, ingredientePreparacaoFields
+from flask_restful import Resource, marshal
+
+from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialFields, fichaTecnicaGerencialTotalFields
+from model.preparacao_ingrediente import PreparacaoIngrediente
+
 
 class FichaTecnicaOperacional(Resource):
     def get(self, id):
-        IngredientePreparacaoBd = IngredientePreparacao.query.all()
-        lista = []
-        for i in range(len(IngredientePreparacaoBd)):
-            fichaTecnica = IngredientePreparacaoBd[i]
-            if fichaTecnica.preparacao_id == id:
-                lista.append(fichaTecnica)
+        preparacaoIngrediente = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
+        return marshal(preparacaoIngrediente, fichaTecnicaOperacionalFields), 200
 
-        return marshal(lista, fichaTecnicaOperacionalFields), 200
-    
+
 class FichaTecnicaGerencial(Resource):
     def get(self, id):
-        IngredientePreparacaoBd = IngredientePreparacao.query.all()
-        lista = []
-        for i in range(len(IngredientePreparacaoBd)):
-            fichaTecnica = IngredientePreparacaoBd[i]
-            if fichaTecnica.preparacao_id == id:
-                lista.append(fichaTecnica)
+        preparacaoIngrediente = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
+        total = 0
+        data = {"preparacao_ingrediente": preparacaoIngrediente, "total": total}
 
-        return marshal(lista, fichaTecnicaGerencialFields), 200
-    
+        return marshal(data, fichaTecnicaGerencialTotalFields), 200

@@ -7,11 +7,14 @@ userFields = {
     'nome': fields.String,
     'email': fields.String,
     'tipo':fields.String
-    }
+}
 
+userEmailFields = {
+   'email': fields.String
+}
 class Usuario(db.Model):
     __tablename__ = "tb_usuario"
-  
+
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False, unique=True)
@@ -22,7 +25,7 @@ class Usuario(db.Model):
         'polymorphic_identity': 'usuario',
         'polymorphic_on': tipo
     }
-  
+
     def __init__(self, nome, email, senha):
       self.nome = nome
       self.email = email

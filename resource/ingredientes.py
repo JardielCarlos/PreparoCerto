@@ -6,11 +6,11 @@ from model.mensagem import Message, msgError
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
+parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 
 class Ingredientes(Resource):
     def get(self):
-      logger.info("Ingredientes listados com Sucesso")
+      logger.info("Ingredientes listados com sucesso")
       return marshal(Ingrediente.query.all(), ingredienteFields), 200
     
     def post(self):
@@ -34,12 +34,12 @@ class IngredienteId(Resource):
     ingrediente = Ingrediente.query.get(id)
 
     if ingrediente is None:
-      logger.error(f"Ingrediente de id: {id} nao encontrado")
+      logger.error(f"Ingrediente de id: {id} não encontrado")
 
-      codigo = Message(1, f"Ingrediente de id: {id} nao encontrado")
+      codigo = Message(1, f"Ingrediente de id: {id} não encontrado")
       return marshal(codigo, msgError), 404
     
-    logger.info(f"Ingrediente de id: {ingrediente.id} Listado com Sucesso")
+    logger.info(f"Ingrediente de id: {ingrediente.id} listado com sucesso")
     return marshal(ingrediente, ingredienteFields), 200
   
   def put(self, id):
@@ -49,9 +49,9 @@ class IngredienteId(Resource):
       ingredienteBd = Ingrediente.query.get(id)
 
       if ingredienteBd is None:
-        logger.error(f"Ingrediente de id: {id} nao encontrado")
+        logger.error(f"Ingrediente de id: {id} não encontrado")
 
-        codigo = Message(1, f"Ingrediente de id: {id} nao encontrado")
+        codigo = Message(1, f"Ingrediente de id: {id} não encontrado")
         return marshal(codigo, msgError), 404
       
       ingredienteBd.nome = args["nome"]
@@ -59,7 +59,7 @@ class IngredienteId(Resource):
       db.session.add(ingredienteBd)
       db.session.commit()
 
-      logger.info(f"Ingrediente de id: {id} atualizado com Sucesso")
+      logger.info(f"Ingrediente de id: {id} atualizado com sucesso")
       return marshal(ingredienteBd, ingredienteFields), 200
     
     except:
@@ -73,9 +73,9 @@ class IngredienteId(Resource):
     ingredienteBd = Ingrediente.query.get(id)
 
     if ingredienteBd is None:
-      logger.error(f"Ingrediente de id: {id} nao encontrado")
+      logger.error(f"Ingrediente de id: {id} não encontrado")
 
-      codigo = Message(1, f"Ingrediente de id: {id} nao encontrado")
+      codigo = Message(1, f"Ingrediente de id: {id} não encontrado")
       return marshal(codigo, msgError), 404
     
     db.session.delete(ingredienteBd)

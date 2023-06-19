@@ -9,10 +9,9 @@ from sqlalchemy.exc import IntegrityError
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("nome", type=str, help="Nome nao informado", required=True)
-parser.add_argument("cnpj", type=str, help="CNPJ nao informado", required=True)
-parser.add_argument("proprietario", type=dict,
-                    help="proprietario nao informado", required=False)
+parser.add_argument("nome", type=str, help="Nome não informado", required=True)
+parser.add_argument("cnpj", type=str, help="CNPJ não informado", required=True)
+parser.add_argument("proprietario", type=dict, help="Proprietário não informado", required=False)
 
 
 class Empresas(Resource):
@@ -45,10 +44,10 @@ class Empresas(Resource):
 
             if proprietario is None:
                 logger.error(
-                    f"Proprietario de id: {proprietarioId} nao encontrado")
+                    f"Proprietário de id: {proprietarioId} não encontrado")
 
                 codigo = Message(
-                    1, f"Proprietario de id: {proprietarioId} nao encontrado")
+                    1, f"Proprietário de id: {proprietarioId} não encontrado")
                 return marshal(codigo, msgError), 404
 
             empresa = Empresa(args['nome'], args["cnpj"], proprietario)
@@ -56,7 +55,7 @@ class Empresas(Resource):
             db.session.add(empresa)
             db.session.commit()
 
-            logger.info(f"Empresa de id: {empresa.id} criado com sucesso")
+            logger.info(f"Empresa de id: {empresa.id} criada com sucesso")
             data = {'empresa': empresa, 'token': token}
 
             return marshal(data, empresaFieldsToken), 201
@@ -65,10 +64,10 @@ class Empresas(Resource):
             return marshal(codigo, msgError)
 
         except:
-            logger.error("Error ao cadastrar o Empresa")
+            logger.error("Error ao cadastrar a Empresa")
 
             codigo = Message(
-                2, "Error ao cadastrar a empresa verifique os campos")
+                2, "Error ao cadastrar a empresa, verifique os campos")
             return marshal(codigo, msgError), 400
 
 
@@ -83,13 +82,13 @@ class EmpresaId(Resource):
 
         empresa = Empresa.query.get(id)
         if empresa is None:
-            logger.error(f"Empresa de id: {id} nao encontrado")
+            logger.error(f"Empresa de id: {id} não encontrada")
 
-            codigo = Message(1, f"Empresa de id: {id} nao encontrado")
+            codigo = Message(1, f"Empresa de id: {id} não encontrada")
             return marshal(codigo, msgError), 404
         data = {'empresa': empresa, 'token': token}
 
-        logger.info(f"Empresa de id: {empresa.id} Listado com Sucesso")
+        logger.info(f"Empresa de id: {empresa.id} listada com sucesso")
         return marshal(data, empresaFieldsToken), 200
 
     @token_verify
@@ -106,9 +105,9 @@ class EmpresaId(Resource):
             empresaBd = Empresa.query.get(id)
 
             if empresaBd is None:
-                logger.error(f"Empresa de id: {id} nao encontrado")
+                logger.error(f"Empresa de id: {id} não encontrada")
 
-                codigo = Message(1, f"Empresa de id: {id} nao encontrado")
+                codigo = Message(1, f"Empresa de id: {id} não encontrada")
                 return marshal(codigo, msgError), 404
 
             empresaBd.nome = args["nome"]
@@ -118,13 +117,17 @@ class EmpresaId(Resource):
             db.session.commit()
             data = {'empresa': empresaBd, 'token': token}
 
-            logger.info(f"Empresa de id: {id} atualizado com Sucesso")
+            logger.info(f"Empresa de id: {id} atualizada com sucesso")
             return marshal(data, empresaFieldsToken), 200
 
-        except:
-            logger.error("Error ao atualizar o Empresa")
+        except IntegrityError:
+            codigo = Message(1, "CNPJ ja cadastrado no sistema")
+            return marshal(codigo, msgError)
 
-            codigo = Message(2, "Error ao atualizar o Empresa")
+        except:
+            logger.error("Error ao atualizar a empresa")
+
+            codigo = Message(2, "Error ao atualizar a empresa")
             return marshal(codigo, msgError), 400
 
     @token_verify
@@ -139,13 +142,13 @@ class EmpresaId(Resource):
         empresaBd = Empresa.query.get(id)
 
         if empresaBd is None:
-            logger.error(f"Empresa de id: {id} nao encontrado")
+            logger.error(f"Empresa de id: {id} não encontrada")
 
-            codigo = Message(1, f"Empresa de id: {id} nao encontrado")
+            codigo = Message(1, f"Empresa de id: {id} não encontrada")
             return marshal(codigo, msgError), 404
 
         db.session.delete(empresaBd)
         db.session.commit()
 
-        logger.info(f"Empresa de id: {id} deletado com sucesso")
+        logger.info(f"Empresa de id: {id} deletada com sucesso")
         return {'token': token}, 200

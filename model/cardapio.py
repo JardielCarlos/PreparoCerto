@@ -4,7 +4,6 @@ from model.empresa import empresaFields
 
 cardapioFields = {
   'id': fields.Integer,
-  'nome': fields.String,
   'empresa': fields.Nested(empresaFields)
   }
 
@@ -12,13 +11,11 @@ class Cardapio(db.Model):
   __tablename__="tb_cardapio"
 
   id = db.Column(db.Integer, primary_key=True)
-  nome = db.Column(db.String, nullable=False)
   empresa_id = db.Column(db.Integer ,db.ForeignKey("tb_empresa.id"))
 
   empresa = db.relationship("Empresa", uselist=False)
 
-  def __init__(self, nome, empresa):
-    self.nome = nome
+  def __init__(self, empresa):
     self.empresa = empresa
 
   def __repr__(self):

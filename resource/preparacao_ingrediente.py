@@ -3,7 +3,7 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgError
 
-from model.preparacao_ingrediente import PreparacaoIngrediente, ingredientePreparacaoFields
+from model.preparacao_ingrediente import PreparacaoIngrediente, preparacaoIngredienteFields
 from model.ingrediente import Ingrediente
 from model.preparacao import Preparacao
 from model.unidade_medida import UnidadeMedida
@@ -11,43 +11,30 @@ from model.medida_caseira import MedidaCaseira
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("preparacao", type=dict,
-                    help="preparacao nao informado", required=True)
-parser.add_argument("ingrediente", type=dict,
-                    help="ingrediente nao informado", required=True)
-parser.add_argument("pesoBruto", type=float,
-                    help="pesoBruto nao informado", required=True)
-parser.add_argument("unidade", type=dict,
-                    help="unidade nao informado", required=True)
-parser.add_argument("indicadorParteComestivel",
-                    help="indicadorParteComestivel nao informado", type=float, required=True)
-parser.add_argument("pesoLiquido", type=float,
-                    help="pesoLiquido nao informado", required=True)
-parser.add_argument("perCapita", type=float,
-                    help="perCapita nao informado", required=True)
-parser.add_argument("medidaCaseira", type=dict,
-                    help="medidaCaseira nao informado", required=True)
-parser.add_argument("embalagem", type=float,
-                    help="embalagem nao informado", required=True)
-parser.add_argument("preco", type=float,
-                    help="preco nao informado", required=True)
-parser.add_argument("custoPreparacao", type=float,
-                    help="custoPreparacao nao informado", required=True)
+parser.add_argument("preparacao", type=dict, help="Preparação não informada", required=True)
+parser.add_argument("ingrediente", type=dict, help="Ingrediente não informado", required=True)
+parser.add_argument("pesoBruto", type=float, help="Peso Bruto não informado", required=True)
+parser.add_argument("unidade", type=dict, help="Unidade não informada", required=True)
+parser.add_argument("indicadorParteComestivel", type=float, help="Indicador de Parte Comestível não informado", required=True)
+parser.add_argument("pesoLiquido", type=float, help="Peso Liquido não informado", required=True)
+parser.add_argument("perCapita", type=float, help="Per Capita não informada", required=True)
+parser.add_argument("medidaCaseira", type=dict, help="Medida Caseira não informada", required=True)
+parser.add_argument("embalagem", type=float, help="Embalagem não informada", required=True)
+parser.add_argument("preco", type=float, help="Preço não informado", required=True)
+parser.add_argument("custoPreparacao", type=float, help="Custo na preparação não informado", required=True)
 
 
 class PreparacaoIngredientes(Resource):
     def get(self):
-        logger.info("Ingredientes-Preparacao listados com sucesso")
-        return marshal(PreparacaoIngrediente.query.all(), ingredientePreparacaoFields), 200
+        logger.info("Preparação-Ingrediente listados com sucesso")
+        return marshal(PreparacaoIngrediente.query.all(), preparacaoIngredienteFields), 200
 
     def post(self):
         args = parser.parse_args()
 
         preparacaoId = args['preparacao']['id']
         ingredienteId = args['ingrediente']['id']
-
         pesoBruto = args['pesoBruto']
-
         unidadeId = args['unidade']['id']
 
         indicadorParteComestivel = args['indicadorParteComestivel']
@@ -62,50 +49,57 @@ class PreparacaoIngredientes(Resource):
         preparacao = Preparacao.query.get(preparacaoId)
         unidade = UnidadeMedida.query.get(unidadeId)
         medidaCaseira = MedidaCaseira.query.get(medidaCaseiraId)
+
         if ingrediente is None:
-            codigo = Message(
-                1, f"Ingrediente de id: {ingredienteId} não encontrado")
+            codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
             return marshal(codigo, msgError), 404
+        
         elif preparacao is None:
-            codigo = Message(
-                1, f"Preparacao de id: {preparacaoId} não encontrada")
+            codigo = Message(1, f"Preparação de id: {preparacaoId} não encontrada")
+            return marshal(codigo, msgError), 404
+        
+        elif unidade is None:
+            codigo = Message(1, f"Unidade de id: {unidadeId} não encontrada")
+            return marshal(codigo, msgError), 404
+        
+        elif medidaCaseira is None:
+            codigo = Message(1, f"Medida Caseira de id: {preparacaoId} não encontrada")
             return marshal(codigo, msgError), 404
 
-        ingredientePreparacao = PreparacaoIngrediente(
-            preparacao, ingrediente, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao)
-        db.session.add(ingredientePreparacao)
+        preparacaoIngrediente = PreparacaoIngrediente(preparacao, ingrediente, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao)
+
+        db.session.add(preparacaoIngrediente)
         db.session.commit()
 
         logger.info(
-            f"IngredientePreparação de id: {ingredientePreparacao.id} criado com sucesso")
-        return marshal(ingredientePreparacao, ingredientePreparacaoFields), 201
+            f"Preparação-Ingrediente de id: {preparacaoIngrediente.id} criado com sucesso")
+        return marshal(preparacaoIngrediente, preparacaoIngredienteFields), 201
 
 
 class PreparacaoIngredientesId(Resource):
     def get(self, id):
 
-        ingredientePreparacao = PreparacaoIngrediente.query.get(id)
-        if ingredientePreparacao is None:
-            codigo = Message(
-                1, f"IngredientePreparacao de id: {id} não encontrado")
+        preparacaoIngrediente = PreparacaoIngrediente.query.get(id)
+
+        if preparacaoIngrediente is None:
+            codigo = Message(1, f"Preparação-Ingrediente de id: {id} não encontrado")
             return marshal(codigo, msgError), 404
-        logger.info("Ingrediente-Preparacao listados com sucesso")
-        return marshal(PreparacaoIngrediente.query.get(id), ingredientePreparacaoFields), 200
+        
+        logger.info("Preparação-Ingrediente listadas com sucesso")
+        return marshal(PreparacaoIngrediente.query.get(id), preparacaoIngredienteFields), 200
 
     def put(self, id):
         args = parser.parse_args()
         try:
 
-            ingredientePreparacaoBd = PreparacaoIngrediente.query.get(id)
-            ingredienteId = args['ingrediente']['id']
+            preparacaoIngredienteBd = PreparacaoIngrediente.query.get(id)
             preparacaoId = args['preparacao']['id']
+            ingredienteId = args['ingrediente']['id']
 
-            if ingredientePreparacaoBd is None:
-                logger.error(
-                    f"IngredientePreparacao de id: {id} nao encontrada")
+            if preparacaoIngredienteBd is None:
+                logger.error(f"Preparação-Ingrediente de id: {id} não encontrada")
 
-                codigo = Message(
-                    1, f"IngredientePreparacao de id: {id} nao encontrada")
+                codigo = Message(1, f"Preparação-Ingrediente de id: {id} não encontrada")
                 return marshal(codigo, msgError), 404
 
             ingrediente = Ingrediente.query.get(ingredienteId)
@@ -116,36 +110,35 @@ class PreparacaoIngredientesId(Resource):
                 return marshal(codigo, msgError), 404
             elif preparacao is None:
                 codigo = Message(
-                    1, f"Preparacao de id: {preparacaoId} não encontrada")
+                    1, f"Preparação de id: {preparacaoId} não encontrada")
                 return marshal(codigo, msgError), 404
 
-            ingredientePreparacaoBd.ingrediente = ingrediente
-            ingredientePreparacaoBd.preparacao = preparacao
+            preparacaoIngredienteBd.ingrediente = ingrediente
+            preparacaoIngredienteBd.preparacao = preparacao
 
-            db.session.add(ingredientePreparacaoBd)
+            db.session.add(preparacaoIngredienteBd)
             db.session.commit()
 
-            logger.info(
-                f"ingredientePreparacao de id: {id} atualizada com sucesso")
-            return marshal(ingredientePreparacaoBd, ingredientePreparacaoFields)
+            logger.info(f"Preparação-Ingrediente de id: {id} atualizada com sucesso")
+            return marshal(preparacaoIngredienteBd, preparacaoIngredienteFields)
         except:
-            logger.error("Erro ao atualizar o IngredientePreaparacao")
+            logger.error("Erro ao atualizar o Preparação-Ingrediente")
 
-            codigo = Message(2, "Erro ao atualizar o IngredientePreaparacao")
+            codigo = Message(2, "Erro ao atualizar o Preparação-Ingrediente")
             return marshal(codigo, msgError), 400
 
     def delete(self, id):
-        ingredientePreparacaoBd = PreparacaoIngrediente.query.get(id)
+        preparacaoIngredienteBd = PreparacaoIngrediente.query.get(id)
 
-        if ingredientePreparacaoBd is None:
-            logger.error(f"ingredientePreparacao de id: {id} nao encontrado")
+        if preparacaoIngredienteBd is None:
+            logger.error(f"Preparação-Ingrediente de id: {id} não encontrada")
 
             codigo = Message(
-                1, f"ingredientePreparacao de id: {id} nao encontrado")
+                1, f"Preparação-Ingrediente de id: {id} não encontrada")
             return marshal(codigo, msgError), 404
 
-        db.session.delete(ingredientePreparacaoBd)
+        db.session.delete(preparacaoIngredienteBd)
         db.session.commit()
 
-        logger.info(f"Ingrediente de id: {id} deletado com sucesso")
+        logger.info(f"Preparação-Ingrediente de id: {id} deletada com sucesso")
         return {}, 200

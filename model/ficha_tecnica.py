@@ -73,3 +73,8 @@ fichaTecnicaGerencialFields = {
     'preco': fields.Float,
     'custoPreparacao': fields.Float
 }
+
+fichaTecnicaGerencialTotalFields = {
+    'preparacao_ingrediente': fields.Nested(fichaTecnicaGerencialFields),
+    'total': fields.Float
+}

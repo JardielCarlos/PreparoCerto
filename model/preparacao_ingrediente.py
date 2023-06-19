@@ -5,9 +5,7 @@ from model.preparacao import preparacaoFields
 from model.unidade_medida import unidadeFields
 from model.medida_caseira import medidaCaseiraFields
 
-ingredientePreparacaoFields = {'id': fields.Integer, 'ingrediente': fields.Nested(ingredienteFields), 'preparacao': fields.Nested(preparacaoFields)}
-
-ingredientePreparacaoFields = {
+preparacaoIngredienteFields = {
     'id': fields.Integer,
     'preparacao': fields.Nested(preparacaoFields),
     'ingrediente': fields.Nested(ingredienteFields),

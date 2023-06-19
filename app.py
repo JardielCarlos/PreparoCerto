@@ -1,40 +1,24 @@
 from flask import Flask
 from flask_restful import Api
 from helpers.database import db, migrate
-
-from resource.preparadores import Preparadores, PreparadorId
-from resource.gestores import Gestores, GestorId
-from resource.ingredientes import Ingredientes, IngredienteId
-from resource.empresas import Empresas, EmpresaId
-from resource.proprietarios import Proprietarios, ProprietarioId
-from resource.preparacoes import Preparacoes, PreparacaoId
-from resource.cardapios import Cardapios, CardapioId
-from resource.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoIngredientesId
-from resource.cardapio_preparacao import CardapioPreparacoes, CardapioPreparacaoId
-from resource.ficha_tecnica import FichaTecnicaOperacional, FichaTecnicaGerencial
-from resource.unidade import Unidade, UnidadeId
-from resource.medidaCaseira import MedidasCaseiras, MedidaCaseiraId
-from resource.utensilios import Utensilios, UtensilioId
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:124356@localhost:5432/PreparoCerto"
 from helpers.configCORS import cors
-from resource.preparadores import Preparadores, PreparadorId
-from resource.gestores import Gestores, GestorId
-from resource.ingredientes import Ingredientes, IngredienteId
-from resource.empresas import Empresas, EmpresaId
-from resource.proprietarios import Proprietarios, ProprietarioId
-from resource.preparacoes import Preparacoes, PreparacaoId
-from resource.cardapios import Cardapios, CardapioId
-from resource.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoIngredientesId
-from resource.cardapio_preparacao import CardapioPreparacoes, CardapioPreparacaoId
-from resource.ficha_tecnica import FichaTecnicaOperacional, FichaTecnicaGerencial
-from resource.unidade import Unidade, UnidadeId
-from resource.medidaCaseira import MedidasCaseiras, MedidaCaseiraId
-from resource.utensilios import Utensilios, UtensilioId
-from resource.login import Login
-from resource.logout import Logout
-from resource.modo_preparo import ModosPreparo, ModosPreparoId
+from resources.preparadores import Preparadores, PreparadorId
+from resources.gestores import Gestores, GestorId
+from resources.ingredientes import Ingredientes, IngredienteId
+from resources.empresas import Empresas, EmpresaId
+from resources.proprietarios import Proprietarios, ProprietarioId
+from resources.preparacoes import Preparacoes, PreparacaoId
+from resources.cardapios import Cardapios, CardapioId
+from resources.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoIngredientesId
+from resources.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
+from resources.ficha_tecnica import FichaTecnicaOperacional, FichaTecnicaGerencial
+from resources.unidade import Unidade, UnidadeId
+from resources.medidaCaseira import MedidasCaseiras, MedidaCaseiraId
+from resources.utensilios import Utensilios, UtensilioId
+from resources.login import Login
+from resources.logout import Logout
+from resources.modo_preparo import ModosPreparo, ModosPreparoId
+from resources.usuario import Usuarios
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/PreparoCerto"
@@ -59,10 +43,10 @@ api.add_resource(Preparacoes, '/preparacoes')
 api.add_resource(PreparacaoId, '/preparacao/<int:id>')
 api.add_resource(Cardapios, '/cardapios')
 api.add_resource(CardapioId, '/cardapio/<int:id>')
-api.add_resource(PreparacaoIngredientes, '/preparacao_ingrediente')
-api.add_resource(PreparacaoIngredientesId, '/preparacao_ingrediente/<int:id>')
-api.add_resource(CardapioPreparacoes, '/cardapio_preparacao')
-api.add_resource(CardapioPreparacaoId, '/cardapio_preparacao/<int:id>')
+api.add_resource(PreparacaoIngredientes, '/ingrediente_preparacao')
+api.add_resource(PreparacaoIngredientesId, '/ingrediente_preparacao/<int:id>')
+api.add_resource(CardapioPreapracoes, '/cardapio_preparacao')
+api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
 api.add_resource(FichaTecnicaOperacional, '/fichatecnicaoperacional/<int:id>')
 api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>')
 api.add_resource(Unidade, '/unidade')
@@ -75,7 +59,7 @@ api.add_resource(Login, '/login')
 api.add_resource(Logout, '/logout')
 api.add_resource(ModosPreparo, '/modospreparo')
 api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
-
+api.add_resource(Usuarios, '/usuarios')
 
 if __name__ == '__main__':
     app.run(debug=True)
