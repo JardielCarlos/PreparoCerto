@@ -12,13 +12,15 @@ ingredientePreparacaoFields = {
     'preparacao': fields.Nested(preparacaoFields),
     'ingrediente': fields.Nested(ingredienteFields),
     'pesoBruto': fields.Float,
-    'unidade': fields.Nested(unidadeFields),
     'indicadorParteComestivel': fields.Float,
     'pesoLiquido': fields.Float,
     'medidaCaseira': fields.Nested(medidaCaseiraFields),
     'embalagem': fields.Float,
     'preco': fields.Float,
-    'custoPreparacao': fields.Float
+    'custoPreparacao': fields.Float,
+    'unPesoBruto': fields.Nested(unidadeFields),
+    'unPesoLiquido': fields.Nested(unidadeFields),
+    'unPerCapita': fields.Nested(unidadeFields)
     }
 
 
@@ -28,7 +30,6 @@ class PreparacaoIngrediente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     preparacao_id = db.Column(db.Integer, db.ForeignKey("tb_preparacao.id"))
     pesoBruto = db.Column(db.Float, nullable=False)
-    unidade = db.Column(db.String, nullable=False)
     indicadorParteComestivel = db.Column(db.Float, nullable=False)
     pesoLiquido = db.Column(db.Float,nullable=False)
     perCapita = db.Column(db.Float, nullable=False)
@@ -41,34 +42,26 @@ class PreparacaoIngrediente(db.Model):
     ingrediente_id = db.Column(db.Integer, db.ForeignKey("tb_ingrediente.id"))
 
     pesoBruto = db.Column(db.Float, nullable=False)
-    unidade_id = db.Column(db.Integer, db.ForeignKey("tb_unidademedida.id"))
     indicadorParteComestivel = db.Column(db.Float, nullable=False)
     pesoLiquido = db.Column(db.Float, nullable=False)
     perCapita = db.Column(db.Float, nullable=False)
-    medidaCaseira_id = db.Column(
-        db.Integer, db.ForeignKey("tb_medidacaseira.id"))
+    medidaCaseira_id = db.Column(db.Integer, db.ForeignKey("tb_medidacaseira.id"))
     embalagem = db.Column(db.Float, nullable=False)
     preco = db.Column(db.Float, nullable=False)
     custoPreparacao = db.Column(db.Float, nullable=False)
     preparacao = db.relationship("Preparacao", uselist=False)
 
-    unPesoBruto = db.relationship("UnidadeMedida",uselist=False)
-    unPesoLiquido = db.relationship("UnidadeMedida",uselist=False)
-    unPerCapita= db.relationship("UnidadeMedida",uselist=False)
-
-    def __init__(self, ingrediente, preparacao, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, embalagem, preco, custPreparacao):
-        self.ingrediente = ingrediente
-        self.preparacao = preparacao
-
+    unPesoBruto = db.relationship("UnidadeMedida", foreign_keys=[unPesoBruto_id])
+    unPesoLiquido = db.relationship("UnidadeMedida", foreign_keys=[unPesoLiquido_id])
+    unPerCapita = db.relationship("UnidadeMedida", foreign_keys=[unPerCapita_id])
+    
     ingrediente = db.relationship("Ingrediente", uselist=False)
-    unidade = db.relationship("UnidadeMedida", uselist=False)
     medidaCaseira = db.relationship("MedidaCaseira", uselist=False)
 
-    def __init__(self, preparacao, ingrediente, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao):
+    def __init__(self, preparacao, ingrediente, pesoBruto, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao, unPesoBruto, unPesoLiquido, unPerCapita):
         self.preparacao = preparacao
         self.ingrediente = ingrediente
         self.pesoBruto = pesoBruto
-        self.unidade = unidade
         self.indicadorParteComestivel = indicadorParteComestivel
         self.pesoLiquido = pesoLiquido
         self.perCapita = perCapita
@@ -79,6 +72,9 @@ class PreparacaoIngrediente(db.Model):
         self.embalagem = embalagem
         self.preco = preco
         self.custoPreparacao = custoPreparacao
+        self.unPesoBruto = unPesoBruto
+        self.unPesoLiquido = unPesoLiquido
+        self.unPerCapita = unPerCapita
 
     def __repr__(self):
         return f'<IngredientePreparacao {self.id}>'

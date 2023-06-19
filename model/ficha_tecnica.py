@@ -22,7 +22,7 @@ class FichaTecnica(db.Model):
     indicadorConversao = db.Column(db.Float, nullable=False)
     fatorCorrecaoGlobal = db.Column(db.Float, nullable=False)
     grauDificuldade = db.Column(db.String,nullable=False)
-    gestor_id = db.Column(db.Integer, db.ForeignKey("tb_gestor.id"))
+    gestor_id = db.Column(db.Integer, db.ForeignKey("tb_gestor.usuario_id"))
     preparacao_id = db.Column(db.Integer, db.ForeignKey("tb_preparacao.id"))
     unidade_id = db.Column(db.Integer,db.ForeignKey("tb_unidademedida.id"))
     
