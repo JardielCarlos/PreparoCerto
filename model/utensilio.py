@@ -1,7 +1,10 @@
 from flask_restful import fields
 from helpers.database import db
 
-utensilioFields = {'id': fields.Integer, 'nome': fields.String}
+utensilioFields = {
+  'id': fields.Integer,
+  'nome': fields.String
+  }
 
 class Utensilio(db.Model):
   __tablename__ = "tb_utensilio"
