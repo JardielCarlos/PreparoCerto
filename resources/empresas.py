@@ -15,15 +15,15 @@ parser.add_argument("proprietario", type=dict, help="Proprietário não informad
 
 
 class Empresas(Resource):
-    # @token_verify
-    def get(self):
-        # if tipo != 'proprietario':
-        #     logger.error("Usuario sem autorização suficiente!")
-        #     codigo = Message(1, "Usuario sem autorização suficiente!")
-        #     return marshal(codigo, msgError), 403
+    @token_verify
+    def get(self, tipo, token):
+        if tipo != 'proprietario':
+            logger.error("Usuario sem autorização suficiente!")
+            codigo = Message(1, "Usuario sem autorização suficiente!")
+            return marshal(codigo, msgError), 403
 
         empresa = Empresa.query.all()
-        data = {'empresa': empresa, 'token': None}
+        data = {'empresa': empresa, 'token': token}
 
         logger.info("Empresas listadas com Sucesso")
         return marshal(data, empresaFieldsToken), 200
