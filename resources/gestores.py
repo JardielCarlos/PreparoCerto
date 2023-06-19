@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from model.gestor import Gestor, gestorFields
 from helpers.logger import logger
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 from model.empresa import Empresa
 from sqlalchemy.exc import IntegrityError
 from password_strength import PasswordPolicy
@@ -36,16 +36,16 @@ class Gestores(Resource):
         logger.error("Empresa não encontrada")
 
         codigo = Message(1, 'Empresa não encontrada')
-        return marshal(codigo, msgError), 404
+        return marshal(codigo, msgFields), 404
 
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
-        return marshal(codigo, msgError), 400
+        return marshal(codigo, msgFields), 400
 
       verifySenha = policy.test(args['senha'])
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
-        return marshal(codigo, msgError), 400
+        return marshal(codigo, msgFields), 400
 
       gestor = Gestor(args['nome'], args["email"], args['senha'], empresa)
 
@@ -57,17 +57,17 @@ class Gestores(Resource):
 
     except TypeError:
       codigo = Message(1, "Empresa não informada")
-      return marshal(codigo, msgError), 400
+      return marshal(codigo, msgFields), 400
 
     except IntegrityError:
       codigo = Message(1, "Email ja cadastrado no sistema")
-      return marshal(codigo, msgError), 400
+      return marshal(codigo, msgFields), 400
 
     except:
       logger.error("Error ao cadastrar o Gestor")
 
       codigo = Message(2, "Error ao cadastrar o Gestor")
-      return marshal(codigo, msgError), 400
+      return marshal(codigo, msgFields), 400
 
 class GestorId(Resource):
   def get(self, id):
@@ -77,7 +77,7 @@ class GestorId(Resource):
       logger.error(f"Gestor de id: {id} não encontrado")
 
       codigo = Message(1, f"Gestor de id: {id} não encontrado")
-      return marshal(codigo, msgError), 404
+      return marshal(codigo, msgFields), 404
 
     logger.info(f"Gestor de id: {gestor.id} listado com sucesso")
     return marshal(gestor, gestorFields), 200
@@ -97,16 +97,16 @@ class GestorId(Resource):
         logger.error(f"Gestor de id: {id} não encontrado")
 
         codigo = Message(1, f"Gestor de id: {id} não encontrado")
-        return marshal(codigo, msgError), 404
+        return marshal(codigo, msgFields), 404
 
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
-        return marshal(codigo, msgError), 400
+        return marshal(codigo, msgFields), 400
 
       verifySenha = policy.test(args['senha'])
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
-        return marshal(codigo, msgError), 400
+        return marshal(codigo, msgFields), 400
 
       userBd.nome = args["nome"]
       userBd.email = args["email"]
@@ -122,7 +122,7 @@ class GestorId(Resource):
       logger.error("Error ao atualizar o Gestor")
 
       codigo = Message(2, "Error ao atualizar o Gestor")
-      return marshal(codigo, msgError), 400
+      return marshal(codigo, msgFields), 400
 
   def delete(self, id):
 
@@ -132,7 +132,7 @@ class GestorId(Resource):
       logger.error(f"Gestor de id: {id} não encontrado")
 
       codigo = Message(1, f"Gestor de id: {id} não encontrado")
-      return marshal(codigo, msgError), 404
+      return marshal(codigo, msgFields), 404
 
     db.session.delete(userBd)
     db.session.commit()

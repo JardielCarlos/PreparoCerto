@@ -1,2 +1,8 @@
-2023-06-19 10:14:17,251 WARNING _internal _log  * Debugger is active!
-2023-06-19 10:14:17,261 INFO _internal _log  * Debugger PIN: 144-128-622
+2023-06-19 18:37:39,907 WARNING _internal _log  * Debugger is active!
+2023-06-19 18:37:39,912 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-19 18:37:40,084 INFO utensilio_preparacao get UtensiliosPreparacao de id: 1 listado com sucesso
+2023-06-19 18:37:40,117 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 18:37:40] "GET /utensilios_preparacao/1 HTTP/1.1" 200 -
+2023-06-19 18:37:57,155 INFO utensilio_preparacao get Preparação-Utensilios listados com sucesso
+2023-06-19 18:37:57,169 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 18:37:57] "GET /utensilios_preparacao HTTP/1.1" 200 -
+2023-06-19 18:37:57,348 INFO utensilio_preparacao get Preparação-Utensilios listados com sucesso
+2023-06-19 18:37:57,360 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 18:37:57] "GET /utensilios_preparacao HTTP/1.1" 200 -

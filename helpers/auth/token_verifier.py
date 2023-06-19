@@ -9,7 +9,7 @@ from helpers.logger import logger
 
 from model.blackList import BlackList
 
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 from model.token import Token, tokenFields
 
 def token_verify(function: callable) -> callable:
@@ -21,7 +21,7 @@ def token_verify(function: callable) -> callable:
       logger.error("Sem token!")
 
       codigo = Message(1, "Sem token!")
-      return marshal(codigo, msgError), 401
+      return marshal(codigo, msgFields), 401
 
     try:
       token = rawToken.split()[1]
@@ -30,7 +30,7 @@ def token_verify(function: callable) -> callable:
     except InvalidSignatureError:
       token = Token("Token invalido")
       return marshal(token, tokenFields), 401
-    
+
 
     except ExpiredSignatureError:
       token = Token("Token Expirado")
@@ -41,7 +41,7 @@ def token_verify(function: callable) -> callable:
       return marshal(token, tokenFields), 401
     except IndexError:
       codigo = Message(1, "Schema de autenticação nao informado")
-      return marshal(codigo, msgError), 400
+      return marshal(codigo, msgFields), 400
 
     blackToken = BlackList.query.filter_by(token=token).first()
 

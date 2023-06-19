@@ -2,7 +2,7 @@ from flask_restful import Resource, marshal, reqparse
 from helpers.logger import logger
 from model.utensilio import Utensilio, utensilioFields
 from helpers.database import db
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 
 parser = reqparse.RequestParser()
 
@@ -12,7 +12,7 @@ class Utensilios(Resource):
   def get(self):
     logger.info("Utensilios listados com sucesso")
     return marshal(Utensilio.query.all(), utensilioFields), 200
-  
+
   def post(self):
     args = parser.parse_args()
 
@@ -28,14 +28,14 @@ class Utensilios(Resource):
       logger.error("Error ao cadastrar Utensilio")
 
       codigo = Message(2, "Error ao cadastrar Utensilio")
-      return marshal(codigo, msgError), 400
+      return marshal(codigo, msgFields), 400
 
 class UtensilioId(Resource):
   def get(self, id):
     logger.info(f"Utensilio de id: {id} listado com sucesso")
 
     return marshal(Utensilio.query.get(id), utensilioFields), 200
-  
+
   def put(self, id):
     args = parser.parse_args()
 
@@ -46,7 +46,7 @@ class UtensilioId(Resource):
         logger.error(f"Utensilio de id: {id} nao encontrado")
         codigo = Message(1, f"Utensilio de id: {id} nao encontrado")
 
-        return marshal(codigo, msgError), 404
+        return marshal(codigo, msgFields), 404
       utensilioBd.nome = args["nome"]
 
       db.session.add(utensilioBd)
@@ -58,8 +58,8 @@ class UtensilioId(Resource):
       logger.error("Error ao atualizar utensilio")
 
       codigo = Message(2, "Error ao atualizar utensilio")
-      return marshal(codigo, msgError)
-    
+      return marshal(codigo, msgFields)
+
   def delete(self, id):
     utensilioBd = Utensilio.query.get(id)
 
@@ -67,10 +67,10 @@ class UtensilioId(Resource):
       logger.info(f"Utensilio de id: {id} nao encontrado")
 
       codigo = Message(1, f"Utensilio de id: {id} nao encontrado")
-      return marshal(codigo, msgError)
+      return marshal(codigo, msgFields)
 
     db.session.delete(utensilioBd)
     db.session.commit()
-    
+
     logger.info(f"Utensilio de id: {id} deletado com sucesso")
     return {}, 200
