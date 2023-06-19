@@ -3,10 +3,10 @@ from helpers.database import db
 from model.empresa import empresaFields
 
 preparacaoFields = {
-    'id': fields.Integer,
-    'nome': fields.String,
-    'empresa': fields.Nested(empresaFields)
-}
+  'id': fields.Integer,
+  'nome': fields.String,
+  'empresa': fields.Nested(empresaFields)
+  }
 
 
 class Preparacao(db.Model):
@@ -16,7 +16,6 @@ class Preparacao(db.Model):
     nome = db.Column(db.String, nullable=False)
     empresa_id = db.Column(db.Integer, db.ForeignKey("tb_empresa.id"))
 
-    # Empresa
     empresa = db.relationship("Empresa", uselist=False)
 
     def __init__(self, nome, empresa):

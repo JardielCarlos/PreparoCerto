@@ -1,4 +1,6 @@
 from flask_restful import fields
+
+from helpers.database import db
 from model.unidade_medida import unidadeFields
 from model.medida_caseira import medidaCaseiraFields
 from model.ingrediente import ingredienteFields

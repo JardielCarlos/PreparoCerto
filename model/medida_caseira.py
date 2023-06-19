@@ -1,11 +1,7 @@
 from flask_restful import fields
 from helpers.database import db
 
-medidaCaseiraFields = {
-  'id': fields.Integer,
-  'quantidade': fields.String,
-  'descricao': fields.String
-  }
+medidaCaseiraFields = {'id': fields.Integer, 'quantidade': fields.String, 'descricao': fields.String}
 
 class MedidaCaseira(db.Model):
   __tablename__ = "tb_medidacaseira"
