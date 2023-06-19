@@ -58,3 +58,17 @@ class UtensiliosPreparacaoId(Resource):
 
     logger.info(f"UtensiliosPreparacao de id: {id} listado com sucesso")
     return marshal(utensiliopreparacao, utensilioPreparacaoFields)
+
+  def delete(self, id):
+    utensiliopreparacaoBd = UtensilioPreparacao.query.get(id)
+    if utensiliopreparacaoBd is None:
+      logger.error(f"UtensiliosPreparacao de id: {id} nao encontrado")
+
+      codigo = Message(1, f"Utensilio da preparacao de id: {id} não encontrado")
+      return marshal(codigo, msgFields), 404
+
+    db.session.delete(utensiliopreparacaoBd)
+    db.session.commit()
+
+    logger.info(f"UtensiliosPreparacao de id: {id} deletado com sucesso")
+    return {}, 200
