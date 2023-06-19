@@ -19,6 +19,7 @@ from resources.login import Login
 from resources.logout import Logout
 from resources.modo_preparo import ModosPreparo, ModosPreparoId
 from resources.usuario import Usuarios
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

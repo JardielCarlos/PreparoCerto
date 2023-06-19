@@ -14,7 +14,7 @@ class ModosPreparo(Resource):
 
     def get(self):
       logger.info("ModosPreparo listados com sucesso")
-      return marshal(ModoPreparo.query.all(), modoPreparoFields), 200
+      return marshal(ModoPreparo.query.filter_by(is_deleted=False).first(), modoPreparoFields), 200
 
     def post(self):
         args = parser.parse_args()
@@ -46,7 +46,7 @@ class ModosPreparo(Resource):
 class ModosPreparoId(Resource):
 
   def get(self, id):
-    modopreparo = ModoPreparo.query.get(id)
+    modopreparo = ModoPreparo.query.filter_by(id=id, is_deleted=False).first()
 
     if modopreparo is None:
        logger.error(f"Modo de preparo de id: {id} nao encontrado")
@@ -55,13 +55,13 @@ class ModosPreparoId(Resource):
        return marshal(codigo, msgError), 404
 
     logger.info(f"Modo de preparo de id: {id} listada com sucesso")
-    return marshal(ModoPreparo.query.get(id), modoPreparoFields), 200
+    return marshal(modopreparo, modoPreparoFields), 200
 
   def put(self, id):
     args = parser.parse_args()
 
     try:
-      modoPreparoBd = ModoPreparo.query.get(id)
+      modoPreparoBd = ModoPreparo.query.filter_by(id=id, is_deleted=False)
 
       if modoPreparoBd is None:
         logger.error(f"Modo de preparo de id: {id} nao encontrado")
@@ -82,14 +82,15 @@ class ModosPreparoId(Resource):
       return marshal(codigo, msgError)
 
   def delete(self, id):
-    modoPreparoBd = ModoPreparo.query.get(id)
+    modoPreparoBd = ModoPreparo.query.filter_by(id=id, is_deleted=False).first()
 
     if modoPreparoBd is None:
-      logger.error(f"Modo de preparo de id: {id} nao encontrado")
-      codigo = Message(1, f"Modo de preparo de id: {id} nao encontrado")
-      return marshal(codigo, msgError), 404
+        logger.error(f"Modo de preparo de id: {id} nao encontrado")
+        codigo = Message(1, f"Modo de preparo de id: {id} nao encontrado")
+        return marshal(codigo, msgError), 404
 
-    db.session.delete(modoPreparoBd)
+    modoPreparoBd.is_deleted = True
+    db.session.add(modoPreparoBd)
     db.session.commit()
 
     logger.info(f"Modo de preparo de id: {id} deletado com sucesso")
