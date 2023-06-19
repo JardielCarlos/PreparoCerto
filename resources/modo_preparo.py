@@ -14,25 +14,26 @@ class ModosPreparo(Resource):
 
     def get(self):
       logger.info("ModosPreparo listados com sucesso")
-      return marshal(ModoPreparo.query.filter_by(is_deleted=False).first(), modoPreparoFields), 200
 
+      return marshal(ModoPreparo.query.filter_by(is_deleted=False).all(), modoPreparoFields), 200
+    
     def post(self):
         args = parser.parse_args()
         try:
-            preparacaoId = args["preparacao"]["id"]
+          preparacaoId = args["preparacao"]["id"]
 
-            preparacao = Preparacao.query.get(preparacaoId)
-            if preparacao is None:
-                codigo = Message(1, f"preparacao de id: {preparacao} não encontrado")
-                return marshal(codigo, msgError), 404
+          preparacao = Preparacao.query.get(preparacaoId)
+          if preparacao is None:
+              codigo = Message(1, f"preparacao de id: {preparacao} não encontrado")
+              return marshal(codigo, msgError), 404
 
-            modoPreparo = ModoPreparo(args['text'], preparacao)
+          modoPreparo = ModoPreparo(args['text'], preparacao)
 
-            db.session.add(modoPreparo)
-            db.session.commit()
+          db.session.add(modoPreparo)
+          db.session.commit()
 
-            logger.info(f"Medida Caseira de id: {modoPreparo.id} criado com sucesso")
-            return marshal(modoPreparo, modoPreparoFields), 201
+          logger.info(f"Medida Caseira de id: {modoPreparo.id} criado com sucesso")
+          return marshal(modoPreparo, modoPreparoFields), 201
         except KeyError:
             logger.error("Id da empresa não informado")
             codigo = Message(1, f"Id da empresa não informado")
@@ -46,16 +47,24 @@ class ModosPreparo(Resource):
 class ModosPreparoId(Resource):
 
   def get(self, id):
-    modopreparo = ModoPreparo.query.filter_by(id=id, is_deleted=False).first()
+     
+    modosPreparo = ModoPreparo.query.all()
+    lista = []
+    for i in range(len(modosPreparo)):
+      if modosPreparo[i].preparacao_id == id and modosPreparo[i].is_deleted == False:
+        lista.append(modosPreparo[i])
 
-    if modopreparo is None:
-       logger.error(f"Modo de preparo de id: {id} nao encontrado")
+    return marshal(lista, modoPreparoFields)
+    # modopreparo = ModoPreparo.query.filter_by(id=id, is_deleted=False).first()
 
-       codigo = Message(1, f"Modo de preparo de id: {id} nao encontrado")
-       return marshal(codigo, msgError), 404
+    # if modopreparo is None:
+    #    logger.error(f"Modo de preparo de id: {id} nao encontrado")
 
-    logger.info(f"Modo de preparo de id: {id} listada com sucesso")
-    return marshal(modopreparo, modoPreparoFields), 200
+    #    codigo = Message(1, f"Modo de preparo de id: {id} nao encontrado")
+    #    return marshal(codigo, msgError), 404
+
+    # logger.info(f"Modo de preparo de id: {id} listada com sucesso")
+    # return marshal(modopreparo, modoPreparoFields), 200
 
   def put(self, id):
     args = parser.parse_args()

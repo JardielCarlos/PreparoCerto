@@ -32,8 +32,7 @@ class PreparacaoIngrediente(db.Model):
     indicadorParteComestivel = db.Column(db.Float, nullable=False)
     pesoLiquido = db.Column(db.Float, nullable=False)
     perCapita = db.Column(db.Float, nullable=False)
-    medidaCaseira_id = db.Column(
-        db.Integer, db.ForeignKey("tb_medidacaseira.id"))
+    medidaCaseira_id = db.Column(db.Integer, db.ForeignKey("tb_medidacaseira.id"))
     embalagem = db.Column(db.Float, nullable=False)
     preco = db.Column(db.Float, nullable=False)
     custoPreparacao = db.Column(db.Float, nullable=False)

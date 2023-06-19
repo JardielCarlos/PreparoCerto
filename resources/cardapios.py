@@ -7,7 +7,6 @@ from model.empresa import Empresa
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("empresa", type=dict, help="Empresa não informada", required=True)
 
 class Cardapios(Resource):
@@ -29,7 +28,7 @@ class Cardapios(Resource):
         codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
         return marshal(codigo, msgError), 404
 
-      cardapio = Cardapio(args['nome'], empresa)
+      cardapio = Cardapio(empresa)
       db.session.add(cardapio)
       db.session.commit()
 
@@ -53,30 +52,6 @@ class CardapioId(Resource):
 
     logger.info(f"Cardápio de id: {id} listado com sucesso")
     return marshal(cardapio, cardapioFields), 200
-
-  def put(self, id):
-    args = parser.parse_args()
-
-    try:
-      cardapioBd = Cardapio.query.get(id)
-      if cardapioBd is None:
-        logger.error(f"Cardápio de id: {id} não encontrado")
-
-        codigo = Message(1, f"Cardápio de id: {id} não encontrado")
-        return marshal(codigo, msgError), 404
-
-      cardapioBd.nome = args['nome']
-
-      db.session.add(cardapioBd)
-      db.session.commit()
-
-      logger.info(f"Cardápio de id: {id} atualizado com sucesso")
-      return marshal(cardapioBd, cardapioFields)
-    except:
-      logger.error("Erro ao atualizar o Cardápio")
-
-      codigo = Message(2, "Erro ao atualizar o Cardápio")
-      return marshal(codigo, msgError), 400
 
   def delete(self, id):
     cardapioBd = Cardapio.query.get(id)
