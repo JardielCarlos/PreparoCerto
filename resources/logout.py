@@ -1,7 +1,7 @@
 from flask_restful import Resource, marshal, reqparse, request
 from model.blackList import BlackList
 from helpers.database import db
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 from jwt import decode
 from datetime import datetime
 from helpers.auth.token_verifier import token_verify
@@ -25,11 +25,11 @@ class Logout(Resource):
             db.session.commit()
 
             codigo = Message(0, "Logout Realizado com sucesso")
-            return marshal(codigo, msgError), 204
+            return marshal(codigo, msgFields), 204
 
         except IndexError:
             codigo = Message(1, "Schema de autenticação nao informado")
-            return marshal(codigo, msgError), 400
+            return marshal(codigo, msgFields), 400
         except:
             codigo = Message(2, "Erro ao fazer logout")
-            return marshal(codigo, msgError), 400
+            return marshal(codigo, msgFields), 400

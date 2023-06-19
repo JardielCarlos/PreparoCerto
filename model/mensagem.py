@@ -1,6 +1,6 @@
 from flask_restful import fields
 
-msgError = {
+msgFields = {
   "codigo": fields.Integer,
   "descricao": fields.String
   }

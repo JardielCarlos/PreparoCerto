@@ -1,31 +1,48 @@
 from flask_restful import Resource, marshal
 
-from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialFields
+from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialTotalFields
 from model.preparacao_ingrediente import PreparacaoIngrediente
-
+from model.modo_preparo import ModoPreparo
+from model.utensilio_preparacao import UtensilioPreparacao
+from model.mensagem import Message, msgFields
+from sqlalchemy.sql.functions import sum
 
 class FichaTecnicaOperacional(Resource):
-    def get(self, id):
-        IngredientePreparacaoBd = PreparacaoIngrediente.query.all()
-        lista = []
-        for i in range(len(IngredientePreparacaoBd)):
-            fichaTecnica = IngredientePreparacaoBd[i]
-            if fichaTecnica.preparacao_id == id:
-                lista.append(fichaTecnica)
-
-        return marshal(lista, fichaTecnicaOperacionalFields), 200
+  def get(self, id):
+    preparacaoIngrediente = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
+    return marshal(preparacaoIngrediente, fichaTecnicaOperacionalFields), 200
 
 
 class FichaTecnicaGerencial(Resource):
-    def get(self, id):
-        IngredientePreparacaoBd = PreparacaoIngrediente.query.all()
-        lista = []
-        total = 0
-        for i in range(len(IngredientePreparacaoBd)):
-            fichaTecnica = IngredientePreparacaoBd[i]
-            if fichaTecnica.preparacao_id == id:
-                total += fichaTecnica.preco
-                lista.append(fichaTecnica)
-        print(total)
+  def get(self, id):
+    preparacaoIngrediente = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
+    modoPreparo = ModoPreparo.query.filter_by(preparacao_id=id).all()
+    preparacaoUtensilio = UtensilioPreparacao.query.filter_by(preparacao_id=id).all()
+    print(preparacaoUtensilio)
 
-        return marshal(lista, fichaTecnicaGerencialFields), 200
+    if preparacaoIngrediente is None:
+      codigo = Message(1, "A preparação não possui ingredientes")
+      return marshal(codigo, msgFields)
+
+    elif modoPreparo is None:
+      codigo = Message(1, "A preparação não possui um modo de preparo")
+      return marshal(codigo, msgFields)
+
+    elif preparacaoUtensilio == []:
+      codigo = Message(1, "A preparação não possui utensilios")
+      return marshal(codigo, msgFields), 404
+
+    valorSugerido = None
+    total = 0
+    for prepIngred in preparacaoIngrediente:
+      total += prepIngred.preco
+
+    data = {
+      "preparacao_ingrediente": preparacaoIngrediente,
+      "preparacao_utensilio": preparacaoUtensilio,
+      "modoPreparo": modoPreparo,
+      "total": total,
+      "valor_sugerido": valorSugerido
+    }
+
+    return marshal(data, fichaTecnicaGerencialTotalFields), 200

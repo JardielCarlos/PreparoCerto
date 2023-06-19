@@ -2,7 +2,7 @@ from flask_restful import Resource, marshal, reqparse
 from model.preparador import Preparador, preparadorFields
 from helpers.database import db
 from helpers.logger import logger
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 from sqlalchemy.exc import IntegrityError
 from model.empresa import Empresa
 
@@ -17,7 +17,7 @@ class Preparadores (Resource):
   def get(self):
     logger.info("Preparadores listados com sucesso")
     return marshal(Preparador.query.all(), preparadorFields), 200
-  
+
   def post(self):
     args = parser.parse_args()
     try:
@@ -27,7 +27,7 @@ class Preparadores (Resource):
         logger.error(f"Empresa de id: {empresaId} não encontrada")
 
         codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
-        return marshal(codigo, msgError), 404
+        return marshal(codigo, msgFields), 404
 
       preparador = Preparador(args['nome'], args['email'], args['senha'], empresa)
 
@@ -36,16 +36,16 @@ class Preparadores (Resource):
 
       logger.info(f"Preparador de id: {preparador.id} criado com sucesso")
       return marshal(preparador, preparadorFields), 201
-    
+
     except IntegrityError:
       codigo = Message(1, "Email ja cadastrado no sistema")
-      return marshal(codigo, msgError)
+      return marshal(codigo, msgFields)
     except:
       logger.error("Erro ao cadastrar o Preparador")
 
       codigo = Message(2, "Erro ao cadastrar o Preparador")
-      return marshal(codigo, msgError), 400
-    
+      return marshal(codigo, msgFields), 400
+
 class PreparadorId(Resource):
   def get(self, id):
     preparador = Preparador.query.get(id)
@@ -54,11 +54,11 @@ class PreparadorId(Resource):
       logger.error(f"Preparador de id: {id} não encontrado")
 
       codigo = Message(1, f"Preparador de id: {id} não encontrado")
-      return marshal(codigo, msgError), 404
-    
+      return marshal(codigo, msgFields), 404
+
     logger.info(f"Preparador de id: {id} listado com sucesso")
     return marshal(preparador, preparadorFields), 200
-  
+
   def put(self, id):
     args = parser.parse_args()
 
@@ -68,8 +68,8 @@ class PreparadorId(Resource):
         logger.error(f"Preparador de id: {id} não encontrado")
 
         codigo = Message(1, f"Preparador de id: {id} não encontrado")
-        return marshal(codigo, msgError), 404
-      
+        return marshal(codigo, msgFields), 404
+
       userBd.nome = args['nome']
       userBd.email = args['email']
       userBd.senha = args['senha']
@@ -83,8 +83,8 @@ class PreparadorId(Resource):
       logger.error("Erro ao atualizar o Preparador")
 
       codigo = Message(2, "Erro ao atualizar o Preparador")
-      return marshal(codigo, msgError), 400
-    
+      return marshal(codigo, msgFields), 400
+
   def delete(self, id):
     userBd = Preparador.query.get(id)
 
@@ -92,7 +92,7 @@ class PreparadorId(Resource):
       logger.error(f"Preparador de id: {id} não encontrado")
 
       codigo = Message(1, f"Preparador de id: {id} não encontrado")
-      return marshal(codigo, msgError), 404
+      return marshal(codigo, msgFields), 404
 
     db.session.delete(userBd)
     db.session.commit()

@@ -1,6 +1,8 @@
-2023-06-19 07:45:52,820 WARNING _internal _log  * Debugger is active!
-2023-06-19 07:45:52,823 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-06-19 07:45:53,222 INFO modo_preparo get Modo de preparo de id: 3 listada com sucesso
-2023-06-19 07:45:53,232 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 07:45:53] "GET /modospreparo/3 HTTP/1.1" 200 -
-2023-06-19 07:45:55,196 ERROR modo_preparo get Modo de preparo de id: 4 nao encontrado
-2023-06-19 07:45:55,197 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 07:45:55] "[33mGET /modospreparo/4 HTTP/1.1[0m" 404 -
+2023-06-19 19:09:52,549 WARNING _internal _log  * Debugger is active!
+2023-06-19 19:09:52,554 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-19 19:09:52,596 INFO utensilio_preparacao get Preparação-Utensilios listados com sucesso
+2023-06-19 19:09:52,762 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 19:09:52] "GET /utensilios_preparacao HTTP/1.1" 200 -
+2023-06-19 19:10:08,605 INFO utensilio_preparacao delete UtensiliosPreparacao de id: 3 deletado com sucesso
+2023-06-19 19:10:08,607 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 19:10:08] "DELETE /utensilios_preparacao/3 HTTP/1.1" 200 -
+2023-06-19 19:10:12,493 INFO utensilio_preparacao get Preparação-Utensilios listados com sucesso
+2023-06-19 19:10:12,504 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 19:10:12] "GET /utensilios_preparacao HTTP/1.1" 200 -
