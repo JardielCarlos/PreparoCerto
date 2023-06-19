@@ -1,0 +1,6 @@
+2023-06-19 07:45:52,820 WARNING _internal _log  * Debugger is active!
+2023-06-19 07:45:52,823 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-19 07:45:53,222 INFO modo_preparo get Modo de preparo de id: 3 listada com sucesso
+2023-06-19 07:45:53,232 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 07:45:53] "GET /modospreparo/3 HTTP/1.1" 200 -
+2023-06-19 07:45:55,196 ERROR modo_preparo get Modo de preparo de id: 4 nao encontrado
+2023-06-19 07:45:55,197 INFO _internal _log 127.0.0.1 - - [19/Jun/2023 07:45:55] "[33mGET /modospreparo/4 HTTP/1.1[0m" 404 -

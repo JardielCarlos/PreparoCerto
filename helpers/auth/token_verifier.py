@@ -11,10 +11,9 @@ from model.blackList import BlackList
 
 from model.mensagem import Message, msgError
 from model.token import Token, tokenFields
-import time
 
 def token_verify(function: callable) -> callable:
-    
+
   @wraps(function)
   def decorated(*args, **kwargs):
     rawToken = request.headers["Authorization"]
@@ -23,7 +22,7 @@ def token_verify(function: callable) -> callable:
 
       codigo = Message(1, "Sem token!")
       return marshal(codigo, msgError), 401
-    
+
     try:
       token = rawToken.split()[1]
       informationToken = decode(token, key="1234", algorithms="HS256")
@@ -32,17 +31,18 @@ def token_verify(function: callable) -> callable:
       token = Token("Token invalido")
       return marshal(token, tokenFields), 401
     
+
     except ExpiredSignatureError:
       token = Token("Token Expirado")
       return marshal(token, tokenFields), 401
-    
+
     except KeyError:
       token = Token("Token com campos faltando")
       return marshal(token, tokenFields), 401
     except IndexError:
       codigo = Message(1, "Schema de autenticação nao informado")
       return marshal(codigo, msgError), 400
-    
+
     blackToken = BlackList.query.filter_by(token=token).first()
 
     if blackToken:
@@ -51,5 +51,5 @@ def token_verify(function: callable) -> callable:
 
     next_token = token_creator.refresh(token)
     return function(*args, tipo, next_token, **kwargs)
-  
+
   return decorated

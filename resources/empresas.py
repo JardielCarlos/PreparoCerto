@@ -119,11 +119,11 @@ class EmpresaId(Resource):
 
             logger.info(f"Empresa de id: {id} atualizada com sucesso")
             return marshal(data, empresaFieldsToken), 200
-        
+
         except IntegrityError:
             codigo = Message(1, "CNPJ ja cadastrado no sistema")
             return marshal(codigo, msgError)
-        
+
         except:
             logger.error("Error ao atualizar a empresa")
 
