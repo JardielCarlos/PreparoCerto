@@ -1,5 +1,5 @@
 from flask_restful import Resource, marshal
-                                                 
+
 from model.ficha_tecnica import fichaTecnicaOperacionalFields, fichaTecnicaGerencialFields, fichaTecnicaGerencialTotalFields
 from model.preparacao_ingrediente import PreparacaoIngrediente
 
