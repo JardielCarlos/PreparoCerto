@@ -1,9 +1,9 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
-from model.proprietario import Proprietario 
+from model.proprietario import Proprietario
 from model.usuario import userFields
 from helpers.logger import logger
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 from sqlalchemy.exc import IntegrityError
 
 parser = reqparse.RequestParser()
@@ -16,7 +16,7 @@ class Proprietarios(Resource):
   def get(self):
     logger.info("Proprietários listados com sucesso")
     return marshal(Proprietario.query.all(), userFields), 200
-  
+
   def post(self):
     args = parser.parse_args()
 
@@ -28,16 +28,16 @@ class Proprietarios(Resource):
 
       logger.info(f"Proprietário de id: {proprietario.id} criado com sucesso")
       return marshal(proprietario, userFields), 201
-    
+
     except IntegrityError:
       codigo = Message(1, "Email ja cadastrado no sistema")
-      return marshal(codigo, msgError)
+      return marshal(codigo, msgFields)
     except:
       logger.error("Error ao cadastrar o Proprietário")
 
       codigo = Message(2, "Error ao cadastrar o Proprietário")
-      return marshal(codigo, msgError), 400
-  
+      return marshal(codigo, msgFields), 400
+
 class ProprietarioId(Resource):
   def get(self, id):
     proprietario = Proprietario.query.get(id)
@@ -46,11 +46,11 @@ class ProprietarioId(Resource):
       logger.error(f"Proprietário de id: {id} não encontrado")
 
       codigo = Message(1, f"Proprietário de id: {id} não encontrado")
-      return marshal(codigo, msgError), 404
-    
+      return marshal(codigo, msgFields), 404
+
     logger.info(f"Proprietário de id: {proprietario.id} listado com Sucesso")
     return marshal(proprietario, userFields), 200
-  
+
   def put(self, id):
     args = parser.parse_args()
 
@@ -61,24 +61,24 @@ class ProprietarioId(Resource):
         logger.error(f"Proprietário de id: {id} não encontrado")
 
         codigo = Message(1, f"Proprietário de id: {id} não encontrado")
-        return marshal(codigo, msgError), 404
-      
+        return marshal(codigo, msgFields), 404
+
       userBd.nome = args["nome"]
       userBd.email = args["email"]
       userBd.senha = args["senha"]
 
       db.session.add(userBd)
       db.session.commit()
-      
+
       logger.info(f"Proprietário de id: {id} atualizado com Sucesso")
       return marshal(userBd, userFields), 200
-    
+
     except:
       logger.error("Error ao atualizar o Proprietário")
 
       codigo = Message(2, "Error ao atualizar o Proprietario")
-      return marshal(codigo, msgError), 400
-  
+      return marshal(codigo, msgFields), 400
+
   def delete(self, id):
 
     userBd = Proprietario.query.get(id)
@@ -87,10 +87,10 @@ class ProprietarioId(Resource):
       logger.error(f"Proprietário de id: {id} não encontrado")
 
       codigo = Message(1, f"Proprietário de id: {id} não encontrado")
-      return marshal(codigo, msgError), 404
+      return marshal(codigo, msgFields), 404
 
     db.session.delete(userBd)
     db.session.commit()
-    
+
     logger.info(f"Proprietário de id: {id} deletado com sucesso")
     return {}, 200
