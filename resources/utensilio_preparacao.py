@@ -1,11 +1,12 @@
 from flask_restful import Resource, marshal, reqparse
 from helpers.database import db
 from helpers.logger import logger
+
 from model.mensagem import Message, msgFields
 
 from model.utensilio_preparacao import UtensilioPreparacao, utensilioPreparacaoFields
-from model.utensilio import Utensilio, utensilioFields
-from model.preparacao import Preparacao, preparacaoFields
+from model.utensilio import Utensilio
+from model.preparacao import Preparacao
 
 parser = reqparse.RequestParser()
 
