@@ -35,6 +35,21 @@ class Preparadores (Resource):
 
     try:
 
+      if len(args['nome']) == 0:
+        logger.info("Nome nao informado")
+
+        codigo = Message(1, "Nome nao informado")
+        return marshal(codigo, msgFields), 400
+
+      if re.match(padrao_email, args['email']) == None:
+        codigo = Message(1, "Email no formato errado")
+        return marshal(codigo, msgFields), 400
+
+      verifySenha = policy.test(args['senha'])
+      if len(verifySenha) != 0:
+        codigo = Message(1, "Senha no formato errado")
+        return marshal(codigo, msgFields), 400
+
       if args['empresa'] == None:
         logger.info("Empresa não informada")
         codigo = Message(1, "Empresa não informada")
@@ -49,14 +64,6 @@ class Preparadores (Resource):
         codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
         return marshal(codigo, msgFields), 404
 
-      if re.match(padrao_email, args['email']) == None:
-        codigo = Message(1, "Email no formato errado")
-        return marshal(codigo, msgFields), 400
-
-      verifySenha = policy.test(args['senha'])
-      if len(verifySenha) != 0:
-        codigo = Message(1, "Senha no formato errado")
-        return marshal(codigo, msgFields), 400
 
       preparador = Preparador(args['nome'], args['email'], args['senha'], empresa)
 
