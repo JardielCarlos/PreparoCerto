@@ -33,11 +33,11 @@ class Gestores(Resource):
     args = parser.parse_args()
     try:
       empresa= Empresa.query.get(args['empresa']['id'])
-      if empresa is None:
-        logger.error("Empresa não encontrada")
+      if len(args['nome']) == 0:
+        logger.info("Nome nao informado")
 
-        codigo = Message(1, 'Empresa não encontrada')
-        return marshal(codigo, msgFields), 404
+        codigo = Message(1, "Nome nao informado")
+        return marshal(codigo, msgFields), 400
 
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
@@ -47,6 +47,12 @@ class Gestores(Resource):
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
         return marshal(codigo, msgFields), 400
+
+      if empresa is None:
+        logger.error("Empresa não encontrada")
+
+        codigo = Message(1, 'Empresa não encontrada')
+        return marshal(codigo, msgFields), 404
 
       gestor = Gestor(args['nome'], args["email"], args['senha'], empresa)
 
