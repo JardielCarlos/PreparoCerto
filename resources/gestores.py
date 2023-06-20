@@ -16,6 +16,14 @@ parser.add_argument("email", type=str, help="Email não informado", required=Tru
 parser.add_argument("senha", type=str, help="Senha não informada", required=True)
 parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False)
 
+padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+policy = PasswordPolicy.from_names(
+  length =8,
+  uppercase = 1,
+  numbers=1,
+  special=1
+)
+
 class Gestores(Resource):
   def get(self):
     logger.info("Gestores listados com sucesso")
@@ -23,14 +31,7 @@ class Gestores(Resource):
 
   def post(self):
     args = parser.parse_args()
-
-    padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    policy = PasswordPolicy.from_names(
-      length =8,
-    )
-
     try:
-
       empresa= Empresa.query.get(args['empresa']['id'])
       if empresa is None:
         logger.error("Empresa não encontrada")
@@ -84,11 +85,6 @@ class GestorId(Resource):
 
   def put(self, id):
     args = parser.parse_args()
-
-    padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
-    policy = PasswordPolicy.from_names(
-      length =8
-    )
 
     try:
       userBd = Gestor.query.get(id)

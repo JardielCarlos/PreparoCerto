@@ -1,17 +1,29 @@
 from flask_restful import Resource, marshal, reqparse
-from model.preparador import Preparador, preparadorFields
 from helpers.database import db
 from helpers.logger import logger
-from model.mensagem import Message, msgFields
 from sqlalchemy.exc import IntegrityError
+
+from model.preparador import Preparador, preparadorFields
+from model.mensagem import Message, msgFields
 from model.empresa import Empresa
+
+from password_strength import PasswordPolicy
+import re
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("email", type=str, help="Email não informado", required=True)
 parser.add_argument("senha", type=str, help="Senha não informada", required=True)
-parser.add_argument("empresa", type=dict, help="Empresa não informada", required=True)
+parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False)
+
+padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+policy = PasswordPolicy.from_names(
+  length =8,
+  uppercase = 1,
+  numbers=1,
+  special=1
+)
 
 class Preparadores (Resource):
   def get(self):
@@ -20,14 +32,31 @@ class Preparadores (Resource):
 
   def post(self):
     args = parser.parse_args()
+
     try:
-      empresaId = args['empresa']
+
+      if args['empresa'] == None:
+        logger.info("Empresa não informada")
+        codigo = Message(1, "Empresa não informada")
+        return marshal(codigo, msgFields), 400
+
+      empresaId = args['empresa']['id']
       empresa = Empresa.query.get(empresaId)
+
       if empresa is None:
         logger.error(f"Empresa de id: {empresaId} não encontrada")
 
         codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
         return marshal(codigo, msgFields), 404
+
+      if re.match(padrao_email, args['email']) == None:
+        codigo = Message(1, "Email no formato errado")
+        return marshal(codigo, msgFields), 400
+
+      verifySenha = policy.test(args['senha'])
+      if len(verifySenha) != 0:
+        codigo = Message(1, "Senha no formato errado")
+        return marshal(codigo, msgFields), 400
 
       preparador = Preparador(args['nome'], args['email'], args['senha'], empresa)
 
@@ -39,7 +68,8 @@ class Preparadores (Resource):
 
     except IntegrityError:
       codigo = Message(1, "Email ja cadastrado no sistema")
-      return marshal(codigo, msgFields)
+      return marshal(codigo, msgFields), 400
+
     except:
       logger.error("Erro ao cadastrar o Preparador")
 
@@ -70,6 +100,15 @@ class PreparadorId(Resource):
         codigo = Message(1, f"Preparador de id: {id} não encontrado")
         return marshal(codigo, msgFields), 404
 
+      if re.match(padrao_email, args['email']) == None:
+        codigo = Message(1, "Email no formato errado")
+        return marshal(codigo, msgFields), 400
+
+      verifySenha = policy.test(args['senha'])
+      if len(verifySenha) != 0:
+        codigo = Message(1, "Senha no formato errado")
+        return marshal(codigo, msgFields), 400
+
       userBd.nome = args['nome']
       userBd.email = args['email']
       userBd.senha = args['senha']
@@ -79,6 +118,7 @@ class PreparadorId(Resource):
 
       logger.info(f"Preparador de id: {id} atualizado com sucesso")
       return marshal(userBd, preparadorFields)
+
     except:
       logger.error("Erro ao atualizar o Preparador")
 
