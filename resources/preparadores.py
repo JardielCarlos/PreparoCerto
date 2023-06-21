@@ -15,7 +15,7 @@ parser = reqparse.RequestParser()
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("email", type=str, help="Email não informado", required=True)
 parser.add_argument("senha", type=str, help="Senha não informada", required=True)
-# parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False)
+parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False)
 
 padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 policy = PasswordPolicy.from_names(
@@ -46,24 +46,23 @@ class Preparadores (Resource):
         return marshal(codigo, msgFields), 400
 
       verifySenha = policy.test(args['senha'])
-      empresa =None
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
         return marshal(codigo, msgFields), 400
 
-      # if args['empresa'] == None:
-      #   logger.info("Empresa não informada")
-      #   codigo = Message(1, "Empresa não informada")
-      #   return marshal(codigo, msgFields), 400
+      if args['empresa'] == None:
+        logger.info("Empresa não informada")
+        codigo = Message(1, "Empresa não informada")
+        return marshal(codigo, msgFields), 400
 
-      # empresaId = args['empresa']['id']
-      # empresa = Empresa.query.get(empresaId)
+      empresaId = args['empresa']['id']
+      empresa = Empresa.query.get(empresaId)
 
-      # if empresa is None:
-      #   logger.error(f"Empresa de id: {empresaId} não encontrada")
+      if empresa is None:
+        logger.error(f"Empresa de id: {empresaId} não encontrada")
 
-      #   codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
-      #   return marshal(codigo, msgFields), 404
+        codigo = Message(1, f"Empresa de id: {empresaId} não encontrada")
+        return marshal(codigo, msgFields), 404
 
 
       preparador = Preparador(args['nome'], args['email'], args['senha'], empresa)

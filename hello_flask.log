@@ -1,44 +1,13 @@
-2023-06-21 13:46:03,139 WARNING _internal _log  * Debugger is active!
-2023-06-21 13:46:03,144 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-06-21 13:46:27,528 INFO preparadores get Preparadores listados com sucesso
-2023-06-21 13:46:27,913 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:46:27] "GET /preparadores HTTP/1.1" 200 -
-2023-06-21 13:47:21,217 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:47:21] "OPTIONS /empresas HTTP/1.1" 200 -
-2023-06-21 13:47:21,483 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:47:21] "[31m[1mGET /empresas HTTP/1.1[0m" 401 -
-2023-06-21 13:47:23,339 INFO gestores get Gestores listados com sucesso
-2023-06-21 13:47:23,360 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:47:23] "GET /gestor HTTP/1.1" 200 -
-2023-06-21 13:47:24,890 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:47:24] "[31m[1mGET /empresas HTTP/1.1[0m" 401 -
-2023-06-21 13:47:29,722 INFO gestores get Gestores listados com sucesso
-2023-06-21 13:47:29,735 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:47:29] "GET /gestor HTTP/1.1" 200 -
-2023-06-21 13:47:31,373 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:47:31] "OPTIONS /empresas HTTP/1.1" 200 -
-2023-06-21 13:47:31,643 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:47:31] "[31m[1mGET /empresas HTTP/1.1[0m" 401 -
-2023-06-21 13:51:04,309 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:51:04] "[33mPOST /login HTTP/1.1[0m" 404 -
-2023-06-21 13:51:28,300 INFO proprietarios get Proprietários listados com sucesso
-2023-06-21 13:51:28,308 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:51:28] "GET /proprietarios HTTP/1.1" 200 -
-2023-06-21 13:51:31,203 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:51:31] "GET /proprietario/1?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
-2023-06-21 13:51:31,217 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:51:31] "GET /proprietario/1?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
-2023-06-21 13:51:31,375 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:51:31] "GET /proprietario/1?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
-2023-06-21 13:51:32,201 INFO proprietarios delete Proprietário de id: 17 deletado com sucesso
-2023-06-21 13:51:32,203 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:51:32] "DELETE /proprietario/17 HTTP/1.1" 200 -
-2023-06-21 13:51:49,450 INFO proprietarios post Proprietário de id: 20 criado com sucesso
-2023-06-21 13:51:49,451 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:51:49] "[35m[1mPOST /proprietarios HTTP/1.1[0m" 201 -
-2023-06-21 13:52:10,209 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:52:10] "POST /login HTTP/1.1" 200 -
-2023-06-21 13:52:33,055 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:52:33] "OPTIONS /empresas HTTP/1.1" 200 -
-2023-06-21 13:52:33,331 INFO empresas get Empresas listadas com Sucesso
-2023-06-21 13:52:33,336 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:52:33] "GET /empresas HTTP/1.1" 200 -
-2023-06-21 13:53:27,324 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:53:27] "OPTIONS /empresas HTTP/1.1" 200 -
-2023-06-21 13:53:27,635 INFO empresas get Empresas listadas com Sucesso
-2023-06-21 13:53:27,638 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:53:27] "GET /empresas HTTP/1.1" 200 -
-2023-06-21 13:53:45,468 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:53:45] "OPTIONS /empresas HTTP/1.1" 200 -
-2023-06-21 13:53:45,782 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:53:45] "[31m[1mPOST /empresas HTTP/1.1[0m" 401 -
-2023-06-21 13:54:02,063 INFO proprietarios get Proprietários listados com sucesso
-2023-06-21 13:54:02,069 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:54:02] "GET /proprietarios HTTP/1.1" 200 -
-2023-06-21 13:54:30,546 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:54:30] "OPTIONS /empresas HTTP/1.1" 200 -
-2023-06-21 13:54:30,861 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:54:30] "[31m[1mPOST /empresas HTTP/1.1[0m" 401 -
-2023-06-21 13:55:37,604 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:37] "OPTIONS /empresas HTTP/1.1" 200 -
-2023-06-21 13:55:37,887 INFO empresas post Empresa de id: 7 criada com sucesso
-2023-06-21 13:55:37,892 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:37] "[35m[1mPOST /empresas HTTP/1.1[0m" 201 -
-2023-06-21 13:55:42,090 INFO empresas get Empresas listadas com Sucesso
-2023-06-21 13:55:42,096 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:42] "GET /empresas HTTP/1.1" 200 -
-2023-06-21 13:55:47,079 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:47] "OPTIONS /empresas/7 HTTP/1.1" 200 -
-2023-06-21 13:55:47,343 INFO empresas delete Empresa de id: 7 deletada com sucesso
-2023-06-21 13:55:47,345 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:47] "DELETE /empresas/7 HTTP/1.1" 200 -
+2023-06-21 14:09:37,469 WARNING _internal _log  * Debugger is active!
+2023-06-21 14:09:37,478 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-21 14:10:12,732 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:10:12] "[33mGET /empresa HTTP/1.1[0m" 404 -
+2023-06-21 14:10:15,421 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:10:15] "[31m[1mGET /empresas HTTP/1.1[0m" 401 -
+2023-06-21 14:10:23,760 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:10:23] "POST /login HTTP/1.1" 200 -
+2023-06-21 14:10:40,187 INFO empresas get Empresas listadas com Sucesso
+2023-06-21 14:10:40,200 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:10:40] "GET /empresas HTTP/1.1" 200 -
+2023-06-21 14:10:57,401 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:10:57] "OPTIONS /empresas HTTP/1.1" 200 -
+2023-06-21 14:10:57,670 INFO empresas get Empresas listadas com Sucesso
+2023-06-21 14:10:57,674 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:10:57] "GET /empresas HTTP/1.1" 200 -
+2023-06-21 14:11:43,529 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:11:43] "[31m[1mPOST /empresas HTTP/1.1[0m" 401 -
+2023-06-21 14:11:51,082 INFO empresas post Empresa de id: 9 criada com sucesso
+2023-06-21 14:11:51,090 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:11:51] "[35m[1mPOST /empresas HTTP/1.1[0m" 201 -
