@@ -48,13 +48,13 @@ class ModosPreparoId(Resource):
 
   def get(self, preparacao_id):
      
-    modopreparo = ModoPreparo.query.filter_by(preparacao_id=preparacao_id, is_deleted=False).order_by(criacao)
+    modopreparo = ModoPreparo.query.filter_by(preparacao_id=preparacao_id, is_deleted=False).order_by('criacao')
 
     if modopreparo is None:
       logger.error(f"Preparacao de id: {id} nao encontrada")
 
       codigo = Message(1, f"Preparacao de id: {id} nao encontrada")
-      return marshal(codigo, msgError), 404
+      return marshal(codigo, msgFields), 404
 
     logger.info(f"Preparacao de id: {id} listada com sucesso")
     return marshal(modopreparo, modoPreparoFields), 200

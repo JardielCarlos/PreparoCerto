@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from helpers.database import db, migrate
 from helpers.configCORS import cors
+
 from resources.preparadores import Preparadores, PreparadorId
 from resources.gestores import Gestores, GestorId
 from resources.ingredientes import Ingredientes, IngredienteId
@@ -70,7 +71,7 @@ api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
 api.add_resource(FichaTecnicaOperacional, '/fichatecnicaoperacional/<int:id>')
 
 #Ficha Tecnica Gerencial
-api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>/<int:perImposto>/<int:perLucro>')
+api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>')
 
 #Unidade Medida
 api.add_resource(Unidade, '/unidade')

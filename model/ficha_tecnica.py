@@ -6,7 +6,7 @@ from model.preparacao import preparacaoFields
 from model.utensilio_preparacao import utensilioPreparacaoFields
 from model.modo_preparo import modoPreparoFields
 
-preparacaoIngredienteOperacionalFields = {
+ingredienteOperacionalFields = {
     'id': fields.Integer,
     'ingrediente': fields.Nested(ingredienteFields),
     'preparacao': fields.Nested(preparacaoFields),
@@ -18,7 +18,7 @@ preparacaoIngredienteOperacionalFields = {
     'medidaCaseira': fields.Nested(medidaCaseiraFields)
     }
 
-preparacaoIngredienteGerencialFields = {
+ingredienteGerencialFields = {
     'id': fields.Integer,
     'ingrediente': fields.Nested(ingredienteFields),
     'preparacao': fields.Nested(preparacaoFields),
@@ -28,13 +28,15 @@ preparacaoIngredienteGerencialFields = {
 }
 
 fichaTecnicaOperacionalFields = {
-    'preparacao_ingrediente': fields.Nested(preparacaoIngredienteOperacionalFields),
+    'ingredientes': fields.Nested(ingredienteOperacionalFields),
     'modoPreparo': fields.Nested(modoPreparoFields),
-    'preparacao_utensilio': fields.Nested(utensilioPreparacaoFields)
+    'utensilios': fields.Nested(utensilioPreparacaoFields)
 }
 
 fichaTecnicaGerencialFields = {
-    'preparacao_ingrediente': fields.Nested(preparacaoIngredienteGerencialFields),
+    'ingredientes': fields.Nested(ingredienteGerencialFields),
+    'numPorcoes': fields.Float,
     'total': fields.Float,
+    'valorPorcao': fields.Float,
     'valorSugerido': fields.Float
 }

@@ -122,7 +122,7 @@ class CardapioPreapracaoId(Resource):
       codigo = Message(1, f"Cardápio-Preparação de id: {id} não encontrado")
       return marshal(codigo, msgFields), 404
 
-    db.session.add(cardapioPreparacao)
+    db.session.delete(cardapioPreparacao)
     db.session.commit()
 
     logger.info(f"Cardápio-Preparação de id: {id} deletado com sucesso")
