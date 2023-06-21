@@ -3,7 +3,7 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgFields
 
-from model.preparacao_ingrediente import PreparacaoIngrediente, preparacaoIngredienteFields
+from model.preparacao_ingrediente import PreparacaoIngrediente, preparacaoIngredienteFields, ingredientesFields
 from model.ingrediente import Ingrediente
 from model.preparacao import Preparacao
 from model.unidade_medida import UnidadeMedida
@@ -77,15 +77,23 @@ class PreparacaoIngredientes(Resource):
 
 class PreparacaoIngredientesId(Resource):
     def get(self, id):
+        preparacao = Preparacao.query.get(id)
+        ingredientes = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
+        print(ingredientes)
 
-        preparacaoIngrediente = PreparacaoIngrediente.query.get(id)
+        if preparacao is None:
+            logger.error(f"Preparação de id: {id} não encontrada")
 
-        if preparacaoIngrediente is None:
-            codigo = Message(1, f"Preparação-Ingrediente de id: {id} não encontrado")
+            codigo = Message(1, f"Preparação de id: {id} não encontrada")
             return marshal(codigo, msgFields), 404
 
-        logger.info("Preparação-Ingrediente listadas com sucesso")
-        return marshal(PreparacaoIngrediente.query.get(id), preparacaoIngredienteFields), 200
+        elif ingredientes == []:
+            logger.error(f"A preparação de id: {id} não possui ingredientes cadastrados")
+
+            codigo = Message(1, f"A preparação de id: {id} não possui ingredientes cadastrados")
+            return marshal(codigo, msgFields), 404
+
+        return marshal(ingredientes, ingredientesFields), 200
 
     def put(self, id):
         args = parser.parse_args()

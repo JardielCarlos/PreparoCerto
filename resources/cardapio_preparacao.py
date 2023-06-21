@@ -3,7 +3,7 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgFields
 
-from model.cardapio_preparacao import CardapioPreparacao, cardapioPreparacaoFields
+from model.cardapio_preparacao import CardapioPreparacao, cardapioPreparacaoFields, preparacoesFields
 from model.cardapio import Cardapio
 from model.preparacao import Preparacao
 
@@ -51,14 +51,22 @@ class CardapioPreapracoes(Resource):
 
 class CardapioPreapracaoId(Resource):
   def get(self, id):
-    cardapioPreparacao = CardapioPreparacao.query.get(id)
-    if cardapioPreparacao is None:
-      logger.error(f"Cardápio-Preparação de id: {id} nao informado")
+    cardapio = Cardapio.query.get(id)
+    preparacoes = CardapioPreparacao.query.filter_by(cardapio_id=id).all()
 
-      codigo = Message(1, f"Cardápio-Preparação de id: {id} nao informado")
+    if cardapio is None:
+      logger.error(f"Cardápio de id: {id} não encontrado")
+
+      codigo = Message(1, f"Cardápio de id: {id} não encontrado")
       return marshal(codigo, msgFields), 404
 
-    return marshal(cardapioPreparacao, cardapioPreparacaoFields),200
+    elif preparacoes == []:
+      logger.error(f"O cardápio de id: {id} não possui preparações cadastradas")
+
+      codigo = Message(1, f"O cardápio de id: {id} não possui preparações cadastradas")
+      return marshal(codigo, msgFields), 404
+
+    return marshal(preparacoes, preparacoesFields), 200
 
   def put(self, id):
     args = parser.parse_args()
