@@ -10,6 +10,10 @@ modoPreparoFields = {
   "preparacao": fields.Nested(preparacaoFields)
 }
 
+modoPreparoFichaTecnicaFields = {
+  "id": fields.Integer,
+  "text": fields.String,
+}
 
 class ModoPreparo(db.Model):
   __tablename__ = "tb_modopreparo"
