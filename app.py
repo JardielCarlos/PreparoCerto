@@ -36,7 +36,7 @@ api.add_resource(GestorId, '/gestor/<int:id>')
 
 #Preparador
 api.add_resource(Preparadores, '/preparadores')
-api.add_resource(PreparadorId, '/preparador/<int:id>')
+api.add_resource(PreparadorId, '/preparadores/<int:id>')
 
 #Ingrediente
 api.add_resource(Ingredientes, '/ingredientes')
