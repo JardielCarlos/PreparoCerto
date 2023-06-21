@@ -1,8 +1,8 @@
-"""atualizando tabelas - rodrigo
+"""empty message
 
-Revision ID: 1bce3ee20b7c
+Revision ID: 5b913f67858e
 Revises: 
-Create Date: 2023-06-21 10:17:06.541033
+Create Date: 2023-06-21 14:21:42.004991
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1bce3ee20b7c'
+revision = '5b913f67858e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -87,6 +87,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('nome', sa.String(), nullable=False),
     sa.Column('criacao', sa.DateTime(), nullable=True),
+    sa.Column('numPorcoes', sa.Float(), nullable=False),
     sa.Column('empresa_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['empresa_id'], ['tb_empresa.id'], ),
     sa.PrimaryKeyConstraint('id')

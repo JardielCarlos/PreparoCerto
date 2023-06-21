@@ -24,22 +24,29 @@ class FichaTecnicaOperacional(Resource):
     modoPreparo = ModoPreparo.query.filter_by(preparacao_id=id).all()
     preparacaoUtensilio = UtensilioPreparacao.query.filter_by(preparacao_id=id).all()
 
+    preparacao = Preparacao.query.get(id)
+
     if preparacaoIngrediente == []:
       codigo = Message(1, "A preparação não possui nenhum ingrediente cadastrado")
-      return marshal(codigo, msgFields)
+      return marshal(codigo, msgFields), 404
 
-    elif modoPreparo is None:
+    elif modoPreparo == []:
       codigo = Message(1, "A preparação não possui um modo de preparo")
-      return marshal(codigo, msgFields)
+      return marshal(codigo, msgFields), 404
 
     elif preparacaoUtensilio == []:
       codigo = Message(1, "A preparação não possui utensilios")
       return marshal(codigo, msgFields), 404
-    
+
+    elif preparacao is None:
+      codigo = Message(1, f"Preparação de id: {id} não encontrada")
+      return marshal(codigo, msgFields), 404
+
     data = {
       "ingredientes": preparacaoIngrediente,
       "modoPreparo": modoPreparo,
-      "utensilios": preparacaoUtensilio
+      "utensilios": preparacaoUtensilio,
+      "numPorcoes": preparacao.numPorcoes
     }
 
     return marshal(data, fichaTecnicaOperacionalFields), 200
@@ -53,12 +60,16 @@ class FichaTecnicaGerencial(Resource):
 
     if preparacaoIngrediente == []:
       codigo = Message(1, "A preparação não possui nenhum ingrediente cadastrado")
-      return marshal(codigo, msgFields)
-    
+      return marshal(codigo, msgFields), 404
+
+    elif preparacao is None:
+      codigo = Message(1, f"Preparação de id: {id} não encontrada")
+      return marshal(codigo, msgFields), 404
+
     total = 0
     for prepIngred in preparacaoIngrediente:
       total += prepIngred.preco
-    
+
     valorPorcao = total / preparacao.numPorcoes
 
     valorSugerido = calcularValorSugerido(valorPorcao, args['perImposto'], args['perLucro'])
