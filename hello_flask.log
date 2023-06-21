@@ -1,4 +1,2 @@
-2023-06-20 22:44:10,622 INFO _internal _log [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on http://127.0.0.1:5000
-2023-06-20 22:44:10,701 INFO _internal _log [33mPress CTRL+C to quit[0m
-2023-06-20 22:44:15,530 INFO _internal _log 127.0.0.1 - - [20/Jun/2023 22:44:15] "GET /fichatecnicagerencial/1/25/50 HTTP/1.1" 200 -
+2023-06-20 08:05:15,552 WARNING _internal _log  * Debugger is active!
+2023-06-20 08:05:15,555 INFO _internal _log  * Debugger PIN: 932-881-758
