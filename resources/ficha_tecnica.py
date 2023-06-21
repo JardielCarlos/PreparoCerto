@@ -10,6 +10,7 @@ from model.mensagem import Message, msgFields
 from helpers.functions.calcularValorSugerido import calcularValorSugerido
 
 from sqlalchemy.sql.functions import sum
+from helpers.functions.calcularValorSugerido import calcularValorSugerido
 
 parser = reqparse.RequestParser()
 

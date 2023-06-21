@@ -23,7 +23,7 @@ from resources.modo_preparo import ModosPreparo, ModosPreparoId
 from resources.usuario import Usuarios
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/PreparoCerto"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -32,12 +32,12 @@ migrate.__init__(app, db)
 api = Api(app)
 
 #Gestor
-api.add_resource(Gestores, '/gestores')
+api.add_resource(Gestores, '/gestor')
 api.add_resource(GestorId, '/gestor/<int:id>')
 
 #Preparador
 api.add_resource(Preparadores, '/preparadores')
-api.add_resource(PreparadorId, '/preparador/<int:id>')
+api.add_resource(PreparadorId, '/preparadores/<int:id>')
 
 #Ingrediente
 api.add_resource(Ingredientes, '/ingredientes')
@@ -45,7 +45,7 @@ api.add_resource(IngredienteId, '/ingrediente/<int:id>')
 
 #Empresa
 api.add_resource(Empresas, '/empresas')
-api.add_resource(EmpresaId, '/empresa/<int:id>')
+api.add_resource(EmpresaId, '/empresas/<int:id>')
 
 #Proprietario
 api.add_resource(Proprietarios, '/proprietarios')

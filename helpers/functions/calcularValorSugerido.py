@@ -1,4 +1,3 @@
-
 def calcularValorSugerido(custoPreparacao,perImposto,perLucro):
 
     imposto = custoPreparacao * (perImposto / 100)
