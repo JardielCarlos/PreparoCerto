@@ -6,6 +6,7 @@ from model.empresa import empresaFields
 preparacaoFields = {
     'id': fields.Integer,
     'nome': fields.String,
+    'numPorcoes': fields.Float,
     "criacao": fields.DateTime,
     'empresa': fields.Nested(empresaFields)
 }
@@ -17,13 +18,15 @@ class Preparacao(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String, nullable=False)
     criacao = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    numPorcoes = db.Column(db.Float, nullable=False)
     empresa_id = db.Column(db.Integer, db.ForeignKey("tb_empresa.id"))
 
     # Empresa
     empresa = db.relationship("Empresa", uselist=False)
 
-    def __init__(self, nome, empresa):
+    def __init__(self, nome, numPorcoes, empresa ):
         self.nome = nome
+        self.numPorcoes = numPorcoes
         self.empresa = empresa
 
     def __repr__(self):
