@@ -6,6 +6,7 @@ from model.modo_preparo import ModoPreparo
 from model.utensilio_preparacao import UtensilioPreparacao
 from model.mensagem import Message, msgFields
 from sqlalchemy.sql.functions import sum
+from helpers.functions.calcularValorSugerido import calcularValorSugerido
 
 class FichaTecnicaOperacional(Resource):
   def get(self, id):
@@ -14,7 +15,7 @@ class FichaTecnicaOperacional(Resource):
 
 
 class FichaTecnicaGerencial(Resource):
-  def get(self, id):
+  def get(self, id, perImposto, perLucro):
     preparacaoIngrediente = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
     modoPreparo = ModoPreparo.query.filter_by(preparacao_id=id).all()
     preparacaoUtensilio = UtensilioPreparacao.query.filter_by(preparacao_id=id).all()
@@ -32,17 +33,17 @@ class FichaTecnicaGerencial(Resource):
       codigo = Message(1, "A preparação não possui utensilios")
       return marshal(codigo, msgFields), 404
 
-    valorSugerido = None
     total = 0
     for prepIngred in preparacaoIngrediente:
       total += prepIngred.preco
+    valorSugerido = calcularValorSugerido(total,perImposto,perLucro)
 
     data = {
       "preparacao_ingrediente": preparacaoIngrediente,
       "preparacao_utensilio": preparacaoUtensilio,
       "modoPreparo": modoPreparo,
       "total": total,
-      "valor_sugerido": valorSugerido
+      "valorSugerido": valorSugerido
     }
 
     return marshal(data, fichaTecnicaGerencialTotalFields), 200

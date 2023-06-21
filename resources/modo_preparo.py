@@ -32,11 +32,11 @@ class ModosPreparo(Resource):
           db.session.add(modoPreparo)
           db.session.commit()
 
-          logger.info(f"Medida Caseira de id: {modoPreparo.id} criado com sucesso")
+          logger.info(f"Modo Preparo de id: {modoPreparo.id} criado com sucesso")
           return marshal(modoPreparo, modoPreparoFields), 201
         except KeyError:
-            logger.error("Id da empresa não informado")
-            codigo = Message(1, f"Id da empresa não informado")
+            logger.error("Id da preparacao não informado")
+            codigo = Message(1, f"Id da preparacao não informado")
             return marshal(codigo, msgFields), 400
         except:
             logger.error("Error ao cadastrar Modo de preparo")

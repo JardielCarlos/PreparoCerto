@@ -22,7 +22,7 @@ from resources.modo_preparo import ModosPreparo, ModosPreparoId
 from resources.usuario import Usuarios
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -31,7 +31,7 @@ migrate.__init__(app, db)
 api = Api(app)
 
 #Gestor
-api.add_resource(Gestores, '/gestor')
+api.add_resource(Gestores, '/gestores')
 api.add_resource(GestorId, '/gestor/<int:id>')
 
 #Preparador
@@ -70,7 +70,7 @@ api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
 api.add_resource(FichaTecnicaOperacional, '/fichatecnicaoperacional/<int:id>')
 
 #Ficha Tecnica Gerencial
-api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>')
+api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>/<int:perImposto>/<int:perLucro>')
 
 #Unidade Medida
 api.add_resource(Unidade, '/unidade')
@@ -96,6 +96,8 @@ api.add_resource(ModosPreparoId, '/modospreparo/<int:preparacao_id>')
 
 #Usuario
 api.add_resource(Usuarios, '/usuarios')
+
+#UtensiliosPreparacao
 api.add_resource(UtensiliosPreparacao, '/utensilios_preparacao')
 api.add_resource(UtensiliosPreparacaoId, '/utensilios_preparacao/<int:id>')
 

@@ -21,7 +21,7 @@ class Preparadores (Resource):
   def post(self):
     args = parser.parse_args()
     try:
-      empresaId = args['empresa']
+      empresaId = args['empresa']['id']
       empresa = Empresa.query.get(empresaId)
       if empresa is None:
         logger.error(f"Empresa de id: {empresaId} não encontrada")
