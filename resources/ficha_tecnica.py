@@ -6,6 +6,7 @@ from model.modo_preparo import ModoPreparo
 from model.utensilio_preparacao import UtensilioPreparacao
 from model.mensagem import Message, msgFields
 from sqlalchemy.sql.functions import sum
+from helpers.functions.calcularValorSugerido import calcularValorSugerido
 
 class FichaTecnicaOperacional(Resource):
   def get(self, id):

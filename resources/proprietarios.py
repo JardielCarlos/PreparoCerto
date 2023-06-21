@@ -5,12 +5,22 @@ from model.usuario import userFields
 from helpers.logger import logger
 from model.mensagem import Message, msgFields
 from sqlalchemy.exc import IntegrityError
+from password_strength import PasswordPolicy
+import re
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("email", type=str, help="Email não informado", required=True)
 parser.add_argument("senha", type=str, help="Senha não informado", required=True)
+
+padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+policy = PasswordPolicy.from_names(
+  length =8,
+  uppercase = 1,
+  numbers=1,
+  special=1
+)
 
 class Proprietarios(Resource):
   def get(self):
@@ -21,6 +31,21 @@ class Proprietarios(Resource):
     args = parser.parse_args()
 
     try:
+      if len(args['nome']) == 0:
+        logger.info("Nome nao informado")
+
+        codigo = Message(1, "Nome nao informado")
+        return marshal(codigo, msgFields), 400
+
+      if re.match(padrao_email, args['email']) == None:
+        codigo = Message(1, "Email no formato errado")
+        return marshal(codigo, msgFields), 400
+
+      verifySenha = policy.test(args['senha'])
+      if len(verifySenha) != 0:
+        codigo = Message(1, "Senha no formato errado")
+        return marshal(codigo, msgFields), 400
+
       proprietario = Proprietario(args['nome'], args["email"], args['senha'])
 
       db.session.add(proprietario)
@@ -56,12 +81,27 @@ class ProprietarioId(Resource):
 
     try:
       userBd = Proprietario.query.get(id)
-
       if userBd is None:
         logger.error(f"Proprietário de id: {id} não encontrado")
 
         codigo = Message(1, f"Proprietário de id: {id} não encontrado")
         return marshal(codigo, msgFields), 404
+
+      if len(args['nome']) == 0:
+        logger.info("Nome nao informado")
+
+        codigo = Message(1, "Nome nao informado")
+        return marshal(codigo, msgFields), 400
+
+      if re.match(padrao_email, args['email']) == None:
+        codigo = Message(1, "Email no formato errado")
+        return marshal(codigo, msgFields), 400
+
+      verifySenha = policy.test(args['senha'])
+      if len(verifySenha) != 0:
+        codigo = Message(1, "Senha no formato errado")
+        return marshal(codigo, msgFields), 400
+
 
       userBd.nome = args["nome"]
       userBd.email = args["email"]
