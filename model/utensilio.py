@@ -6,6 +6,7 @@ utensilioFields = {
   'nome': fields.String
   }
 
+
 class Utensilio(db.Model):
   __tablename__ = "tb_utensilio"
   
