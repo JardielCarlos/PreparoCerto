@@ -9,6 +9,11 @@ preparacaoIngredienteFields = {
     'id': fields.Integer,
     'preparacao': fields.Nested(preparacaoFields),
     'ingrediente': fields.Nested(ingredienteFields),
+}
+
+ingredientesFields = {
+    'id': fields.Integer,
+    'ingrediente': fields.Nested(ingredienteFields),
     'pesoBruto': fields.Float,
     'unidade': fields.Nested(unidadeFields),
     'indicadorParteComestivel': fields.Float,

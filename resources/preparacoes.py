@@ -2,7 +2,7 @@ from flask_restful import Resource, marshal, reqparse
 from model.preparacao import Preparacao, preparacaoFields
 from helpers.database import db
 from helpers.logger import logger
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 from model.empresa import Empresa
 from model.modo_preparo import ModoPreparo
 
@@ -25,7 +25,7 @@ class Preparacoes(Resource):
 
         if empresa is None:
             codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
-            return marshal(codigo, msgError), 404
+            return marshal(codigo, msgFields), 404
 
         preparacao = Preparacao(args['nome'], empresa)
 
@@ -38,7 +38,7 @@ class Preparacoes(Resource):
         logger.error("Error ao cadastrar preparacao")
 
         codigo = Message(2, "Error ao cadastrar preparacao")
-        return marshal(codigo, msgError), 400
+        return marshal(codigo, msgFields), 400
 
 class PreparacaoId(Resource):
   def get(self, id):
@@ -48,7 +48,7 @@ class PreparacaoId(Resource):
       logger.error(f"Preparação de id: {id} não encontrada")
 
       codigo = Message(1, f"Preparação de id: {id} não encontrada")
-      return marshal(codigo, msgError), 404
+      return marshal(codigo, msgFields), 404
 
     logger.info(f"Preparacao de id: {id} listada com sucesso")
     return marshal(preparacao, preparacaoFields), 200
@@ -62,7 +62,7 @@ class PreparacaoId(Resource):
         logger.error(f"Preparação de id: {id} não encontrada")
 
         codigo = Message(1, f"Preparação de id: {id} não encontrada")
-        return marshal(codigo, msgError), 404
+        return marshal(codigo, msgFields), 404
 
       preparacaoBd.nome = args['nome']
 
@@ -75,7 +75,7 @@ class PreparacaoId(Resource):
       logger.error("Erro ao atualizar a Preparação")
 
       codigo = Message(2, "Erro ao atualizar a Preparação")
-      return marshal(codigo, msgError), 400
+      return marshal(codigo, msgFields), 400
 
   def delete(self, id):
     preparacaoBd = Preparacao.query.get(id)
@@ -84,7 +84,7 @@ class PreparacaoId(Resource):
       logger.error(f"Preparação de id: {id} não encontrada")
 
       codigo = Message(1, f"Preparação de id: {id} não encontrada")
-      return marshal(codigo, msgError), 404
+      return marshal(codigo, msgFields), 404
 
     db.session.delete(preparacaoBd)
     db.session.commit()

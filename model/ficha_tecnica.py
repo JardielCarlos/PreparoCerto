@@ -3,8 +3,10 @@ from model.unidade_medida import unidadeFields
 from model.medida_caseira import medidaCaseiraFields
 from model.ingrediente import ingredienteFields
 from model.preparacao import preparacaoFields
+from model.utensilio_preparacao import utensilioPreparacaoFields
+from model.modo_preparo import modoPreparoFields
 
-fichaTecnicaOperacionalFields = {
+preparacaoIngredienteOperacionalFields = {
     'id': fields.Integer,
     'ingrediente': fields.Nested(ingredienteFields),
     'preparacao': fields.Nested(preparacaoFields),
@@ -16,7 +18,7 @@ fichaTecnicaOperacionalFields = {
     'medidaCaseira': fields.Nested(medidaCaseiraFields)
     }
 
-fichaTecnicaGerencialFields = {
+preparacaoIngredienteGerencialFields = {
     'id': fields.Integer,
     'ingrediente': fields.Nested(ingredienteFields),
     'preparacao': fields.Nested(preparacaoFields),
@@ -25,7 +27,14 @@ fichaTecnicaGerencialFields = {
     'custoPreparacao': fields.Float
 }
 
-fichaTecnicaGerencialTotalFields = {
-    'preparacao_ingrediente': fields.Nested(fichaTecnicaGerencialFields),
-    'total': fields.Float
+fichaTecnicaOperacionalFields = {
+    'preparacao_ingrediente': fields.Nested(preparacaoIngredienteOperacionalFields),
+    'modoPreparo': fields.Nested(modoPreparoFields),
+    'preparacao_utensilio': fields.Nested(utensilioPreparacaoFields)
+}
+
+fichaTecnicaGerencialFields = {
+    'preparacao_ingrediente': fields.Nested(preparacaoIngredienteGerencialFields),
+    'total': fields.Float,
+    'valorSugerido': fields.Float
 }

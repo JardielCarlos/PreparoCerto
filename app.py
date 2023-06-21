@@ -15,6 +15,7 @@ from resources.ficha_tecnica import FichaTecnicaOperacional, FichaTecnicaGerenci
 from resources.unidade import Unidade, UnidadeId
 from resources.medidaCaseira import MedidasCaseiras, MedidaCaseiraId
 from resources.utensilios import Utensilios, UtensilioId
+from resources.utensilio_preparacao import UtensiliosPreparacao, UtensiliosPreparacaoId
 from resources.login import Login
 from resources.logout import Logout
 from resources.modo_preparo import ModosPreparo, ModosPreparoId
@@ -29,37 +30,76 @@ cors.init_app(app)
 migrate.__init__(app, db)
 api = Api(app)
 
-api.add_resource(Gestores, '/gestor')
+#Gestor
+api.add_resource(Gestores, '/gestores')
 api.add_resource(GestorId, '/gestor/<int:id>')
+
+#Preparador
 api.add_resource(Preparadores, '/preparadores')
 api.add_resource(PreparadorId, '/preparador/<int:id>')
+
+#Ingrediente
 api.add_resource(Ingredientes, '/ingredientes')
 api.add_resource(IngredienteId, '/ingrediente/<int:id>')
+
+#Empresa
 api.add_resource(Empresas, '/empresas')
 api.add_resource(EmpresaId, '/empresa/<int:id>')
+
+#Proprietario
 api.add_resource(Proprietarios, '/proprietarios')
 api.add_resource(ProprietarioId, '/proprietario/<int:id>')
+
+#Preparacao
 api.add_resource(Preparacoes, '/preparacoes')
 api.add_resource(PreparacaoId, '/preparacao/<int:id>')
+
+#Cardapio
 api.add_resource(Cardapios, '/cardapios')
 api.add_resource(CardapioId, '/cardapio/<int:id>')
-api.add_resource(PreparacaoIngredientes, '/ingrediente_preparacao')
-api.add_resource(PreparacaoIngredientesId, '/ingrediente_preparacao/<int:id>')
+
+#Preparacao_Ingrediente
+api.add_resource(PreparacaoIngredientes, '/preparacao_ingrediente')
+api.add_resource(PreparacaoIngredientesId, '/preparacao_ingrediente/<int:id>')
+
+#Cardapio_Preparacao
 api.add_resource(CardapioPreapracoes, '/cardapio_preparacao')
 api.add_resource(CardapioPreapracaoId, '/cardapio_preparacao/<int:id>')
+
+#Ficha Tecnica Operacional
 api.add_resource(FichaTecnicaOperacional, '/fichatecnicaoperacional/<int:id>')
-api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>')
+
+#Ficha Tecnica Gerencial
+api.add_resource(FichaTecnicaGerencial, '/fichatecnicagerencial/<int:id>/<int:perImposto>/<int:perLucro>')
+
+#Unidade Medida
 api.add_resource(Unidade, '/unidade')
 api.add_resource(UnidadeId, '/unidade/<int:id>')
+
+#Medida Caseira
 api.add_resource(MedidasCaseiras, '/medidas')
 api.add_resource(MedidaCaseiraId, '/medidas/<int:id>')
+
+#Utensilio
 api.add_resource(Utensilios, '/utensilios')
 api.add_resource(UtensilioId, '/utensilio/<int:id>')
+
+#Login
 api.add_resource(Login, '/login')
+
+#Logout
 api.add_resource(Logout, '/logout')
+
+#ModoPreparo
 api.add_resource(ModosPreparo, '/modospreparo')
-api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
+api.add_resource(ModosPreparoId, '/modospreparo/<int:preparacao_id>')
+
+#Usuario
 api.add_resource(Usuarios, '/usuarios')
+
+#UtensiliosPreparacao
+api.add_resource(UtensiliosPreparacao, '/utensilios_preparacao')
+api.add_resource(UtensiliosPreparacaoId, '/utensilios_preparacao/<int:id>')
 
 if __name__ == '__main__':
     app.run(debug=True)

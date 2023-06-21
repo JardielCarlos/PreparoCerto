@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from helpers.logger import logger
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 
 from model.unidade_medida import UnidadeMedida, unidadeFields
 
@@ -10,11 +10,11 @@ parser = reqparse.RequestParser()
 parser.add_argument("sigla", type=str, help="sigla não informada", required=True)
 
 class Unidade(Resource):
-    
+
   def get(self):
     logger.info("Unidades de medida listadas com sucesso")
     return marshal(UnidadeMedida.query.all(), unidadeFields), 200
-  
+
   def post(self):
     args = parser.parse_args()
 
@@ -30,8 +30,8 @@ class Unidade(Resource):
       logger.error("Error ao cadastrar a Unidade de medida")
 
       codigo = Message(2, "Error ao cadastrar a Unidade de medida")
-      return marshal(codigo, msgError), 400
-    
+      return marshal(codigo, msgFields), 400
+
 class UnidadeId(Resource):
   def get(self, id):
     logger.info(f"Unidade de medidade de id: {id} listada com sucesso")
@@ -43,13 +43,13 @@ class UnidadeId(Resource):
 
     try:
       unidadeBd = UnidadeMedida.query.get(id)
-      
+
       if unidadeBd is None:
         logger.error(f"Unidade de medida de id: {id} não encontrada")
 
         codigo = Message(1, f"Unidade de medida de id: {id} não encontrada")
-        return marshal(codigo, msgError), 404
-      
+        return marshal(codigo, msgFields), 404
+
       unidadeBd.sigla = args["sigla"]
 
       db.session.add(unidadeBd)
@@ -57,21 +57,21 @@ class UnidadeId(Resource):
 
       logger.info(f"Unidade de medidade de id: {id} atualizada com sucesso")
       return marshal(unidadeBd, unidadeFields), 200
-      
+
     except:
       logger.error("Erro ao atualizar a Unidade de medida")
 
       codigo = Message(2, "Erro ao atualizar a Unidade de medida")
-      return marshal(codigo, msgError), 400
-    
+      return marshal(codigo, msgFields), 400
+
   def delete(self, id):
     unidadeBd = UnidadeMedida.query.get(id)
 
     if unidadeBd is None:
       logger.error(f"Unidade de medida de id: {id} não encontrada")
       codigo = Message(1, f"Unidade de medida de id: {id} não encontrada")
-      return marshal(codigo, msgError)
-    
+      return marshal(codigo, msgFields)
+
     db.session.delete(unidadeBd)
     db.session.commit()
 

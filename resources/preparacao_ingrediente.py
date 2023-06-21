@@ -1,9 +1,9 @@
 from flask_restful import Resource, marshal, reqparse
 from helpers.database import db
 from helpers.logger import logger
-from model.mensagem import Message, msgError
+from model.mensagem import Message, msgFields
 
-from model.preparacao_ingrediente import PreparacaoIngrediente, preparacaoIngredienteFields
+from model.preparacao_ingrediente import PreparacaoIngrediente, preparacaoIngredienteFields, ingredientesFields
 from model.ingrediente import Ingrediente
 from model.preparacao import Preparacao
 from model.unidade_medida import UnidadeMedida
@@ -52,41 +52,48 @@ class PreparacaoIngredientes(Resource):
 
         if ingrediente is None:
             codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
-            return marshal(codigo, msgError), 404
-        
+            return marshal(codigo, msgFields), 404
+
         elif preparacao is None:
             codigo = Message(1, f"Preparação de id: {preparacaoId} não encontrada")
-            return marshal(codigo, msgError), 404
-        
+            return marshal(codigo, msgFields), 404
+
         elif unidade is None:
             codigo = Message(1, f"Unidade de id: {unidadeId} não encontrada")
-            return marshal(codigo, msgError), 404
-        
+            return marshal(codigo, msgFields), 404
+
         elif medidaCaseira is None:
             codigo = Message(1, f"Medida Caseira de id: {preparacaoId} não encontrada")
-            return marshal(codigo, msgError), 404
+            return marshal(codigo, msgFields), 404
 
         preparacaoIngrediente = PreparacaoIngrediente(preparacao, ingrediente, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao)
 
         db.session.add(preparacaoIngrediente)
         db.session.commit()
 
-        logger.info(
-            f"Preparação-Ingrediente de id: {preparacaoIngrediente.id} criado com sucesso")
+        logger.info(f"Preparação-Ingrediente de id: {preparacaoIngrediente.id} criado com sucesso")
         return marshal(preparacaoIngrediente, preparacaoIngredienteFields), 201
 
 
 class PreparacaoIngredientesId(Resource):
     def get(self, id):
+        preparacao = Preparacao.query.get(id)
+        ingredientes = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
+        print(ingredientes)
 
-        preparacaoIngrediente = PreparacaoIngrediente.query.get(id)
+        if preparacao is None:
+            logger.error(f"Preparação de id: {id} não encontrada")
 
-        if preparacaoIngrediente is None:
-            codigo = Message(1, f"Preparação-Ingrediente de id: {id} não encontrado")
-            return marshal(codigo, msgError), 404
-        
-        logger.info("Preparação-Ingrediente listadas com sucesso")
-        return marshal(PreparacaoIngrediente.query.get(id), preparacaoIngredienteFields), 200
+            codigo = Message(1, f"Preparação de id: {id} não encontrada")
+            return marshal(codigo, msgFields), 404
+
+        elif ingredientes == []:
+            logger.error(f"A preparação de id: {id} não possui ingredientes cadastrados")
+
+            codigo = Message(1, f"A preparação de id: {id} não possui ingredientes cadastrados")
+            return marshal(codigo, msgFields), 404
+
+        return marshal(ingredientes, ingredientesFields), 200
 
     def put(self, id):
         args = parser.parse_args()
@@ -100,18 +107,18 @@ class PreparacaoIngredientesId(Resource):
                 logger.error(f"Preparação-Ingrediente de id: {id} não encontrada")
 
                 codigo = Message(1, f"Preparação-Ingrediente de id: {id} não encontrada")
-                return marshal(codigo, msgError), 404
+                return marshal(codigo, msgFields), 404
 
             ingrediente = Ingrediente.query.get(ingredienteId)
             preparacao = Preparacao.query.get(preparacaoId)
             if ingrediente is None:
                 codigo = Message(
                     1, f"Ingrediente de id: {ingredienteId} não encontrado")
-                return marshal(codigo, msgError), 404
+                return marshal(codigo, msgFields), 404
             elif preparacao is None:
                 codigo = Message(
                     1, f"Preparação de id: {preparacaoId} não encontrada")
-                return marshal(codigo, msgError), 404
+                return marshal(codigo, msgFields), 404
 
             preparacaoIngredienteBd.ingrediente = ingrediente
             preparacaoIngredienteBd.preparacao = preparacao
@@ -125,7 +132,7 @@ class PreparacaoIngredientesId(Resource):
             logger.error("Erro ao atualizar o Preparação-Ingrediente")
 
             codigo = Message(2, "Erro ao atualizar o Preparação-Ingrediente")
-            return marshal(codigo, msgError), 400
+            return marshal(codigo, msgFields), 400
 
     def delete(self, id):
         preparacaoIngredienteBd = PreparacaoIngrediente.query.get(id)
@@ -135,7 +142,7 @@ class PreparacaoIngredientesId(Resource):
 
             codigo = Message(
                 1, f"Preparação-Ingrediente de id: {id} não encontrada")
-            return marshal(codigo, msgError), 404
+            return marshal(codigo, msgFields), 404
 
         db.session.delete(preparacaoIngredienteBd)
         db.session.commit()
