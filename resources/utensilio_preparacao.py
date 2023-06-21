@@ -4,7 +4,7 @@ from helpers.logger import logger
 
 from model.mensagem import Message, msgFields
 
-from model.utensilio_preparacao import UtensilioPreparacao, utensilioPreparacaoFields
+from model.utensilio_preparacao import UtensilioPreparacao, utensilioPreparacaoFields, utensiliosFields
 from model.utensilio import Utensilio
 from model.preparacao import Preparacao
 
@@ -49,16 +49,23 @@ class UtensiliosPreparacao(Resource):
 
 class UtensiliosPreparacaoId(Resource):
   def get(self, id):
-    utensiliopreparacao = UtensilioPreparacao.query.get(id)
+    utensilios = UtensilioPreparacao.query.filter_by(preparacao_id=id).all()
+    preparacao = Preparacao.query.get(id)
 
-    if utensiliopreparacao is None:
-      logger.error(f"UtensiliosPreparacao de id: {id} nao encontrado")
+    if preparacao is None:
+      logger.error(f"Preparação de id: {id} não encontrada")
 
-      codigo = Message(1, f"Utensilio da preparacao de id: {id} não encontrado")
+      codigo = Message(1, f"Preparação de id: {id} não encontrada")
       return marshal(codigo, msgFields), 404
 
-    logger.info(f"UtensiliosPreparacao de id: {id} listado com sucesso")
-    return marshal(utensiliopreparacao, utensilioPreparacaoFields)
+    elif utensilios == []:
+      logger.error(f"A preparação de id: {id} não possui utensilios cadastrados")
+
+      codigo = Message(1, f"A preparação de id: {id} não possui utensilios cadastrados")
+      return marshal(codigo, msgFields), 404
+
+    logger.info(f"Todos os utensilios da preparação de id: {id} listados com sucesso")
+    return marshal(utensilios, utensiliosFields), 200
 
   def delete(self, id):
     utensiliopreparacaoBd = UtensilioPreparacao.query.get(id)

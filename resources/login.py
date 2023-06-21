@@ -22,7 +22,7 @@ class Login(Resource):
             codigo = Message(1, f"email:{args['email']} não encontrado")
             return marshal(codigo, msgFields), 404
 
-        if not user.verify_password(args['senha']):
+        if not user.senha == args['senha']:
             codigo = Message(1, "Senha Incorreta ou inexistente")
             return marshal(codigo, msgFields), 404
 

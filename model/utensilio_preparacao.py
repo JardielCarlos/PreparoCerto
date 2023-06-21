@@ -9,6 +9,11 @@ utensilioPreparacaoFields = {
   'preparacao': fields.Nested(preparacaoFields)
   }
 
+utensiliosFields = {
+  'id': fields.Integer,
+  'utensilio': fields.Nested(utensilioFields),
+}
+
 class UtensilioPreparacao(db.Model):
     __tablename__ = "tb_utensiliopreparacao"
 

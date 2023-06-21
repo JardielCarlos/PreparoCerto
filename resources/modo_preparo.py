@@ -32,11 +32,11 @@ class ModosPreparo(Resource):
           db.session.add(modoPreparo)
           db.session.commit()
 
-          logger.info(f"Medida Caseira de id: {modoPreparo.id} criado com sucesso")
+          logger.info(f"Modo Preparo de id: {modoPreparo.id} criado com sucesso")
           return marshal(modoPreparo, modoPreparoFields), 201
         except KeyError:
-            logger.error("Id da empresa não informado")
-            codigo = Message(1, f"Id da empresa não informado")
+            logger.error("Id da preparacao não informado")
+            codigo = Message(1, f"Id da preparacao não informado")
             return marshal(codigo, msgFields), 400
         except:
             logger.error("Error ao cadastrar Modo de preparo")
@@ -46,25 +46,18 @@ class ModosPreparo(Resource):
 
 class ModosPreparoId(Resource):
 
-  def get(self, id):
+  def get(self, preparacao_id):
+     
+    modopreparo = ModoPreparo.query.filter_by(preparacao_id=preparacao_id, is_deleted=False).order_by(criacao)
 
-    modosPreparo = ModoPreparo.query.all()
-    lista = []
-    for i in range(len(modosPreparo)):
-      if modosPreparo[i].preparacao_id == id and modosPreparo[i].is_deleted == False:
-        lista.append(modosPreparo[i])
+    if modopreparo is None:
+      logger.error(f"Preparacao de id: {id} nao encontrada")
 
-    return marshal(lista, modoPreparoFields)
-    # modopreparo = ModoPreparo.query.filter_by(id=id, is_deleted=False).first()
+      codigo = Message(1, f"Preparacao de id: {id} nao encontrada")
+      return marshal(codigo, msgError), 404
 
-    # if modopreparo is None:
-    #    logger.error(f"Modo de preparo de id: {id} nao encontrado")
-
-    #    codigo = Message(1, f"Modo de preparo de id: {id} nao encontrado")
-    #    return marshal(codigo, msgFields), 404
-
-    # logger.info(f"Modo de preparo de id: {id} listada com sucesso")
-    # return marshal(modopreparo, modoPreparoFields), 200
+    logger.info(f"Preparacao de id: {id} listada com sucesso")
+    return marshal(modopreparo, modoPreparoFields), 200
 
   def put(self, id):
     args = parser.parse_args()
