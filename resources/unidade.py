@@ -12,8 +12,15 @@ parser.add_argument("sigla", type=str, help="sigla não informada", required=Tru
 class Unidade(Resource):
 
   def get(self):
+    unidadesMedida = UnidadeMedida.query.all()
+
+    if unidadesMedida == []:
+      logger.error("Não existe nenhuma unidade de medida cadastrada")
+      codigo = Message(1, "Não existe nenhuma unidade de medida cadastrada")
+
+      return marshal(codigo, msgFields), 404
     logger.info("Unidades de medida listadas com sucesso")
-    return marshal(UnidadeMedida.query.all(), unidadeFields), 200
+    return marshal(unidadesMedida, unidadeFields), 200
 
   def post(self):
     args = parser.parse_args()

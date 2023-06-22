@@ -4,7 +4,7 @@ from model.ficha_tecnica import fichaTecnicaGerencialFields, fichaTecnicaOperaci
 from model.preparacao_ingrediente import PreparacaoIngrediente
 from model.preparacao import Preparacao
 from model.modo_preparo import ModoPreparo
-from model.utensilio_preparacao import UtensilioPreparacao
+from model.preparacao_utensilio import PreparacaoUtensilio
 from model.mensagem import Message, msgFields
 
 from helpers.functions.calcularValorSugerido import calcularValorSugerido
@@ -22,7 +22,7 @@ class FichaTecnicaOperacional(Resource):
   def get(self, id):
     preparacaoIngrediente = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
     modoPreparo = ModoPreparo.query.filter_by(preparacao_id=id).all()
-    preparacaoUtensilio = UtensilioPreparacao.query.filter_by(preparacao_id=id).all()
+    preparacaoUtensilio = PreparacaoUtensilio.query.filter_by(preparacao_id=id).all()
 
     preparacao = Preparacao.query.get(id)
 

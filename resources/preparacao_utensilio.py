@@ -4,7 +4,7 @@ from helpers.logger import logger
 
 from model.mensagem import Message, msgFields
 
-from model.utensilio_preparacao import UtensilioPreparacao, utensilioPreparacaoFields, utensiliosFields
+from model.preparacao_utensilio import PreparacaoUtensilio, utensilioPreparacaoFields, utensiliosFields
 from model.utensilio import Utensilio
 from model.preparacao import Preparacao
 
@@ -16,8 +16,28 @@ parser.add_argument("preparacao", type=dict, help="Preparação não informada",
 
 class UtensiliosPreparacao(Resource):
   def get(self):
+    utensilioPreparacao = PreparacaoUtensilio.query.all()
+    utensilios = Utensilio.query.all()
+    preparacao = Preparacao.query.all()
+
+    if utensilios == []:
+      logger.error("Não existe nenhum utensílio cadastrado")
+      codigo = Message(1, "Não existe nenhum utensílio cadastrado")
+
+      return marshal(codigo, msgFields), 404
+    elif preparacao == []:
+      logger.error("Não existe nenhuma preparação cadastrada")
+      codigo = Message(1, "Não existe nenhuma preparação cadastrada")
+
+      return marshal(codigo, msgFields), 404
+    elif utensilioPreparacao == []:
+      logger.error("Não existe nenhum relacionamento Preparação-Utensilio cadastrado")
+      codigo = Message(1, "Não existe nenhum relacionamento Preparação-Utensilio cadastrado")
+
+      return marshal(codigo, msgFields), 404
+
     logger.info("Preparação-Utensilios listados com sucesso")
-    return marshal(UtensilioPreparacao.query.all(), utensilioPreparacaoFields), 200
+    return marshal(PreparacaoUtensilio.query.all(), utensilioPreparacaoFields), 200
 
   def post(self):
     args = parser.parse_args()
@@ -39,7 +59,7 @@ class UtensiliosPreparacao(Resource):
     utensilioBd = Utensilio.query.get(utensilioId)
     preparacaoBd = Preparacao.query.get(preparacaoId)
 
-    utensilioPreparacao = UtensilioPreparacao(utensilioBd, preparacaoBd)
+    utensilioPreparacao = PreparacaoUtensilio(utensilioBd, preparacaoBd)
 
     db.session.add(utensilioPreparacao)
     db.session.commit()
@@ -49,26 +69,31 @@ class UtensiliosPreparacao(Resource):
 
 class UtensiliosPreparacaoId(Resource):
   def get(self, id):
-    utensilios = UtensilioPreparacao.query.filter_by(preparacao_id=id).all()
+    utensiliosPreparacao = PreparacaoUtensilio.query.filter_by(preparacao_id=id).all()
     preparacao = Preparacao.query.get(id)
+    utensilios = Utensilio.query.get(id)
 
     if preparacao is None:
       logger.error(f"Preparação de id: {id} não encontrada")
-
       codigo = Message(1, f"Preparação de id: {id} não encontrada")
+
       return marshal(codigo, msgFields), 404
-
     elif utensilios == []:
-      logger.error(f"A preparação de id: {id} não possui utensilios cadastrados")
+      logger.error("Não existe nenhum utensílio cadastrado")
+      codigo = Message(1, "Não existe nenhum utensílio cadastrado")
 
+      return marshal(codigo, msgFields), 404
+    elif utensiliosPreparacao == []:
+      logger.error(f"A preparação de id: {id} não possui utensilios cadastrados")
       codigo = Message(1, f"A preparação de id: {id} não possui utensilios cadastrados")
+
       return marshal(codigo, msgFields), 404
 
     logger.info(f"Todos os utensilios da preparação de id: {id} listados com sucesso")
-    return marshal(utensilios, utensiliosFields), 200
+    return marshal(utensiliosPreparacao, utensiliosFields), 200
 
   def delete(self, id):
-    utensiliopreparacaoBd = UtensilioPreparacao.query.get(id)
+    utensiliopreparacaoBd = PreparacaoUtensilio.query.get(id)
     if utensiliopreparacaoBd is None:
       logger.error(f"UtensiliosPreparacao de id: {id} nao encontrado")
 

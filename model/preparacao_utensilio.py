@@ -14,7 +14,7 @@ utensiliosFields = {
   'utensilio': fields.Nested(utensilioFields),
 }
 
-class UtensilioPreparacao(db.Model):
+class PreparacaoUtensilio(db.Model):
     __tablename__ = "tb_utensiliopreparacao"
 
     id = db.Column(db.Integer, primary_key=True)

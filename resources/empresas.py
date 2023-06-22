@@ -23,6 +23,13 @@ class Empresas(Resource):
       return marshal(codigo, msgFields), 403
 
     empresa = Empresa.query.all()
+
+    if empresa == []:
+      logger.error("Não existe nenhuma empresa cadastrada")
+      codigo = Message(1, "Não existe nenhuma empresa cadastrada")
+
+      return marshal(codigo, msgFields), 404
+    
     data = {'empresa': empresa, 'token': token}
 
     logger.info("Empresas listadas com Sucesso")
