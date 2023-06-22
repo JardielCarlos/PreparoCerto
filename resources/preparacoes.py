@@ -4,7 +4,6 @@ from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
-from model.modo_preparo import ModoPreparo
 
 parser = reqparse.RequestParser()
 
@@ -19,27 +18,27 @@ class Preparacoes(Resource):
 
   def post(self):
     args = parser.parse_args()
-    # try:
-    empresaId = args["empresa"]["id"]
+    try:
+      empresaId = args["empresa"]["id"]
 
-    empresa = Empresa.query.get(empresaId)
+      empresa = Empresa.query.get(empresaId)
 
-    if empresa is None:
-        codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
-        return marshal(codigo, msgFields), 404
+      if empresa is None:
+          codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
+          return marshal(codigo, msgFields), 404
 
-    preparacao = Preparacao(args['nome'], args['numPorcoes'], empresa)
+      preparacao = Preparacao(args['nome'], args['numPorcoes'], empresa)
 
-    db.session.add(preparacao)
-    db.session.commit()
+      db.session.add(preparacao)
+      db.session.commit()
 
-    logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
-    return marshal(preparacao, preparacaoFields), 201
-    # except:
-    #     logger.error("Error ao cadastrar preparacao")
+      logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
+      return marshal(preparacao, preparacaoFields), 201
+    except:
+        logger.error("Error ao cadastrar preparacao")
 
-    #     codigo = Message(2, "Error ao cadastrar preparacao")
-    #     return marshal(codigo, msgFields), 400
+        codigo = Message(2, "Error ao cadastrar preparacao")
+        return marshal(codigo, msgFields), 400
 
 class PreparacaoId(Resource):
   def get(self, id):

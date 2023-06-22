@@ -32,7 +32,6 @@ class Gestores(Resource):
   def post(self):
     args = parser.parse_args()
     try:
-      empresa= Empresa.query.get(args['empresa']['id'])
       if len(args['nome']) == 0:
         logger.info("Nome nao informado")
 
@@ -47,6 +46,8 @@ class Gestores(Resource):
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
         return marshal(codigo, msgFields), 400
+
+      empresa= Empresa.query.get(args['empresa']['id'])
 
       if empresa is None:
         logger.error("Empresa não encontrada")
