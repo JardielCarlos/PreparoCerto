@@ -14,7 +14,28 @@ parser.add_argument("preparacao",  type=dict, help="Preparação não informada"
 
 class CardapioPreapracoes(Resource):
   def get(self):
-    return marshal(CardapioPreparacao.query.all(), cardapioPreparacaoFields), 200
+    cardapioPreparacao = CardapioPreparacao.query.all()
+    cardapios = Cardapio.query.all()
+    preparacoes = Preparacao.query.all()
+
+    if cardapios == []:
+      logger.error("Não existe nenhum cardapio cadastrado")
+      codigo = Message(1, "Não existe nenhum cardapio cadastrado")
+
+      return marshal(codigo, msgFields), 404
+    elif preparacoes == []:
+      logger.error("Não existe nenhuma preparação cadastrada")
+      codigo = Message(1, "Não existe nenhuma preparação cadastrada")
+
+      return marshal(codigo, msgFields), 404
+    elif cardapioPreparacao == []:
+      logger.error("Não existe nenhum relacionamento Cardápio-Preparação cadastrado")
+      codigo = Message(1, "Não existe nenhum relacionamento Cardápio-Preparação cadastrado")
+
+      return marshal(codigo, msgFields), 404
+
+    logger.info("Todos os cardápios e suas preparações listados com sucesso")
+    return marshal(cardapioPreparacao, cardapioPreparacaoFields), 200
 
   def post(self):
     args = parser.parse_args()

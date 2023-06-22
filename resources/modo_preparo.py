@@ -13,9 +13,17 @@ parser.add_argument("preparacao", type=dict, help="preparacao nao informada", re
 class ModosPreparo(Resource):
 
     def get(self):
+      modosPreparo = ModoPreparo.query.filter_by(is_deleted=False).all()
+
+      if modosPreparo == []:
+        logger.error("Não existem nenhum modos de preparo cadastrados")
+        codigo = Message(1, "Não existe nenhumm modos de preparo cadastrados")
+
+        return marshal(codigo, msgFields), 404
+
       logger.info("ModosPreparo listados com sucesso")
 
-      return marshal(ModoPreparo.query.filter_by(is_deleted=False).all(), modoPreparoFields), 200
+      return marshal(modosPreparo, modoPreparoFields), 200
 
     def post(self):
         args = parser.parse_args()

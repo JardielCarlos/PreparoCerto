@@ -27,8 +27,15 @@ policy = PasswordPolicy.from_names(
 
 class Preparadores (Resource):
   def get(self):
+    preparadores = Preparador.query.all()
+
+    if preparadores == []:
+      logger.error("Não existe nenhum preparador cadastrado")
+      codigo = Message(1, "Não existe nenhum preparador cadastrado")
+
+      return marshal(codigo, msgFields), 404
     logger.info("Preparadores listados com sucesso")
-    return marshal(Preparador.query.all(), preparadorFields), 200
+    return marshal(preparadores, preparadorFields), 200
 
   def post(self):
     args = parser.parse_args()
