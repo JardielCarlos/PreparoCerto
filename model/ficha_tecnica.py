@@ -3,7 +3,7 @@ from model.unidade_medida import unidadeFields
 from model.medida_caseira import medidaCaseiraFields
 from model.ingrediente import ingredienteFields
 from model.preparacao import preparacaoFields
-from model.utensilio_preparacao import utensiliosFields
+from model.preparacao_utensilio import utensiliosFields
 from model.modo_preparo import modoPreparoFichaTecnicaFields
 
 ingredienteOperacionalFields = {

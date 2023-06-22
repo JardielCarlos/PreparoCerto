@@ -13,8 +13,15 @@ parser.add_argument("descricao", type=str, help="Descricao não informada", requ
 class MedidasCaseiras(Resource):
 
     def get(self):
+      medidasCseiras = MedidaCaseira.query.all()
+
+      if medidasCseiras == []:
+        logger.error("Não existe nenhuma medida caseira cadastrada")
+        codigo = Message(1, "Não existe nenhuma medida caseira cadastrada")
+
+        return marshal(codigo, msgFields), 404
       logger.info("Medidas caseiras listada com sucesso")
-      return marshal(MedidaCaseira.query.all(), medidaCaseiraFields), 200
+      return marshal(medidasCseiras, medidaCaseiraFields), 200
 
     def post(self):
       args = parser.parse_args()
