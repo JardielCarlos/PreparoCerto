@@ -10,14 +10,15 @@ class TokenCreator:
 
   def create(self, tipo: str):
     return self.__encode_token(tipo)
-  
+
   def refresh(self, token: str):
     informationToken = decode(token, key=self.__TOKEN_KEY, algorithms="HS256")
     tipo = informationToken["tipo"]
     exp_time = informationToken["exp"]
+    
     if((exp_time - time.time()) / 3600) < self.__REFRESH_TIME_HRS:
       return self.__encode_token(tipo)
-    
+
     return token
 
   def __encode_token(self, tipo: str):

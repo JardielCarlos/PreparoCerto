@@ -103,4 +103,4 @@ api.add_resource(UtensiliosPreparacao, '/utensilios_preparacao')
 api.add_resource(UtensiliosPreparacaoId, '/utensilios_preparacao/<int:id>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+  app.run(debug=True)

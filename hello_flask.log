@@ -1,22 +1,8 @@
-2023-06-21 14:44:45,775 WARNING _internal _log  * Debugger is active!
-2023-06-21 14:44:45,779 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-06-21 14:44:48,761 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:44:48] "GET /fichatecnicaoperacional/1 HTTP/1.1" 200 -
-2023-06-21 14:45:39,951 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:45:39] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
-2023-06-21 14:46:07,121 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:46:07] "[33mDELETE /ingrediente_preparacao/2 HTTP/1.1[0m" 404 -
-2023-06-21 14:46:16,203 INFO preparacao_ingrediente delete Preparação-Ingrediente de id: 2 deletada com sucesso
-2023-06-21 14:46:16,205 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:46:16] "DELETE /preparacao_ingrediente/2 HTTP/1.1" 200 -
-2023-06-21 14:46:31,518 INFO preparacao_ingrediente get Preparação-Ingrediente listados com sucesso
-2023-06-21 14:46:31,553 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:46:31] "GET /preparacao_ingrediente HTTP/1.1" 200 -
-2023-06-21 14:46:31,680 INFO preparacao_ingrediente get Preparação-Ingrediente listados com sucesso
-2023-06-21 14:46:31,695 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:46:31] "GET /preparacao_ingrediente HTTP/1.1" 200 -
-2023-06-21 14:46:37,084 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:46:37] "GET /preparacao_ingrediente/1 HTTP/1.1" 200 -
-2023-06-21 14:46:39,767 ERROR preparacao_ingrediente get Preparação de id: 2 não encontrada
-2023-06-21 14:46:39,770 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:46:39] "[33mGET /preparacao_ingrediente/2 HTTP/1.1[0m" 404 -
-2023-06-21 14:46:52,492 INFO preparacao_ingrediente post Preparação-Ingrediente de id: 3 criado com sucesso
-2023-06-21 14:46:52,507 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:46:52] "[35m[1mPOST /preparacao_ingrediente HTTP/1.1[0m" 201 -
-2023-06-21 14:47:00,928 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:47:00] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
-2023-06-21 14:47:13,726 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:47:13] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
-2023-06-21 14:47:22,432 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:47:22] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
-2023-06-21 14:47:33,562 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:47:33] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
-2023-06-21 14:47:54,022 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:47:54] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
-2023-06-21 14:48:01,387 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:48:01] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-25 10:02:51,879 WARNING _internal _log  * Debugger is active!
+2023-06-25 10:02:51,882 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-25 10:02:54,606 INFO preparacoes get Preparações listadas com sucesso
+2023-06-25 10:02:54,677 INFO _internal _log 127.0.0.1 - - [25/Jun/2023 10:02:54] "GET /preparacoes HTTP/1.1" 200 -
+2023-06-25 10:02:58,183 INFO preparacoes get Preparacao de id: 1 listada com sucesso
+2023-06-25 10:02:58,185 INFO _internal _log 127.0.0.1 - - [25/Jun/2023 10:02:58] "GET /preparacao/1 HTTP/1.1" 200 -
+2023-06-25 10:03:10,181 INFO preparacoes put Preparação de id: 1 atualizada com sucesso
+2023-06-25 10:03:10,184 INFO _internal _log 127.0.0.1 - - [25/Jun/2023 10:03:10] "PUT /preparacao/1 HTTP/1.1" 200 -

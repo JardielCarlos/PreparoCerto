@@ -66,7 +66,7 @@ class PreparacaoId(Resource):
         return marshal(codigo, msgFields), 404
 
       preparacaoBd.nome = args['nome']
-      preparacaoBd.numPorcoes = args['numPocoes']
+      preparacaoBd.numPorcoes = args['numPorcoes']
 
       db.session.add(preparacaoBd)
       db.session.commit()
