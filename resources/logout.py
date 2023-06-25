@@ -10,26 +10,26 @@ parser = reqparse.RequestParser()
 
 
 class Logout(Resource):
+  
+  @token_verify
+  def post(self, tipo, token):
+    try:
+      rawToken = request.headers["Authorization"]
+      token = rawToken.split()[1]
 
-    @token_verify
-    def post(self, tipo, token):
-        try:
-            rawToken = request.headers["Authorization"]
-            token = rawToken.split()[1]
+      informationToken = decode(token, key="1234", algorithms="HS256")
+      tokenExp = informationToken['exp']
+      blackToken = BlackList(token, datetime.fromtimestamp(tokenExp))
 
-            informationToken = decode(token, key="1234", algorithms="HS256")
-            tokenExp = informationToken['exp']
-            blackToken = BlackList(token, datetime.fromtimestamp(tokenExp))
+      db.session.add(blackToken)
+      db.session.commit()
 
-            db.session.add(blackToken)
-            db.session.commit()
+      codigo = Message(0, "Logout Realizado com sucesso")
+      return marshal(codigo, msgFields), 204
 
-            codigo = Message(0, "Logout Realizado com sucesso")
-            return marshal(codigo, msgFields), 204
-
-        except IndexError:
-            codigo = Message(1, "Schema de autenticação nao informado")
-            return marshal(codigo, msgFields), 400
-        except:
-            codigo = Message(2, "Erro ao fazer logout")
-            return marshal(codigo, msgFields), 400
+    except IndexError:
+      codigo = Message(1, "Schema de autenticação nao informado")
+      return marshal(codigo, msgFields), 400
+    except:
+      codigo = Message(2, "Erro ao fazer logout")
+      return marshal(codigo, msgFields), 400
