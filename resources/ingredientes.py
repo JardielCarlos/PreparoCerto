@@ -10,8 +10,16 @@ parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 
 class Ingredientes(Resource):
     def get(self):
+      ingredientes = Ingrediente.query.all()
+
+      if ingredientes == []:
+        logger.error("Não existe nenhum ingrediente cadastrado")
+        codigo = Message(1, "Não existe nenhum ingrediente cadastrado")
+
+        return marshal(codigo, msgFields), 404
+    
       logger.info("Ingredientes listados com sucesso")
-      return marshal(Ingrediente.query.all(), ingredienteFields), 200
+      return marshal(ingredientes, ingredienteFields), 200
 
     def post(self):
       args = parser.parse_args()

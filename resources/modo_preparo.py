@@ -14,9 +14,16 @@ parser.add_argument("preparacao", type=dict, help="preparacao nao informada", re
 
 class ModosPreparo(Resource):
   def get(self):
+    modosPreparo = ModoPreparo.query.filter_by(is_deleted=False).order_by(ModoPreparo.criacao).all()
+    if modosPreparo == []:
+      logger.error("Não existem nenhum modos de preparo cadastrados")
+      codigo = Message(1, "Não existe nenhumm modos de preparo cadastrados")
+
+      return marshal(codigo, msgFields), 404
+
     logger.info("ModosPreparo listados com sucesso")
 
-    return marshal(ModoPreparo.query.filter_by(is_deleted=False).order_by(ModoPreparo.criacao).all(), modoPreparoFields), 200
+    return marshal(modosPreparo, modoPreparoFields), 200
 
   def post(self):
     args = parser.parse_args()
@@ -40,7 +47,7 @@ class ModosPreparo(Resource):
       logger.error("Id da preparacao não informado")
       codigo = Message(1, f"Id da preparacao não informado")
       return marshal(codigo, msgFields), 400
-    
+
     except:
       logger.error("Error ao cadastrar Modo de preparo")
 

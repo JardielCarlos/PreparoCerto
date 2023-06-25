@@ -1,10 +1,12 @@
 from flask_restful import Resource, marshal, reqparse
-from model.preparacao import Preparacao, preparacaoFields
 from helpers.database import db
 from helpers.logger import logger
+from sqlalchemy.exc import IntegrityError
+
+from model.preparacao import Preparacao, preparacaoFields
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
-from sqlalchemy.exc import IntegrityError
+
 
 parser = reqparse.RequestParser()
 
@@ -14,6 +16,13 @@ parser.add_argument("numPorcoes", type=float, help="Numero de porções não inf
 
 class Preparacoes(Resource):
   def get(self):
+    preparacoes = Preparacao.query.all()
+
+    if preparacoes == []:
+        logger.error("Não existe nenhuma preparação cadastrada")
+        codigo = Message(1, "Não existe nenhuma preparação cadastrada")
+
+        return marshal(codigo, msgFields), 404
     logger.info("Preparações listadas com sucesso")
     return marshal(Preparacao.query.order_by(Preparacao.criacao).all(), preparacaoFields), 200
 

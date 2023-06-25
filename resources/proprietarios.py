@@ -24,8 +24,15 @@ policy = PasswordPolicy.from_names(
 
 class Proprietarios(Resource):
   def get(self):
+    proprietarios = Proprietario.query.all()
+
+    if proprietarios == []:
+      logger.error("Não existe nenhum proprietário cadastrado")
+      codigo = Message(1, "Não existe nenhum proprietário cadastrado")
+
+      return marshal(codigo, msgFields), 404
     logger.info("Proprietários listados com sucesso")
-    return marshal(Proprietario.query.all(), userFields), 200
+    return marshal(proprietarios, userFields), 200
 
   def post(self):
     args = parser.parse_args()
