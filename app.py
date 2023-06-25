@@ -23,7 +23,7 @@ from resources.modo_preparo import ModosPreparo, ModosPreparoId
 from resources.usuario import Usuarios
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:senha@localhost:5432/PreparoCerto"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -93,7 +93,7 @@ api.add_resource(Logout, '/logout')
 
 #ModoPreparo
 api.add_resource(ModosPreparo, '/modospreparo')
-api.add_resource(ModosPreparoId, '/modospreparo/<int:preparacao_id>')
+api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
 
 #Usuario
 api.add_resource(Usuarios, '/usuarios')
