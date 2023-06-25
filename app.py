@@ -93,7 +93,7 @@ api.add_resource(Logout, '/logout')
 
 #ModoPreparo
 api.add_resource(ModosPreparo, '/modospreparo')
-api.add_resource(ModosPreparoId, '/modospreparo/<int:preparacao_id>')
+api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
 
 #Usuario
 api.add_resource(Usuarios, '/usuarios')
