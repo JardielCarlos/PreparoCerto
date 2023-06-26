@@ -1,2 +1,40 @@
-2023-06-21 10:47:01,932 WARNING _internal _log  * Debugger is active!
-2023-06-21 10:47:01,940 INFO _internal _log  * Debugger PIN: 144-128-622
+2023-06-21 13:54:59,768 INFO _internal _log [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-06-21 13:54:59,768 INFO _internal _log [33mPress CTRL+C to quit[0m
+2023-06-21 13:55:02,642 INFO empresas post Empresa de id: 1 criada com sucesso
+2023-06-21 13:55:02,654 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:02] "[35m[1mPOST /empresas HTTP/1.1[0m" 201 -
+2023-06-21 13:55:10,128 INFO empresas get Empresas listadas com Sucesso
+2023-06-21 13:55:10,144 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:10] "GET /empresas HTTP/1.1" 200 -
+2023-06-21 13:55:23,724 INFO empresas put Empresa de id: 1 atualizada com sucesso
+2023-06-21 13:55:23,748 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:23] "PUT /empresa/1 HTTP/1.1" 200 -
+2023-06-21 13:55:41,738 INFO medidaCaseira post Medida Caseira de id: 1 criada com sucesso
+2023-06-21 13:55:41,738 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:55:41] "[35m[1mPOST /medidas HTTP/1.1[0m" 201 -
+2023-06-21 13:56:04,454 INFO cardapios get Cardápios listados com sucesso
+2023-06-21 13:56:04,494 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:56:04] "GET /cardapios HTTP/1.1" 200 -
+2023-06-21 13:56:38,463 INFO cardapios post Cardápio de id: 1 criado com sucesso
+2023-06-21 13:56:38,511 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:56:38] "[35m[1mPOST /cardapios HTTP/1.1[0m" 201 -
+2023-06-21 13:56:58,300 INFO unidade post Unidade de medida de id: 1 criada com sucesso
+2023-06-21 13:56:58,348 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:56:58] "[35m[1mPOST /unidade HTTP/1.1[0m" 201 -
+2023-06-21 13:57:10,744 INFO ingredientes post Ingrediente de id: 1 criado com sucesso
+2023-06-21 13:57:10,840 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:57:10] "[35m[1mPOST /ingredientes HTTP/1.1[0m" 201 -
+2023-06-21 13:57:25,453 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:57:25] "[31m[1mPOST /preparadores HTTP/1.1[0m" 400 -
+2023-06-21 13:57:50,786 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:57:50] "[31m[1mPOST /preparacoes HTTP/1.1[0m" 400 -
+2023-06-21 13:58:36,708 INFO preparacoes post Preparacao de id: 1 criada com sucesso
+2023-06-21 13:58:36,724 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:58:36] "[35m[1mPOST /preparacoes HTTP/1.1[0m" 201 -
+2023-06-21 13:58:59,083 INFO utensilios post Utensilio de id: 2 criado com sucesso
+2023-06-21 13:58:59,107 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:58:59] "[35m[1mPOST /utensilios HTTP/1.1[0m" 201 -
+2023-06-21 13:59:10,846 INFO utensilio_preparacao post Preparação-Utensilio de id: 1 criado com sucesso
+2023-06-21 13:59:10,918 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:59:10] "[35m[1mPOST /utensilios_preparacao HTTP/1.1[0m" 201 -
+2023-06-21 13:59:32,496 INFO modo_preparo post Modo Preparo de id: 1 criado com sucesso
+2023-06-21 13:59:32,536 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:59:32] "[35m[1mPOST /modospreparo HTTP/1.1[0m" 201 -
+2023-06-21 13:59:49,758 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 13:59:49] "[33mPOST /preparacao_ingrediente HTTP/1.1[0m" 404 -
+2023-06-21 14:00:00,693 INFO preparacao_ingrediente post Preparação-Ingrediente de id: 1 criado com sucesso
+2023-06-21 14:00:00,741 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:00:00] "[35m[1mPOST /preparacao_ingrediente HTTP/1.1[0m" 201 -
+2023-06-21 14:00:17,594 INFO cardapio_preparacao post Cardápio-Preparação de id: 1 criada com sucesso
+2023-06-21 14:00:17,618 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:00:17] "POST /cardapio_preparacao HTTP/1.1" 200 -
+2023-06-21 14:00:28,813 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:00:28] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-21 14:00:40,839 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:00:40] "GET /fichatecnicaoperacional/1 HTTP/1.1" 200 -
+2023-06-21 14:18:57,161 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:18:57] "GET /fichatecnicaoperacional/1 HTTP/1.1" 200 -
+2023-06-21 14:19:06,670 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:19:06] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-21 14:19:34,682 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:19:34] "GET /fichatecnicagerencial/1 HTTP/1.1" 200 -
+2023-06-21 14:20:01,655 INFO _internal _log 127.0.0.1 - - [21/Jun/2023 14:20:01] "GET /preparacao_ingrediente/1 HTTP/1.1" 200 -

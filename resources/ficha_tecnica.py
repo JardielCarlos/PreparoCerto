@@ -58,7 +58,7 @@ class FichaTecnicaGerencial(Resource):
     for prepIngred in preparacaoIngrediente:
       total += prepIngred.preco
     
-    valorPorcao = total / preparacao.numPorcoes
+    valorPorcao = total # / preparacao.numPorcoes
 
     valorSugerido = calcularValorSugerido(valorPorcao, args['perImposto'], args['perLucro'])
 

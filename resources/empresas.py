@@ -28,15 +28,15 @@ class Empresas(Resource):
     logger.info("Empresas listadas com Sucesso")
     return marshal(data, empresaFieldsToken), 200
 
-  @token_verify
-  def post(self, tipo, token):
+  #@token_verify
+  def post(self):
     args = parser.parse_args()
 
-    if tipo != 'proprietario':
-      logger.error("Usuario sem autorização suficiente!")
+    #if tipo != 'proprietario':
+    #  logger.error("Usuario sem autorização suficiente!")
 
-      codigo = Message(1, "Usuario sem autorização suficiente!")
-      return marshal(codigo, msgFields), 403
+    #  codigo = Message(1, "Usuario sem autorização suficiente!")
+    #  return marshal(codigo, msgFields), 403
 
     try:
       proprietarioId = args["proprietario"]['id']
@@ -56,7 +56,7 @@ class Empresas(Resource):
       db.session.commit()
 
       logger.info(f"Empresa de id: {empresa.id} criada com sucesso")
-      data = {'empresa': empresa, 'token': token}
+      data = {'empresa': empresa, 'token': None}
 
       return marshal(data, empresaFieldsToken), 201
     except IntegrityError:
