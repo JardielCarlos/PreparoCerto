@@ -14,16 +14,16 @@ from resources.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoI
 from resources.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
 from resources.ficha_tecnica import FichaTecnicaOperacional, FichaTecnicaGerencial
 from resources.unidade import Unidade, UnidadeId
-from resources.medidaCaseira import MedidasCaseiras, MedidaCaseiraId
+from resources.medida_caseira import MedidasCaseiras, MedidaCaseiraId
 from resources.utensilios import Utensilios, UtensilioId
-from resources.utensilio_preparacao import UtensiliosPreparacao, UtensiliosPreparacaoId
+from resources.preparacao_utensilio import UtensiliosPreparacao, UtensiliosPreparacaoId
 from resources.login import Login
 from resources.logout import Logout
 from resources.modo_preparo import ModosPreparo, ModosPreparoId
 from resources.usuario import Usuarios
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:senha@localhost:5432/PreparoCerto"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
@@ -32,12 +32,12 @@ migrate.__init__(app, db)
 api = Api(app)
 
 #Gestor
-api.add_resource(Gestores, '/gestores')
+api.add_resource(Gestores, '/gestor')
 api.add_resource(GestorId, '/gestor/<int:id>')
 
 #Preparador
 api.add_resource(Preparadores, '/preparadores')
-api.add_resource(PreparadorId, '/preparador/<int:id>')
+api.add_resource(PreparadorId, '/preparadores/<int:id>')
 
 #Ingrediente
 api.add_resource(Ingredientes, '/ingredientes')
@@ -45,7 +45,7 @@ api.add_resource(IngredienteId, '/ingrediente/<int:id>')
 
 #Empresa
 api.add_resource(Empresas, '/empresas')
-api.add_resource(EmpresaId, '/empresa/<int:id>')
+api.add_resource(EmpresaId, '/empresas/<int:id>')
 
 #Proprietario
 api.add_resource(Proprietarios, '/proprietarios')
@@ -93,7 +93,7 @@ api.add_resource(Logout, '/logout')
 
 #ModoPreparo
 api.add_resource(ModosPreparo, '/modospreparo')
-api.add_resource(ModosPreparoId, '/modospreparo/<int:preparacao_id>')
+api.add_resource(ModosPreparoId, '/modospreparo/<int:id>')
 
 #Usuario
 api.add_resource(Usuarios, '/usuarios')
@@ -103,4 +103,4 @@ api.add_resource(UtensiliosPreparacao, '/utensilios_preparacao')
 api.add_resource(UtensiliosPreparacaoId, '/utensilios_preparacao/<int:id>')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+  app.run(debug=True)

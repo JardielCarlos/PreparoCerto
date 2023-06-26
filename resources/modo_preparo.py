@@ -1,7 +1,9 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from helpers.logger import logger
+
 from model.mensagem import Message, msgFields
+
 from model.preparacao import Preparacao
 from model.modo_preparo import ModoPreparo, modoPreparoFields
 
@@ -11,44 +13,51 @@ parser.add_argument("text", type=str, help="text nao informada", required=True)
 parser.add_argument("preparacao", type=dict, help="preparacao nao informada", required=True)
 
 class ModosPreparo(Resource):
+  def get(self):
+    modosPreparo = ModoPreparo.query.filter_by(is_deleted=False).order_by(ModoPreparo.criacao).all()
+    if modosPreparo == []:
+      logger.error("Não existem nenhum modos de preparo cadastrados")
+      codigo = Message(1, "Não existe nenhumm modos de preparo cadastrados")
 
-    def get(self):
-      logger.info("ModosPreparo listados com sucesso")
+      return marshal(codigo, msgFields), 404
 
-      return marshal(ModoPreparo.query.filter_by(is_deleted=False).all(), modoPreparoFields), 200
+    logger.info("ModosPreparo listados com sucesso")
 
-    def post(self):
-        args = parser.parse_args()
-        try:
-          preparacaoId = args["preparacao"]["id"]
+    return marshal(modosPreparo, modoPreparoFields), 200
 
-          preparacao = Preparacao.query.get(preparacaoId)
-          if preparacao is None:
-              codigo = Message(1, f"preparacao de id: {preparacao} não encontrado")
-              return marshal(codigo, msgFields), 404
+  def post(self):
+    args = parser.parse_args()
+    try:
+      preparacaoId = args["preparacao"]["id"]
 
-          modoPreparo = ModoPreparo(args['text'], preparacao)
+      preparacao = Preparacao.query.get(preparacaoId)
+      if preparacao is None:
+        codigo = Message(1, f"preparacao de id: {preparacao} não encontrado")
+        return marshal(codigo, msgFields), 404
 
-          db.session.add(modoPreparo)
-          db.session.commit()
+      modoPreparo = ModoPreparo(args['text'], preparacao)
 
-          logger.info(f"Modo Preparo de id: {modoPreparo.id} criado com sucesso")
-          return marshal(modoPreparo, modoPreparoFields), 201
-        except KeyError:
-            logger.error("Id da preparacao não informado")
-            codigo = Message(1, f"Id da preparacao não informado")
-            return marshal(codigo, msgFields), 400
-        except:
-            logger.error("Error ao cadastrar Modo de preparo")
+      db.session.add(modoPreparo)
+      db.session.commit()
 
-            codigo = Message(2, "Error ao cadastrar Modo de preparo")
-            return marshal(codigo, msgFields), 400
+      logger.info(f"Modo Preparo de id: {modoPreparo.id} criado com sucesso")
+      return marshal(modoPreparo, modoPreparoFields), 201
+
+    except KeyError:
+      logger.error("Id da preparacao não informado")
+      codigo = Message(1, f"Id da preparacao não informado")
+      return marshal(codigo, msgFields), 400
+
+    except:
+      logger.error("Error ao cadastrar Modo de preparo")
+
+      codigo = Message(2, "Error ao cadastrar Modo de preparo")
+      return marshal(codigo, msgFields), 400
 
 class ModosPreparoId(Resource):
 
-  def get(self, preparacao_id):
-     
-    modopreparo = ModoPreparo.query.filter_by(preparacao_id=preparacao_id, is_deleted=False).order_by('criacao')
+  def get(self, id):
+    modopreparo = ModoPreparo.query.filter_by(preparacao_id=id, is_deleted=False).order_by(ModoPreparo.criacao).first()
 
     if modopreparo is None:
       logger.error(f"Preparacao de id: {id} nao encontrada")

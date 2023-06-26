@@ -10,8 +10,15 @@ parser.add_argument("nome", type=str, help="nome não informada", required=True)
 
 class Utensilios(Resource):
   def get(self):
+    utensilios = Utensilio.query.all()
+
+    if utensilios == []:
+      logger.error("Não existe nenhum utensílio cadastrado")
+      codigo = Message(1, "Não existe nenhum utensílio cadastrado")
+
+      return marshal(codigo, msgFields), 404
     logger.info("Utensilios listados com sucesso")
-    return marshal(Utensilio.query.all(), utensilioFields), 200
+    return marshal(utensilios, utensilioFields), 200
 
   def post(self):
     args = parser.parse_args()

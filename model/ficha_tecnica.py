@@ -3,13 +3,12 @@ from model.unidade_medida import unidadeFields
 from model.medida_caseira import medidaCaseiraFields
 from model.ingrediente import ingredienteFields
 from model.preparacao import preparacaoFields
-from model.utensilio_preparacao import utensilioPreparacaoFields
-from model.modo_preparo import modoPreparoFields
+from model.preparacao_utensilio import utensiliosFields
+from model.modo_preparo import modoPreparoFichaTecnicaFields
 
 ingredienteOperacionalFields = {
     'id': fields.Integer,
     'ingrediente': fields.Nested(ingredienteFields),
-    'preparacao': fields.Nested(preparacaoFields),
     'pesoBruto': fields.Float,
     'unidade': fields.Nested(unidadeFields),
     'indicadorParteComestivel': fields.Float,
@@ -21,7 +20,6 @@ ingredienteOperacionalFields = {
 ingredienteGerencialFields = {
     'id': fields.Integer,
     'ingrediente': fields.Nested(ingredienteFields),
-    'preparacao': fields.Nested(preparacaoFields),
     'embalagem': fields.Float,
     'preco': fields.Float,
     'custoPreparacao': fields.Float
@@ -29,8 +27,9 @@ ingredienteGerencialFields = {
 
 fichaTecnicaOperacionalFields = {
     'ingredientes': fields.Nested(ingredienteOperacionalFields),
-    'modoPreparo': fields.Nested(modoPreparoFields),
-    'utensilios': fields.Nested(utensilioPreparacaoFields)
+    'modoPreparo': fields.Nested(modoPreparoFichaTecnicaFields),
+    'utensilios': fields.Nested(utensiliosFields),
+    'numPorcoes': fields.Float
 }
 
 fichaTecnicaGerencialFields = {

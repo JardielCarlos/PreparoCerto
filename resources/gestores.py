@@ -26,13 +26,20 @@ policy = PasswordPolicy.from_names(
 
 class Gestores(Resource):
   def get(self):
+    gestores = Gestor.query.all()
+
+    if gestores == []:
+      logger.error("Não existe nenhum gestor cadastrado")
+      codigo = Message(1, "Não existe nenhum gestor cadastrado")
+
+      return marshal(codigo, msgFields), 404
+    
     logger.info("Gestores listados com sucesso")
-    return marshal(Gestor.query.all(), gestorFields), 200
+    return marshal(gestores, gestorFields), 200
 
   def post(self):
     args = parser.parse_args()
     try:
-      empresa= Empresa.query.get(args['empresa']['id'])
       if len(args['nome']) == 0:
         logger.info("Nome nao informado")
 
@@ -47,6 +54,8 @@ class Gestores(Resource):
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
         return marshal(codigo, msgFields), 400
+
+      empresa= Empresa.query.get(args['empresa']['id'])
 
       if empresa is None:
         logger.error("Empresa não encontrada")

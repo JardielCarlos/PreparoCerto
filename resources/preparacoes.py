@@ -1,10 +1,12 @@
 from flask_restful import Resource, marshal, reqparse
-from model.preparacao import Preparacao, preparacaoFields
 from helpers.database import db
 from helpers.logger import logger
+from sqlalchemy.exc import IntegrityError
+
+from model.preparacao import Preparacao, preparacaoFields
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
-from model.modo_preparo import ModoPreparo
+
 
 parser = reqparse.RequestParser()
 
@@ -14,32 +16,39 @@ parser.add_argument("numPorcoes", type=float, help="Numero de porções não inf
 
 class Preparacoes(Resource):
   def get(self):
+    preparacoes = Preparacao.query.all()
+
+    if preparacoes == []:
+        logger.error("Não existe nenhuma preparação cadastrada")
+        codigo = Message(1, "Não existe nenhuma preparação cadastrada")
+
+        return marshal(codigo, msgFields), 404
     logger.info("Preparações listadas com sucesso")
-    return marshal(Preparacao.query.all(), preparacaoFields), 200
+    return marshal(Preparacao.query.order_by(Preparacao.criacao).all(), preparacaoFields), 200
 
   def post(self):
     args = parser.parse_args()
-    # try:
-    empresaId = args["empresa"]["id"]
+    try:
+      empresaId = args["empresa"]["id"]
 
-    empresa = Empresa.query.get(empresaId)
+      empresa = Empresa.query.get(empresaId)
 
-    if empresa is None:
-        codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
-        return marshal(codigo, msgFields), 404
+      if empresa is None:
+          codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
+          return marshal(codigo, msgFields), 404
 
-    preparacao = Preparacao(args['nome'], args['numPorcoes'], empresa)
+      preparacao = Preparacao(args['nome'], args['numPorcoes'], empresa)
 
-    db.session.add(preparacao)
-    db.session.commit()
+      db.session.add(preparacao)
+      db.session.commit()
 
-    logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
-    return marshal(preparacao, preparacaoFields), 201
-    # except:
-    #     logger.error("Error ao cadastrar preparacao")
+      logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
+      return marshal(preparacao, preparacaoFields), 201
+    except:
+        logger.error("Error ao cadastrar preparacao")
 
-    #     codigo = Message(2, "Error ao cadastrar preparacao")
-    #     return marshal(codigo, msgFields), 400
+        codigo = Message(2, "Error ao cadastrar preparacao")
+        return marshal(codigo, msgFields), 400
 
 class PreparacaoId(Resource):
   def get(self, id):
@@ -67,7 +76,7 @@ class PreparacaoId(Resource):
         return marshal(codigo, msgFields), 404
 
       preparacaoBd.nome = args['nome']
-      preparacaoBd.numPorcoes = args['numPocoes']
+      preparacaoBd.numPorcoes = args['numPorcoes']
 
       db.session.add(preparacaoBd)
       db.session.commit()
@@ -82,15 +91,19 @@ class PreparacaoId(Resource):
 
   def delete(self, id):
     preparacaoBd = Preparacao.query.get(id)
+    try:
+      if preparacaoBd is None:
+        logger.error(f"Preparação de id: {id} não encontrada")
 
-    if preparacaoBd is None:
-      logger.error(f"Preparação de id: {id} não encontrada")
+        codigo = Message(1, f"Preparação de id: {id} não encontrada")
+        return marshal(codigo, msgFields), 404
 
-      codigo = Message(1, f"Preparação de id: {id} não encontrada")
-      return marshal(codigo, msgFields), 404
+      db.session.delete(preparacaoBd)
+      db.session.commit()
 
-    db.session.delete(preparacaoBd)
-    db.session.commit()
-
-    logger.info(f"Preparacao de id: {id} deletada com sucesso")
-    return {}, 200
+      logger.info(f"Preparacao de id: {id} deletada com sucesso")
+      return {}, 200
+    except IntegrityError:
+      logger.error(f"Preparação de id: {id} não pode ser apagado ela possui relacionamento")
+      codigo = Message(1, f"Preparação de id: {id} possui dependencias e nao pode ser deletada")
+      return marshal(codigo, msgFields), 400

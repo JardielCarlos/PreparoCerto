@@ -12,26 +12,33 @@ parser.add_argument("descricao", type=str, help="Descricao não informada", requ
 
 class MedidasCaseiras(Resource):
 
-    def get(self):
-      logger.info("Medidas caseiras listada com sucesso")
-      return marshal(MedidaCaseira.query.all(), medidaCaseiraFields), 200
+  def get(self):
+    medidasCseiras = MedidaCaseira.query.all()
 
-    def post(self):
-      args = parser.parse_args()
+    if medidasCseiras == []:
+      logger.error("Não existe nenhuma medida caseira cadastrada")
+      codigo = Message(1, "Não existe nenhuma medida caseira cadastrada")
 
-      try:
-        medida = MedidaCaseira(args['quantidade'], args['descricao'])
+      return marshal(codigo, msgFields), 404
+    logger.info("Medidas caseiras listada com sucesso")
+    return marshal(medidasCseiras, medidaCaseiraFields), 200
 
-        db.session.add(medida)
-        db.session.commit()
+  def post(self):
+    args = parser.parse_args()
 
-        logger.info(f"Medida Caseira de id: {medida.id} criada com sucesso")
-        return marshal(medida, medidaCaseiraFields), 201
-      except:
-        logger.error("Error ao cadastrar a Medida Caseira")
+    try:
+      medida = MedidaCaseira(args['quantidade'], args['descricao'])
 
-        codigo = Message(2, "Error ao cadastrar a Medida Caseira")
-        return marshal(codigo, msgFields), 400
+      db.session.add(medida)
+      db.session.commit()
+
+      logger.info(f"Medida Caseira de id: {medida.id} criada com sucesso")
+      return marshal(medida, medidaCaseiraFields), 201
+    except:
+      logger.error("Error ao cadastrar a Medida Caseira")
+
+      codigo = Message(2, "Error ao cadastrar a Medida Caseira")
+      return marshal(codigo, msgFields), 400
 
 class MedidaCaseiraId(Resource):
   def get(self, id):
