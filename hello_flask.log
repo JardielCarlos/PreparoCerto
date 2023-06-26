@@ -1,2 +1,14 @@
-2023-06-25 13:04:41,554 WARNING _internal _log  * Debugger is active!
-2023-06-25 13:04:41,557 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-26 09:55:48,146 WARNING _internal _log  * Debugger is active!
+2023-06-26 09:55:48,148 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-26 09:56:14,830 INFO ingredientes get Ingredientes listados com sucesso
+2023-06-26 09:56:14,831 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 09:56:14] "GET /ingredientes HTTP/1.1" 200 -
+2023-06-26 09:57:06,955 INFO ingredientes get Ingredientes listados com sucesso
+2023-06-26 09:57:06,956 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 09:57:06] "GET /ingredientes HTTP/1.1" 200 -
+2023-06-26 09:57:25,697 INFO ingredientes put Ingrediente de id: 1 atualizado com sucesso
+2023-06-26 09:57:25,699 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 09:57:25] "PUT /ingrediente/1 HTTP/1.1" 200 -
+2023-06-26 09:57:27,721 INFO ingredientes get Ingredientes listados com sucesso
+2023-06-26 09:57:27,722 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 09:57:27] "GET /ingredientes HTTP/1.1" 200 -
+2023-06-26 09:59:39,204 INFO ingredientes get Ingrediente de id: 2 listado com sucesso
+2023-06-26 09:59:39,205 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 09:59:39] "GET /ingrediente/2 HTTP/1.1" 200 -
+2023-06-26 09:59:41,666 INFO ingredientes get Ingredientes listados com sucesso
+2023-06-26 09:59:41,667 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 09:59:41] "GET /ingredientes HTTP/1.1" 200 -
