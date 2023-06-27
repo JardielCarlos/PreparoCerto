@@ -26,26 +26,6 @@ parser.add_argument("custoPreparacao", type=float, help="Custo na preparação n
 
 class PreparacaoIngredientes(Resource):
     def get(self):
-        preparacoes = Preparacao.query.all()
-        ingredientes = Ingrediente.query.all()
-        preparacaoIngrediente = PreparacaoIngrediente.query.all()
-
-        if preparacoes == []:
-            logger.error("Não existe nenhuma preparação cadastrada")
-            codigo = Message(1, "Não existe nenhuma preparação cadastrada")
-
-            return marshal(codigo, msgFields), 404
-        elif ingredientes == []:
-            logger.error("Não existe nenhum ingrediente cadastrado")
-            codigo = Message(1, "Não existe nenhum ingrediente cadastrado")
-
-            return marshal(codigo, msgFields), 404
-        elif preparacoes == []:
-            logger.error("Não existe nenhum relacionamento Preparação-Ingrediente cadastrado")
-            codigo = Message(1, "Não existe nenhum relacionamento Preparação-Ingrediente cadastrado")
-
-            return marshal(codigo, msgFields), 404
-
         logger.info("Preparação-Ingrediente listados com sucesso")
         return marshal(PreparacaoIngrediente.query.all(), preparacaoIngredienteFields), 200
 

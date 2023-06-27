@@ -26,19 +26,7 @@ class FichaTecnicaOperacional(Resource):
 
     preparacao = Preparacao.query.get(id)
 
-    if preparacaoIngrediente == []:
-      codigo = Message(1, "A preparação não possui nenhum ingrediente cadastrado")
-      return marshal(codigo, msgFields), 404
-
-    elif modoPreparo == []:
-      codigo = Message(1, "A preparação não possui um modo de preparo")
-      return marshal(codigo, msgFields), 404
-
-    elif preparacaoUtensilio == []:
-      codigo = Message(1, "A preparação não possui utensilios")
-      return marshal(codigo, msgFields), 404
-
-    elif preparacao is None:
+    if preparacao is None:
       codigo = Message(1, f"Preparação de id: {id} não encontrada")
       return marshal(codigo, msgFields), 404
 
@@ -58,11 +46,7 @@ class FichaTecnicaGerencial(Resource):
     preparacaoIngrediente = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
     preparacao = Preparacao.query.get(id)
 
-    if preparacaoIngrediente == []:
-      codigo = Message(1, "A preparação não possui nenhum ingrediente cadastrado")
-      return marshal(codigo, msgFields), 404
-
-    elif preparacao is None:
+    if preparacao is None:
       codigo = Message(1, f"Preparação de id: {id} não encontrada")
       return marshal(codigo, msgFields), 404
 

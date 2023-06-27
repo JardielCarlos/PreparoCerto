@@ -14,11 +14,6 @@ class Unidade(Resource):
   def get(self):
     unidadesMedida = UnidadeMedida.query.all()
 
-    if unidadesMedida == []:
-      logger.error("Não existe nenhuma unidade de medida cadastrada")
-      codigo = Message(1, "Não existe nenhuma unidade de medida cadastrada")
-
-      return marshal(codigo, msgFields), 404
     logger.info("Unidades de medida listadas com sucesso")
     return marshal(unidadesMedida, unidadeFields), 200
 

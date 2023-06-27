@@ -12,11 +12,6 @@ class Utensilios(Resource):
   def get(self):
     utensilios = Utensilio.query.all()
 
-    if utensilios == []:
-      logger.error("Não existe nenhum utensílio cadastrado")
-      codigo = Message(1, "Não existe nenhum utensílio cadastrado")
-
-      return marshal(codigo, msgFields), 404
     logger.info("Utensilios listados com sucesso")
     return marshal(utensilios, utensilioFields), 200
 
