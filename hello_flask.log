@@ -1,2 +1,3 @@
-2023-06-25 13:04:41,554 WARNING _internal _log  * Debugger is active!
-2023-06-25 13:04:41,557 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-26 22:51:19,452 INFO _internal _log [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2023-06-26 22:51:19,461 INFO _internal _log [33mPress CTRL+C to quit[0m

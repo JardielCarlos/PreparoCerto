@@ -6,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from model.preparacao import Preparacao, preparacaoFields
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
+from model.imagem import Imagem
 
 
 parser = reqparse.RequestParser()
@@ -13,6 +14,7 @@ parser = reqparse.RequestParser()
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False)
 parser.add_argument("numPorcoes", type=float, help="Numero de porções não informado", required=True)
+parser.add_argument("imagem",type=dict,help="Imagem não infotmada",required=False)
 
 class Preparacoes(Resource):
   def get(self):
@@ -30,14 +32,18 @@ class Preparacoes(Resource):
     args = parser.parse_args()
     try:
       empresaId = args["empresa"]["id"]
+      
+      imagemId = args["imagem"]["id"]
 
       empresa = Empresa.query.get(empresaId)
-
+      
+      imagem = Imagem.query.get(imagemId)
+      
       if empresa is None:
           codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
-          return marshal(codigo, msgFields), 404
+          return marshal(codigo, msgFields), 404 
 
-      preparacao = Preparacao(args['nome'], args['numPorcoes'], empresa)
+      preparacao = Preparacao(args['nome'], args['numPorcoes'], empresa,imagem)
 
       db.session.add(preparacao)
       db.session.commit()
