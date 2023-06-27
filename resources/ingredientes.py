@@ -12,12 +12,6 @@ class Ingredientes(Resource):
     def get(self):
       ingredientes = Ingrediente.query.all()
 
-      if ingredientes == []:
-        logger.error("Não existe nenhum ingrediente cadastrado")
-        codigo = Message(1, "Não existe nenhum ingrediente cadastrado")
-
-        return marshal(codigo, msgFields), 404
-    
       logger.info("Ingredientes listados com sucesso")
       return marshal(ingredientes, ingredienteFields), 200
 

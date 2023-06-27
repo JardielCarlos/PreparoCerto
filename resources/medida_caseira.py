@@ -15,11 +15,6 @@ class MedidasCaseiras(Resource):
   def get(self):
     medidasCseiras = MedidaCaseira.query.all()
 
-    if medidasCseiras == []:
-      logger.error("Não existe nenhuma medida caseira cadastrada")
-      codigo = Message(1, "Não existe nenhuma medida caseira cadastrada")
-
-      return marshal(codigo, msgFields), 404
     logger.info("Medidas caseiras listada com sucesso")
     return marshal(medidasCseiras, medidaCaseiraFields), 200
 

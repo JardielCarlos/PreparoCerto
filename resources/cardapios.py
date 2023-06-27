@@ -12,12 +12,6 @@ parser.add_argument("empresa", type=dict, help="Empresa não informada", require
 class Cardapios(Resource):
   def get(self):
     cardapios = Cardapio.query.all()
-    if cardapios == []:
-      logger.error("Não existe nenhum cardápio cadastrado")
-      codigo = Message(1, "Não existe nenhum cardápio cadastrado")
-
-      return marshal(codigo, msgFields), 404
-
     logger.info("Cardápios listados com sucesso")
     return marshal(cardapios, cardapioFields), 200
 

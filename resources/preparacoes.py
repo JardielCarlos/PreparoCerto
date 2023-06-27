@@ -16,13 +16,6 @@ parser.add_argument("numPorcoes", type=float, help="Numero de porções não inf
 
 class Preparacoes(Resource):
   def get(self):
-    preparacoes = Preparacao.query.all()
-
-    if preparacoes == []:
-        logger.error("Não existe nenhuma preparação cadastrada")
-        codigo = Message(1, "Não existe nenhuma preparação cadastrada")
-
-        return marshal(codigo, msgFields), 404
     logger.info("Preparações listadas com sucesso")
     return marshal(Preparacao.query.order_by(Preparacao.criacao).all(), preparacaoFields), 200
 
