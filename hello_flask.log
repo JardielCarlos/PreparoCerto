@@ -1,2 +1,10 @@
-2023-06-28 17:55:47,852 WARNING _internal _log  * Debugger is active!
-2023-06-28 17:55:47,854 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-28 18:05:17,624 WARNING _internal _log  * Debugger is active!
+2023-06-28 18:05:17,626 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-28 18:05:39,760 INFO proprietarios get Proprietários listados com sucesso
+2023-06-28 18:05:39,761 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 18:05:39] "GET /proprietarios HTTP/1.1" 200 -
+2023-06-28 18:05:43,314 INFO proprietarios get Proprietário de id: 1 listado com Sucesso
+2023-06-28 18:05:43,315 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 18:05:43] "GET /proprietario/1 HTTP/1.1" 200 -
+2023-06-28 18:05:50,678 INFO empresas get Empresas listadas com Sucesso
+2023-06-28 18:05:50,681 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 18:05:50] "GET /empresas HTTP/1.1" 200 -
+2023-06-28 18:05:54,782 INFO ingredientes get Ingredientes listados com sucesso
+2023-06-28 18:05:54,783 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 18:05:54] "GET /ingredientes HTTP/1.1" 200 -

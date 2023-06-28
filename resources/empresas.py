@@ -1,45 +1,49 @@
 from flask_restful import Resource, marshal, reqparse
-from model.empresa import Empresa, empresaFieldsToken
-from model.proprietario import Proprietario
 from helpers.database import db
 from helpers.logger import logger
-from model.mensagem import Message, msgFields
-from helpers.auth.token_verifier import token_verify
-from sqlalchemy.exc import IntegrityError
 from validate_docbr import CNPJ
 import re
+
+from helpers.auth.token_verifier import token_verify
+
+from sqlalchemy.exc import IntegrityError
+
+from model.mensagem import Message, msgFields
+from model.proprietario import Proprietario
+from model.empresa import Empresa, empresaFieldsToken
 
 parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("cnpj", type=str, help="CNPJ não informado", required=True)
 parser.add_argument("proprietario", type=dict, help="Proprietário não informado", required=False)
+
 cnpjValidate = CNPJ()
 
 class Empresas(Resource):
-  # @token_verify
-  def get(self): #, tipo, token
-    # if tipo != 'proprietario':
-    #   logger.error("Usuario sem autorização suficiente!")
-    #   codigo = Message(1, "Usuario sem autorização suficiente!")
-    #   return marshal(codigo, msgFields), 403
+  @token_verify
+  def get(self, tipo, token):
+    if tipo != 'proprietario':
+      logger.error("Usuario sem autorização suficiente!")
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
 
     empresa = Empresa.query.all()
 
-    data = {'empresa': empresa, 'token': None}
+    data = {'empresa': empresa, 'token': token}
 
     logger.info("Empresas listadas com Sucesso")
     return marshal(data, empresaFieldsToken), 200
 
-  # @token_verify
-  def post(self):
+  @token_verify
+  def post(self, tipo, token):
     args = parser.parse_args()
 
-    # if tipo != 'proprietario':
-    #   logger.error("Usuario sem autorização suficiente!")
+    if tipo != 'proprietario':
+      logger.error("Usuario sem autorização suficiente!")
 
-    #   codigo = Message(1, "Usuario sem autorização suficiente!")
-    #   return marshal(codigo, msgFields), 403
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
 
     try:
       proprietarioId = args["proprietario"]['id']
@@ -70,7 +74,7 @@ class Empresas(Resource):
 
       logger.info(f"Empresa de id: {empresa.id} criada com sucesso")
 
-      data = {'empresa': empresa, 'token': None}
+      data = {'empresa': empresa, 'token': token}
 
       return marshal(data, empresaFieldsToken), 201
     except IntegrityError:
@@ -88,13 +92,13 @@ class Empresas(Resource):
 
 
 class EmpresaId(Resource):
-  # @token_verify
-  def get(self, id): #, tipo, token, id
-    # if tipo != 'proprietario':
-    #   logger.error("Usuario sem autorização suficiente!")
+  @token_verify
+  def get(self, tipo, token, id):
+    if tipo != 'proprietario':
+      logger.error("Usuario sem autorização suficiente!")
 
-    #   codigo = Message(1, "Usuario sem autorização suficiente!")
-    #   return marshal(codigo, msgFields), 403
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
 
     empresa = Empresa.query.get(id)
     if empresa is None:
@@ -102,20 +106,20 @@ class EmpresaId(Resource):
 
       codigo = Message(1, f"Empresa de id: {id} não encontrada")
       return marshal(codigo, msgFields), 404
-    data = {'empresa': empresa, 'token': None}
+    data = {'empresa': empresa, 'token': token}
 
     logger.info(f"Empresa de id: {empresa.id} listada com sucesso")
     return marshal(data, empresaFieldsToken), 200
 
-  # @token_verify
-  def put(self, id):
+  @token_verify
+  def put(self, tipo, token, id):
     args = parser.parse_args()
 
-    # if tipo != 'proprietario':
-    #   logger.error("Usuario sem autorização suficiente!")
+    if tipo != 'proprietario':
+      logger.error("Usuario sem autorização suficiente!")
 
-    #   codigo = Message(1, "Usuario sem autorização suficiente!")
-    #   return marshal(codigo, msgFields), 403
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
 
     try:
       empresaBd = Empresa.query.get(id)
@@ -135,7 +139,7 @@ class EmpresaId(Resource):
 
       db.session.add(empresaBd)
       db.session.commit()
-      data = {'empresa': empresaBd, 'token': None}
+      data = {'empresa': empresaBd, 'token': token}
 
       logger.info(f"Empresa de id: {id} atualizada com sucesso")
       return marshal(data, empresaFieldsToken), 200
@@ -150,13 +154,13 @@ class EmpresaId(Resource):
       codigo = Message(2, "Error ao atualizar a empresa")
       return marshal(codigo, msgFields), 400
 
-  # @token_verify
-  def delete(self, id):
-    # if tipo != 'proprietario':
-    #   logger.error("Usuario sem autorização suficiente!")
+  @token_verify
+  def delete(self, tipo, token, id):
+    if tipo != 'proprietario':
+      logger.error("Usuario sem autorização suficiente!")
 
-    #   codigo = Message(1, "Usuario sem autorização suficiente!")
-    #   return marshal(codigo, msgFields), 403
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
 
     empresaBd = Empresa.query.get(id)
 
@@ -170,4 +174,4 @@ class EmpresaId(Resource):
     db.session.commit()
 
     logger.info(f"Empresa de id: {id} deletada com sucesso")
-    return {'token': None}, 200
+    return {'token': token}, 200
