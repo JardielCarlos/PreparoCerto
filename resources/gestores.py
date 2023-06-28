@@ -72,7 +72,9 @@ class Gestores(Resource):
     except IntegrityError:
       codigo = Message(1, "Email ja cadastrado no sistema")
       return marshal(codigo, msgFields), 400
-
+    except KeyError:
+      codigo = Message(1,"Id da empresa não informado")
+      return marshal(codigo, msgFields), 400
     except:
       logger.error("Error ao cadastrar o Gestor")
 
@@ -104,6 +106,12 @@ class GestorId(Resource):
         codigo = Message(1, f"Gestor de id: {id} não encontrado")
         return marshal(codigo, msgFields), 404
 
+      if len(args['nome']) == 0:
+        logger.info("Nome nao informado")
+
+        codigo = Message(1, "Nome nao informado")
+        return marshal(codigo, msgFields), 400
+      
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400

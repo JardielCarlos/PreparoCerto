@@ -108,6 +108,12 @@ class PreparadorId(Resource):
         codigo = Message(1, f"Preparador de id: {id} não encontrado")
         return marshal(codigo, msgFields), 404
 
+      if len(args['nome']) == 0:
+        logger.info("Nome nao informado")
+
+        codigo = Message(1, "Nome nao informado")
+        return marshal(codigo, msgFields), 400
+
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400
