@@ -7,7 +7,7 @@ from model.medida_caseira import MedidaCaseira, medidaCaseiraFields
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("quantidade", type=str, help="Quantidade não informada", required=True)
+parser.add_argument("quantidade", type=int, help="Quantidade não informada", required=True)
 parser.add_argument("descricao", type=str, help="Descricao não informada", required=True)
 
 class MedidasCaseiras(Resource):
@@ -22,6 +22,18 @@ class MedidasCaseiras(Resource):
     args = parser.parse_args()
 
     try:
+      if args['quantidade'] <= 0:
+        logger.error("Quantidade nao informada")
+
+        codigo = Message(1, "Quantidade nao informada")
+        return marshal(codigo, msgFields), 400
+
+      if len(args['descricao']) == 0:
+        logger.error("descricao nao informado")
+
+        codigo = Message(1, "descricao nao informado")
+        return marshal(codigo, msgFields), 400
+
       medida = MedidaCaseira(args['quantidade'], args['descricao'])
 
       db.session.add(medida)
