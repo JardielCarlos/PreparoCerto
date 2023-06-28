@@ -4,6 +4,10 @@ from helpers.logger import logger
 from sqlalchemy.exc import IntegrityError
 
 from model.preparacao import Preparacao, preparacaoFields
+from model.preparacao_ingrediente import PreparacaoIngrediente
+from model.preparacao_utensilio import PreparacaoUtensilio
+from model.modo_preparo import ModoPreparo
+
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
 
@@ -84,12 +88,23 @@ class PreparacaoId(Resource):
 
   def delete(self, id):
     preparacaoBd = Preparacao.query.get(id)
+    preparacaoIngredienteBd = PreparacaoIngrediente.query.filter_by(preparacao_id=id).all()
+    preparacaoUtensilioBd = PreparacaoUtensilio.query.filter_by(preparacao_id=id).all()
+    modoPreparoBd = ModoPreparo.query.filter_by(preparacao_id=id).all()
+
     try:
       if preparacaoBd is None:
         logger.error(f"Preparação de id: {id} não encontrada")
 
         codigo = Message(1, f"Preparação de id: {id} não encontrada")
         return marshal(codigo, msgFields), 404
+      
+      for i in preparacaoIngredienteBd:
+        db.session.delete(i)
+      for i in preparacaoUtensilioBd:
+        db.session.delete(i)
+      for i in modoPreparoBd:
+        db.session.delete(i)
 
       db.session.delete(preparacaoBd)
       db.session.commit()
