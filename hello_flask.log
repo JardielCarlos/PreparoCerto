@@ -1,243 +1,33 @@
-2023-06-26 16:34:52,340 WARNING _internal _log  * Debugger is active!
-2023-06-26 16:34:52,343 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-06-26 16:41:07,860 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:41:07,870 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:41:07] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:41:11,580 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:41:11,584 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:41:11] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:41:13,102 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:41:13,103 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:41:13] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:42:58,330 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:42:58,333 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:42:58] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:42:58,795 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:42:58,799 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:42:58] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:43:00,637 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:43:00,638 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:00] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:43:03,156 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:43:03,161 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:03] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:43:03,299 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:03] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:43:03,558 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:43:03,558 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:03] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:43:03,561 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:03] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:43:04,757 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:43:04,757 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:04] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:43:04,759 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:04] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:43:33,945 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:43:33,945 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:33] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:43:33,948 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:33] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:43:34,887 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:43:34,887 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:34] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:43:34,892 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:34] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:43:36,574 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:43:36,577 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:36] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:43:37,488 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:43:37,491 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:37] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:43:38,438 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:43:38,439 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:38] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:43:45,019 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:43:45,021 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:45] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:43:48,327 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:43:48,331 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:48] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:43:50,647 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:43:50,648 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:50] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:43:53,330 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:43:53,331 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:53] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:43:53,332 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:53] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:43:54,458 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:54] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:43:54,458 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:43:54,460 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:54] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:43:56,814 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:43:56,816 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:56] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:43:57,673 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:43:57,676 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:57] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:43:58,628 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:43:58,629 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:43:58] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:44:03,122 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:44:03,124 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:03] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:44:04,013 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:44:04,016 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:04] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:44:10,186 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:44:10,188 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:10] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:44:10,683 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:44:10,686 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:10] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:44:11,450 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:44:11,452 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:11] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:44:22,345 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:22] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:44:22,407 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:44:22,410 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:22] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:44:23,457 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:44:23,458 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:23] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:44:23,460 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:23] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:44:31,718 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:44:31,719 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:31] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:44:43,512 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:43] "OPTIONS /ingrediente/4 HTTP/1.1" 200 -
-2023-06-26 16:44:43,965 INFO ingredientes delete Ingrediente de id: 4 deletado com sucesso
-2023-06-26 16:44:43,966 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:43] "DELETE /ingrediente/4 HTTP/1.1" 200 -
-2023-06-26 16:44:48,010 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:44:48,011 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:44:48] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:45:06,029 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:45:06,032 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:45:06] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:45:08,083 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:45:08,084 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:45:08] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:45:09,717 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:45:09,719 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:45:09] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:45:12,175 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:45:12,175 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:45:12] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:45:12,179 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:45:12] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:45:13,199 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:45:13] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:45:13,200 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:45:13,203 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:45:13] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:47:07,688 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:07] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:47:07,734 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:47:07,737 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:07] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:47:20,779 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:47:20,783 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:20] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:47:22,016 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:47:22,019 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:22] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:47:23,237 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:47:23,238 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:23] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:47:25,135 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:47:25,138 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:25] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:47:28,167 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:28] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:47:28,168 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:47:28,170 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:28] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:47:29,202 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:47:29,202 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:29] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:47:29,205 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:29] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:47:32,060 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:47:32,062 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:32] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:47:33,279 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:47:33,282 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:33] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:47:34,920 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:47:34,921 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:34] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:47:46,681 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:47:46,684 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:46] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:47:47,507 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:47:47,510 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:47] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:47:48,640 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:47:48,641 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:48] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:47:49,655 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:47:49,658 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:49] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:47:53,453 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:47:53,456 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:53] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:47:53,534 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:53] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:47:54,532 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:47:54,532 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:54] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:47:54,535 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:47:54] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:48:01,548 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:48:01,551 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:01] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:48:03,381 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:48:03,384 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:03] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:48:11,229 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:48:11,230 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:11] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:48:14,529 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:48:14,529 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:14] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:48:14,532 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:14] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:48:15,767 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:15] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:48:15,827 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:48:15,830 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:15] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:48:21,738 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:48:21,739 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:48:21] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:51:17,220 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:51:17,220 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:17] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:51:17,223 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:17] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:51:26,824 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:51:26,826 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:26] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:51:27,661 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:51:27,662 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:27] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:51:28,698 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:51:28,701 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:28] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:51:30,162 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:51:30,163 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:30] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:51:33,763 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:51:33,766 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:33] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:51:35,599 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:51:35,599 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:35] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:51:37,826 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:37] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:51:37,887 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:51:37,890 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:37] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:51:39,638 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:51:39,638 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:39] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:51:39,640 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:39] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:51:43,963 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:51:43,966 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:43] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:51:44,968 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:51:44,970 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:44] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:51:48,220 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:51:48,221 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:48] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:51:52,320 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:52] "OPTIONS /ingrediente/7 HTTP/1.1" 200 -
-2023-06-26 16:51:52,762 INFO ingredientes delete Ingrediente de id: 7 deletado com sucesso
-2023-06-26 16:51:52,763 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:51:52] "DELETE /ingrediente/7 HTTP/1.1" 200 -
-2023-06-26 16:52:29,938 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:52:29] "OPTIONS /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:52:30,406 INFO ingredientes post Ingrediente de id: 8 criado com sucesso
-2023-06-26 16:52:30,406 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:52:30] "[35m[1mPOST /ingredientes HTTP/1.1[0m" 201 -
-2023-06-26 16:52:56,017 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:52:56] "OPTIONS /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:52:56,454 INFO ingredientes post Ingrediente de id: 9 criado com sucesso
-2023-06-26 16:52:56,456 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:52:56] "[35m[1mPOST /ingredientes HTTP/1.1[0m" 201 -
-2023-06-26 16:53:08,627 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:53:08] "OPTIONS /ingrediente/9 HTTP/1.1" 200 -
-2023-06-26 16:53:09,064 INFO ingredientes delete Ingrediente de id: 9 deletado com sucesso
-2023-06-26 16:53:09,065 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:53:09] "DELETE /ingrediente/9 HTTP/1.1" 200 -
-2023-06-26 16:53:23,953 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:53:23,956 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:53:23] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:57:48,266 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:57:48,270 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:48] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:57:48,781 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:57:48,788 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:48] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:57:50,500 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:57:50,504 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:50] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:57:51,431 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:57:51,432 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:51] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:57:55,273 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:55] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:57:55,365 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:57:55,370 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:55] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:57:56,379 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:56] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:57:56,441 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:57:56,443 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:57:56] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:58:13,712 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:13] "OPTIONS /preparadores/7 HTTP/1.1" 200 -
-2023-06-26 16:58:14,883 INFO preparadores delete Preparador de id: 7 deletado com sucesso
-2023-06-26 16:58:14,883 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:14] "DELETE /preparadores/7 HTTP/1.1" 200 -
-2023-06-26 16:58:18,253 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:18] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:58:18,267 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:58:18,271 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:18] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:58:20,848 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:58:20,849 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:20] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:58:20,851 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:20] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:58:21,982 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:21] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:58:22,041 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:58:22,044 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:22] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 16:58:26,296 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:58:26,299 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:26] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:58:28,699 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:58:28,703 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:28] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:58:30,405 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 16:58:30,409 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:30] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 16:58:31,681 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:58:31,685 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:31] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:58:33,141 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:58:33,142 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:33] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:58:42,299 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:58:42,301 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:42] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:58:45,035 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 16:58:45,039 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:45] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 16:58:46,852 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 16:58:46,853 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:46] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 16:58:49,207 INFO gestores get Gestores listados com sucesso
-2023-06-26 16:58:49,208 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:49] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:58:49,210 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:49] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 16:58:50,229 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:50] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 16:58:50,289 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 16:58:50,291 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 16:58:50] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 17:02:38,727 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 17:02:38,728 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:38] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 17:02:38,730 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:38] "GET /preparadores HTTP/1.1" 200 -
-2023-06-26 17:02:40,393 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-26 17:02:40,396 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:40] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-26 17:02:41,027 INFO preparacoes get Preparações listadas com sucesso
-2023-06-26 17:02:41,029 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:41] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-26 17:02:41,634 INFO ingredientes get Ingredientes listados com sucesso
-2023-06-26 17:02:41,636 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:41] "GET /ingredientes HTTP/1.1" 200 -
-2023-06-26 17:02:43,729 INFO gestores get Gestores listados com sucesso
-2023-06-26 17:02:43,729 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:43] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 17:02:43,732 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:43] "GET /gestor HTTP/1.1" 200 -
-2023-06-26 17:02:44,627 INFO preparadores get Preparadores listados com sucesso
-2023-06-26 17:02:44,627 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:44] "GET /usuarios HTTP/1.1" 200 -
-2023-06-26 17:02:44,632 INFO _internal _log 127.0.0.1 - - [26/Jun/2023 17:02:44] "GET /preparadores HTTP/1.1" 200 -
+2023-06-28 15:58:37,384 WARNING _internal _log  * Debugger is active!
+2023-06-28 15:58:37,391 INFO _internal _log  * Debugger PIN: 144-128-622
+2023-06-28 15:58:45,246 INFO preparacoes get Preparações listadas com sucesso
+2023-06-28 15:58:45,492 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:58:45] "GET /preparacoes HTTP/1.1" 200 -
+2023-06-28 15:58:48,356 INFO preparacoes post Preparacao de id: 4 criada com sucesso
+2023-06-28 15:58:48,371 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:58:48] "[35m[1mPOST /preparacoes HTTP/1.1[0m" 201 -
+2023-06-28 15:58:56,880 INFO preparacoes post Preparacao de id: 5 criada com sucesso
+2023-06-28 15:58:56,886 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:58:56] "[35m[1mPOST /preparacoes HTTP/1.1[0m" 201 -
+2023-06-28 15:59:05,887 INFO cardapios post Cardápio de id: 2 criado com sucesso
+2023-06-28 15:59:05,894 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:05] "[35m[1mPOST /cardapios HTTP/1.1[0m" 201 -
+2023-06-28 15:59:19,997 ERROR cardapio_preparacao post Cardápio não encontrado
+2023-06-28 15:59:19,999 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:19] "[33mPOST /cardapio_preparacao HTTP/1.1[0m" 404 -
+2023-06-28 15:59:34,612 ERROR cardapio_preparacao post Preparação não encontrada
+2023-06-28 15:59:34,613 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:34] "[33mPOST /cardapio_preparacao HTTP/1.1[0m" 404 -
+2023-06-28 15:59:39,012 ERROR cardapio_preparacao post Preparação não encontrada
+2023-06-28 15:59:39,014 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:39] "[33mPOST /cardapio_preparacao HTTP/1.1[0m" 404 -
+2023-06-28 15:59:43,773 INFO cardapio_preparacao post Cardápio-Preparação de id: 3 criada com sucesso
+2023-06-28 15:59:43,783 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:43] "POST /cardapio_preparacao HTTP/1.1" 200 -
+2023-06-28 15:59:47,687 INFO cardapio_preparacao post Cardápio-Preparação de id: 4 criada com sucesso
+2023-06-28 15:59:47,694 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:47] "POST /cardapio_preparacao HTTP/1.1" 200 -
+2023-06-28 15:59:55,709 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
+2023-06-28 15:59:55,722 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:55] "GET /cardapio_preparacao HTTP/1.1" 200 -
+2023-06-28 15:59:57,799 ERROR cardapio_preparacao get Cardápio de id: 1 não encontrado
+2023-06-28 15:59:57,800 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:57] "[33mGET /cardapio_preparacao/1 HTTP/1.1[0m" 404 -
+2023-06-28 15:59:59,442 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:59] "GET /cardapio_preparacao/2 HTTP/1.1" 200 -
+2023-06-28 16:00:14,914 ERROR cardapio_preparacao delete Cardápio-Preparação de id: 2 não encontrado
+2023-06-28 16:00:14,916 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:14] "[33mDELETE /cardapio_preparacao/2 HTTP/1.1[0m" 404 -
+2023-06-28 16:00:23,820 ERROR cardapios delete Cardápio de id: 1 não encontrado
+2023-06-28 16:00:23,822 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:23] "[33mDELETE /cardapio/1 HTTP/1.1[0m" 404 -
+2023-06-28 16:00:26,203 INFO cardapios delete Cardápio de id: 2 deletado com sucesso
+2023-06-28 16:00:26,204 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:26] "DELETE /cardapio/2 HTTP/1.1" 200 -
+2023-06-28 16:00:32,615 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
+2023-06-28 16:00:32,617 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:32] "GET /cardapio_preparacao HTTP/1.1" 200 -
