@@ -1,9 +1,12 @@
 from flask_restful import Resource, marshal, reqparse
-from model.preparacao import Preparacao, preparacaoFields
 from helpers.database import db
 from helpers.logger import logger
+from sqlalchemy.exc import IntegrityError
+
+from model.preparacao import Preparacao, preparacaoFields
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
+
 
 parser = reqparse.RequestParser()
 
@@ -13,15 +16,8 @@ parser.add_argument("numPorcoes", type=float, help="Numero de porções não inf
 
 class Preparacoes(Resource):
   def get(self):
-    preparacoes = Preparacao.query.all()
-
-    if preparacoes == []:
-        logger.error("Não existe nenhuma preparação cadastrada")
-        codigo = Message(1, "Não existe nenhuma preparação cadastrada")
-
-        return marshal(codigo, msgFields), 404
     logger.info("Preparações listadas com sucesso")
-    return marshal(preparacoes, preparacaoFields), 200
+    return marshal(Preparacao.query.order_by(Preparacao.criacao).all(), preparacaoFields), 200
 
   def post(self):
     args = parser.parse_args()
@@ -73,7 +69,7 @@ class PreparacaoId(Resource):
         return marshal(codigo, msgFields), 404
 
       preparacaoBd.nome = args['nome']
-      preparacaoBd.numPorcoes = args['numPocoes']
+      preparacaoBd.numPorcoes = args['numPorcoes']
 
       db.session.add(preparacaoBd)
       db.session.commit()
@@ -88,15 +84,19 @@ class PreparacaoId(Resource):
 
   def delete(self, id):
     preparacaoBd = Preparacao.query.get(id)
+    try:
+      if preparacaoBd is None:
+        logger.error(f"Preparação de id: {id} não encontrada")
 
-    if preparacaoBd is None:
-      logger.error(f"Preparação de id: {id} não encontrada")
+        codigo = Message(1, f"Preparação de id: {id} não encontrada")
+        return marshal(codigo, msgFields), 404
 
-      codigo = Message(1, f"Preparação de id: {id} não encontrada")
-      return marshal(codigo, msgFields), 404
+      db.session.delete(preparacaoBd)
+      db.session.commit()
 
-    db.session.delete(preparacaoBd)
-    db.session.commit()
-
-    logger.info(f"Preparacao de id: {id} deletada com sucesso")
-    return {}, 200
+      logger.info(f"Preparacao de id: {id} deletada com sucesso")
+      return {}, 200
+    except IntegrityError:
+      logger.error(f"Preparação de id: {id} não pode ser apagado ela possui relacionamento")
+      codigo = Message(1, f"Preparação de id: {id} possui dependencias e nao pode ser deletada")
+      return marshal(codigo, msgFields), 400

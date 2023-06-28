@@ -16,26 +16,6 @@ parser.add_argument("preparacao", type=dict, help="Preparação não informada",
 
 class UtensiliosPreparacao(Resource):
   def get(self):
-    utensilioPreparacao = PreparacaoUtensilio.query.all()
-    utensilios = Utensilio.query.all()
-    preparacao = Preparacao.query.all()
-
-    if utensilios == []:
-      logger.error("Não existe nenhum utensílio cadastrado")
-      codigo = Message(1, "Não existe nenhum utensílio cadastrado")
-
-      return marshal(codigo, msgFields), 404
-    elif preparacao == []:
-      logger.error("Não existe nenhuma preparação cadastrada")
-      codigo = Message(1, "Não existe nenhuma preparação cadastrada")
-
-      return marshal(codigo, msgFields), 404
-    elif utensilioPreparacao == []:
-      logger.error("Não existe nenhum relacionamento Preparação-Utensilio cadastrado")
-      codigo = Message(1, "Não existe nenhum relacionamento Preparação-Utensilio cadastrado")
-
-      return marshal(codigo, msgFields), 404
-
     logger.info("Preparação-Utensilios listados com sucesso")
     return marshal(PreparacaoUtensilio.query.all(), utensilioPreparacaoFields), 200
 

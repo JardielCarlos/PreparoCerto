@@ -7,7 +7,7 @@ preparacaoFields = {
     'id': fields.Integer,
     'nome': fields.String,
     'numPorcoes': fields.Float,
-    "criacao": fields.DateTime,
+    "criacao": fields.String,
     'empresa': fields.Nested(empresaFields)
 }
 
