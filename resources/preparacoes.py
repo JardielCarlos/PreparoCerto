@@ -97,6 +97,6 @@ class PreparacaoId(Resource):
       logger.info(f"Preparacao de id: {id} deletada com sucesso")
       return {}, 200
     except IntegrityError:
-      logger.error(f"Preparação de id: {id} não pode ser apagado ela possui relacionamento")
-      codigo = Message(1, f"Preparação de id: {id} possui dependencias e nao pode ser deletada")
+      logger.error(f"Preparação de id: {id} não pode ser apagado ela possui dependencias")
+      codigo = Message(1, f"Preparação de id: {id} possui dependencias e nao pode ser deletada, por favor delete as dependencias antes de deletar essa preparacao")
       return marshal(codigo, msgFields), 400
