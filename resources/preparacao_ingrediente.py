@@ -11,7 +11,7 @@ from model.medida_caseira import MedidaCaseira
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("preparacao", type=dict, help="Preparação não informada", required=True)
+parser.add_argument("preparacao", type=dict, help="Preparação não informada", required=False)
 parser.add_argument("ingrediente", type=dict, help="Ingrediente não informado", required=True)
 parser.add_argument("pesoBruto", type=float, help="Peso Bruto não informado", required=True)
 parser.add_argument("unidade", type=dict, help="Unidade não informada", required=True)
@@ -36,7 +36,6 @@ class PreparacaoIngredientes(Resource):
         ingredienteId = args['ingrediente']['id']
         pesoBruto = args['pesoBruto']
         unidadeId = args['unidade']['id']
-
         indicadorParteComestivel = args['indicadorParteComestivel']
         pesoLiquido = args['pesoLiquido']
         perCapita = args['perCapita']
@@ -63,7 +62,7 @@ class PreparacaoIngredientes(Resource):
             return marshal(codigo, msgFields), 404
 
         elif medidaCaseira is None:
-            codigo = Message(1, f"Medida Caseira de id: {preparacaoId} não encontrada")
+            codigo = Message(1, f"Medida Caseira de id: {medidaCaseiraId} não encontrada")
             return marshal(codigo, msgFields), 404
 
         preparacaoIngrediente = PreparacaoIngrediente(preparacao, ingrediente, pesoBruto, unidade, indicadorParteComestivel, pesoLiquido, perCapita, medidaCaseira, embalagem, preco, custoPreparacao)
@@ -98,30 +97,51 @@ class PreparacaoIngredientesId(Resource):
     def put(self, id):
         args = parser.parse_args()
         try:
-
             preparacaoIngredienteBd = PreparacaoIngrediente.query.get(id)
-            preparacaoId = args['preparacao']['id']
+
             ingredienteId = args['ingrediente']['id']
+            pesoBruto = args['pesoBruto']
+            unidadeId = args['unidade']['id']
+            indicadorParteComestivel = args['indicadorParteComestivel']
+            pesoLiquido = args['pesoLiquido']
+            perCapita = args['perCapita']
+            medidaCaseiraId = args['medidaCaseira']['id']
+            embalagem = args['embalagem']
+            preco = args['preco']
+            custoPreparacao = args['custoPreparacao']
+
+            ingrediente = Ingrediente.query.get(ingredienteId)
+            unidade = UnidadeMedida.query.get(unidadeId)
+            medidaCaseira = MedidaCaseira.query.get(medidaCaseiraId)
 
             if preparacaoIngredienteBd is None:
                 logger.error(f"Preparação-Ingrediente de id: {id} não encontrada")
 
                 codigo = Message(1, f"Preparação-Ingrediente de id: {id} não encontrada")
                 return marshal(codigo, msgFields), 404
-
-            ingrediente = Ingrediente.query.get(ingredienteId)
-            preparacao = Preparacao.query.get(preparacaoId)
-            if ingrediente is None:
-                codigo = Message(
-                    1, f"Ingrediente de id: {ingredienteId} não encontrado")
-                return marshal(codigo, msgFields), 404
-            elif preparacao is None:
-                codigo = Message(
-                    1, f"Preparação de id: {preparacaoId} não encontrada")
+            
+            elif ingrediente is None:
+                codigo = Message(1, f"Ingrediente de id: {ingredienteId} não encontrado")
                 return marshal(codigo, msgFields), 404
 
+            elif unidade is None:
+                codigo = Message(1, f"Unidade de id: {unidadeId} não encontrada")
+                return marshal(codigo, msgFields), 404
+
+            elif medidaCaseira is None:
+                codigo = Message(1, f"Medida Caseira de id: {medidaCaseiraId} não encontrada")
+                return marshal(codigo, msgFields), 404
+            
             preparacaoIngredienteBd.ingrediente = ingrediente
-            preparacaoIngredienteBd.preparacao = preparacao
+            preparacaoIngredienteBd.pesoBruto = pesoBruto
+            preparacaoIngredienteBd.unidade = unidade
+            preparacaoIngredienteBd.indicadorParteComestivel = indicadorParteComestivel
+            preparacaoIngredienteBd.pesoLiquido = pesoLiquido
+            preparacaoIngredienteBd.perCapita = perCapita
+            preparacaoIngredienteBd.medidaCaseira = medidaCaseira
+            preparacaoIngredienteBd.embalagem = embalagem
+            preparacaoIngredienteBd.preco = preco
+            preparacaoIngredienteBd.custoPreparacao = custoPreparacao
 
             db.session.add(preparacaoIngredienteBd)
             db.session.commit()
