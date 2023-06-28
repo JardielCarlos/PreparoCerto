@@ -1,33 +1,28 @@
-2023-06-28 15:58:37,384 WARNING _internal _log  * Debugger is active!
-2023-06-28 15:58:37,391 INFO _internal _log  * Debugger PIN: 144-128-622
-2023-06-28 15:58:45,246 INFO preparacoes get Preparações listadas com sucesso
-2023-06-28 15:58:45,492 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:58:45] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-28 15:58:48,356 INFO preparacoes post Preparacao de id: 4 criada com sucesso
-2023-06-28 15:58:48,371 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:58:48] "[35m[1mPOST /preparacoes HTTP/1.1[0m" 201 -
-2023-06-28 15:58:56,880 INFO preparacoes post Preparacao de id: 5 criada com sucesso
-2023-06-28 15:58:56,886 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:58:56] "[35m[1mPOST /preparacoes HTTP/1.1[0m" 201 -
-2023-06-28 15:59:05,887 INFO cardapios post Cardápio de id: 2 criado com sucesso
-2023-06-28 15:59:05,894 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:05] "[35m[1mPOST /cardapios HTTP/1.1[0m" 201 -
-2023-06-28 15:59:19,997 ERROR cardapio_preparacao post Cardápio não encontrado
-2023-06-28 15:59:19,999 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:19] "[33mPOST /cardapio_preparacao HTTP/1.1[0m" 404 -
-2023-06-28 15:59:34,612 ERROR cardapio_preparacao post Preparação não encontrada
-2023-06-28 15:59:34,613 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:34] "[33mPOST /cardapio_preparacao HTTP/1.1[0m" 404 -
-2023-06-28 15:59:39,012 ERROR cardapio_preparacao post Preparação não encontrada
-2023-06-28 15:59:39,014 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:39] "[33mPOST /cardapio_preparacao HTTP/1.1[0m" 404 -
-2023-06-28 15:59:43,773 INFO cardapio_preparacao post Cardápio-Preparação de id: 3 criada com sucesso
-2023-06-28 15:59:43,783 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:43] "POST /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-28 15:59:47,687 INFO cardapio_preparacao post Cardápio-Preparação de id: 4 criada com sucesso
-2023-06-28 15:59:47,694 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:47] "POST /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-28 15:59:55,709 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-28 15:59:55,722 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:55] "GET /cardapio_preparacao HTTP/1.1" 200 -
-2023-06-28 15:59:57,799 ERROR cardapio_preparacao get Cardápio de id: 1 não encontrado
-2023-06-28 15:59:57,800 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:57] "[33mGET /cardapio_preparacao/1 HTTP/1.1[0m" 404 -
-2023-06-28 15:59:59,442 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 15:59:59] "GET /cardapio_preparacao/2 HTTP/1.1" 200 -
-2023-06-28 16:00:14,914 ERROR cardapio_preparacao delete Cardápio-Preparação de id: 2 não encontrado
-2023-06-28 16:00:14,916 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:14] "[33mDELETE /cardapio_preparacao/2 HTTP/1.1[0m" 404 -
-2023-06-28 16:00:23,820 ERROR cardapios delete Cardápio de id: 1 não encontrado
-2023-06-28 16:00:23,822 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:23] "[33mDELETE /cardapio/1 HTTP/1.1[0m" 404 -
-2023-06-28 16:00:26,203 INFO cardapios delete Cardápio de id: 2 deletado com sucesso
-2023-06-28 16:00:26,204 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:26] "DELETE /cardapio/2 HTTP/1.1" 200 -
-2023-06-28 16:00:32,615 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
-2023-06-28 16:00:32,617 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 16:00:32] "GET /cardapio_preparacao HTTP/1.1" 200 -
+2023-06-28 17:23:12,628 WARNING _internal _log  * Debugger is active!
+2023-06-28 17:23:12,635 INFO _internal _log  * Debugger PIN: 144-128-622
+2023-06-28 17:23:34,562 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:23:34] "[33mGET /ingrediente_preparacao HTTP/1.1[0m" 404 -
+2023-06-28 17:23:43,150 INFO preparacao_ingrediente get Preparação-Ingrediente listados com sucesso
+2023-06-28 17:23:43,459 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:23:43] "GET /preparacao_ingrediente HTTP/1.1" 200 -
+2023-06-28 17:24:14,832 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:24:14] "[33mPUT /ingrediente_preparacao/6 HTTP/1.1[0m" 404 -
+2023-06-28 17:24:22,653 INFO preparacao_ingrediente put Preparação-Ingrediente de id: 6 atualizada com sucesso
+2023-06-28 17:24:22,668 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:24:22] "PUT /preparacao_ingrediente/6 HTTP/1.1" 200 -
+2023-06-28 17:24:35,322 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:24:35] "[31m[1mPUT /preparacao_ingrediente/6 HTTP/1.1[0m" 400 -
+2023-06-28 17:24:48,575 ERROR preparacao_ingrediente put Erro ao atualizar o Preparação-Ingrediente
+2023-06-28 17:24:48,578 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:24:48] "[31m[1mPUT /preparacao_ingrediente/6 HTTP/1.1[0m" 400 -
+2023-06-28 17:25:04,240 INFO preparacao_ingrediente put Preparação-Ingrediente de id: 6 atualizada com sucesso
+2023-06-28 17:25:04,252 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:25:04] "PUT /preparacao_ingrediente/6 HTTP/1.1" 200 -
+2023-06-28 17:25:09,257 INFO preparacao_ingrediente get Preparação-Ingrediente listados com sucesso
+2023-06-28 17:25:09,269 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:25:09] "GET /preparacao_ingrediente HTTP/1.1" 200 -
+2023-06-28 17:25:17,562 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:25:17] "[33mGET /fichatecnicaoperacional/1 HTTP/1.1[0m" 404 -
+2023-06-28 17:25:20,614 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:25:20] "[33mGET /fichatecnicaoperacional/6 HTTP/1.1[0m" 404 -
+2023-06-28 17:25:25,099 INFO preparacoes get Preparações listadas com sucesso
+2023-06-28 17:25:25,116 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:25:25] "GET /preparacoes HTTP/1.1" 200 -
+2023-06-28 17:25:31,014 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:25:31] "GET /fichatecnicaoperacional/4 HTTP/1.1" 200 -
+2023-06-28 17:25:48,508 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:25:48] "GET /fichatecnicagerencial/4 HTTP/1.1" 200 -
+2023-06-28 17:27:07,430 INFO preparacoes get Preparacao de id: 4 listada com sucesso
+2023-06-28 17:27:07,436 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:27:07] "GET /preparacao/4 HTTP/1.1" 200 -
+2023-06-28 17:27:16,007 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:27:16] "GET /preparacao_ingrediente/4 HTTP/1.1" 200 -
+2023-06-28 17:27:32,320 INFO preparacoes delete Preparacao de id: 4 deletada com sucesso
+2023-06-28 17:27:32,322 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:27:32] "DELETE /preparacao/4 HTTP/1.1" 200 -
+2023-06-28 17:27:36,470 ERROR preparacao_ingrediente get Preparação de id: 4 não encontrada
+2023-06-28 17:27:36,472 INFO _internal _log 127.0.0.1 - - [28/Jun/2023 17:27:36] "[33mGET /preparacao_ingrediente/4 HTTP/1.1[0m" 404 -
