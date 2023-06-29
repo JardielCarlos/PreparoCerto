@@ -13,7 +13,7 @@ class Cardapio(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   empresa_id = db.Column(db.Integer ,db.ForeignKey("tb_empresa.id"))
 
-  empresa = db.relationship("Empresa", uselist=False)
+  empresa = db.relationship("Empresa", uselist=False, backref= db.backref("tb_cardapio", cascade="all, delete"))
 
   def __init__(self, empresa):
     self.empresa = empresa

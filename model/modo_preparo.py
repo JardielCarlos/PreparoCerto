@@ -25,7 +25,7 @@ class ModoPreparo(db.Model):
   preparacao_id = db.Column(db.Integer, db.ForeignKey('tb_preparacao.id'))
 
   # Preparação
-  preparacao = db.relationship("Preparacao")
+  preparacao = db.relationship("Preparacao", backref= db.backref("tb_modopreparo", cascade="all, delete"))
 
   def __init__(self, text, preparacao):
     self.text = text
