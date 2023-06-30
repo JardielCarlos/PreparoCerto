@@ -12,7 +12,7 @@ parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("email", type=str, help="Email não informado", required=True)
-parser.add_argument("senha", type=str, help="Senha não informado", required=True)
+parser.add_argument("senha", type=str, help="Senha não informado", required=False)
 
 padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 policy = PasswordPolicy.from_names(
@@ -41,6 +41,10 @@ class Proprietarios(Resource):
 
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
+        return marshal(codigo, msgFields), 400
+      
+      if not args['senha']:
+        codigo = Message(1, "Senha não informada")
         return marshal(codigo, msgFields), 400
 
       verifySenha = policy.test(args['senha'])
@@ -99,15 +103,9 @@ class ProprietarioId(Resource):
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400
 
-      verifySenha = policy.test(args['senha'])
-      if len(verifySenha) != 0:
-        codigo = Message(1, "Senha no formato errado")
-        return marshal(codigo, msgFields), 400
-
 
       userBd.nome = args["nome"]
       userBd.email = args["email"]
-      userBd.senha = args["senha"]
 
       db.session.add(userBd)
       db.session.commit()

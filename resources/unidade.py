@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgFields
-
+import datetime
 from model.unidade_medida import UnidadeMedida, unidadeFields
 
 parser = reqparse.RequestParser()
