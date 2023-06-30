@@ -9,27 +9,27 @@ parser = reqparse.RequestParser()
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 
 class Ingredientes(Resource):
-    def get(self):
-      ingredientes = Ingrediente.query.all()
+  def get(self):
+    ingredientes = Ingrediente.query.all()
 
-      logger.info("Ingredientes listados com sucesso")
-      return marshal(ingredientes, ingredienteFields), 200
+    logger.info("Ingredientes listados com sucesso")
+    return marshal(ingredientes, ingredienteFields), 200
 
-    def post(self):
-      args = parser.parse_args()
-      try:
-        ingrediente = Ingrediente(args['nome'])
+  def post(self):
+    args = parser.parse_args()
+    try:
+      ingrediente = Ingrediente(args['nome'])
 
-        db.session.add(ingrediente)
-        db.session.commit()
+      db.session.add(ingrediente)
+      db.session.commit()
 
-        logger.info(f"Ingrediente de id: {ingrediente.id} criado com sucesso")
-        return marshal(ingrediente, ingredienteFields), 201
-      except:
-        logger.error("Error ao criar o ingrediente")
+      logger.info(f"Ingrediente de id: {ingrediente.id} criado com sucesso")
+      return marshal(ingrediente, ingredienteFields), 201
+    except:
+      logger.error("Error ao criar o ingrediente")
 
-        codigo = Message(2, "Error ao criar o ingrediente")
-        return marshal(codigo, msgFields), 400
+      codigo = Message(2, "Error ao criar o ingrediente")
+      return marshal(codigo, msgFields), 400
 
 class IngredienteId(Resource):
   def get(self, id):
@@ -85,3 +85,9 @@ class IngredienteId(Resource):
 
     logger.info(f"Ingrediente de id: {id} deletado com sucesso")
     return {}, 200
+
+class IngredienteNome(Resource):
+  def get(self, nome):
+    IngredienteNome = Ingrediente.query.filter(Ingrediente.nome.ilike(f'%{nome}%')).all()
+    logger.info(f"Ingredinte de nome: {nome} listado")
+    return marshal(IngredienteNome, ingredienteFields), 200

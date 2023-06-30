@@ -15,18 +15,18 @@ utensiliosFields = {
 }
 
 class PreparacaoUtensilio(db.Model):
-    __tablename__ = "tb_utensiliopreparacao"
+  __tablename__ = "tb_utensiliopreparacao"
 
-    id = db.Column(db.Integer, primary_key=True)
-    utensilio_id = db.Column(db.Integer, db.ForeignKey("tb_utensilio.id"))
-    preparacao_id = db.Column(db.Integer, db.ForeignKey("tb_preparacao.id"))
+  id = db.Column(db.Integer, primary_key=True)
+  utensilio_id = db.Column(db.Integer, db.ForeignKey("tb_utensilio.id"))
+  preparacao_id = db.Column(db.Integer, db.ForeignKey("tb_preparacao.id"))
 
-    utensilio = db.relationship("Utensilio", uselist=False)
-    preparacao = db.relationship("Preparacao", uselist=False)
+  utensilio = db.relationship("Utensilio", uselist=False)
+  preparacao = db.relationship("Preparacao", uselist=False, backref=db.backref("tb_utensiliopreparacao", cascade="all, delete"))
 
-    def __init__(self, utensilio, preparacao):
-      self.utensilio = utensilio
-      self.preparacao = preparacao
+  def __init__(self, utensilio, preparacao):
+    self.utensilio = utensilio
+    self.preparacao = preparacao
 
-    def __repr__(self):
-      return f'<utensilioPreparacao {self.id}>'
+  def __repr__(self):
+    return f'<utensilioPreparacao {self.id}>'

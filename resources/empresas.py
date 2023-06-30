@@ -20,6 +20,13 @@ parser.add_argument("proprietario", type=dict, help="Proprietário não informad
 
 cnpjValidate = CNPJ()
 
+# Exemplos CNPJ valido{
+#   "70.094.628/0001-89"
+#   "77.879.004/0056-90"
+#   "04.734.271/4847-30"
+#   "87.321.171/6847-17"
+# }
+
 class Empresas(Resource):
   @token_verify
   def get(self, tipo, token):

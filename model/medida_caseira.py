@@ -5,11 +5,11 @@ medidaCaseiraFields = {
   'id': fields.Integer,
   'quantidade': fields.String,
   'descricao': fields.String
-  }
+}
 
 class MedidaCaseira(db.Model):
   __tablename__ = "tb_medidacaseira"
-  
+
   id = db.Column(db.Integer, primary_key=True)
   quantidade = db.Column(db.String, nullable=False)
   descricao = db.Column(db.String, nullable=False, unique=True)

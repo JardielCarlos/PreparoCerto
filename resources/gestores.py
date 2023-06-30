@@ -111,7 +111,7 @@ class GestorId(Resource):
 
         codigo = Message(1, "Nome nao informado")
         return marshal(codigo, msgFields), 400
-      
+
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400
@@ -152,3 +152,9 @@ class GestorId(Resource):
 
     logger.info(f"Gestor de id: {id} deletado com sucesso")
     return {}, 200
+
+class GestorNome(Resource):
+  def get(self, nome):
+    gestorNome = Gestor.query.filter(Gestor.nome.ilike(f"%{nome}%")).all()
+    logger.info(f"Gestores de nome com: {nome} listado com sucesso")
+    return marshal(gestorNome, gestorFields), 200
