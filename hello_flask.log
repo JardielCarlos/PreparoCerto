@@ -1,7 +1,12 @@
-2023-06-29 16:33:43,058 WARNING _internal _log  * Debugger is active!
-2023-06-29 16:33:43,062 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-06-29 16:33:47,648 INFO preparacoes get Preparações listadas com sucesso
-2023-06-29 16:33:47,728 INFO _internal _log 127.0.0.1 - - [29/Jun/2023 16:33:47] "GET /preparacoes HTTP/1.1" 200 -
-2023-06-29 16:33:52,342 INFO preparacoes post Preparacao de id: None criada com sucesso
-2023-06-29 16:33:52,345 INFO _internal _log 127.0.0.1 - - [29/Jun/2023 16:33:52] "[35m[1mPOST /preparacoes HTTP/1.1[0m" 201 -
-2023-06-29 16:36:05,524 INFO _internal _log 127.0.0.1 - - [29/Jun/2023 16:36:05] "[31m[1mPOST /preparacoes HTTP/1.1[0m" 415 -
+2023-06-30 10:06:09,332 WARNING _internal _log  * Debugger is active!
+2023-06-30 10:06:09,335 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-06-30 10:06:20,129 INFO preparadores get Preparadores listados com sucesso
+2023-06-30 10:06:20,138 INFO _internal _log 127.0.0.1 - - [30/Jun/2023 10:06:20] "GET /preparadores HTTP/1.1" 200 -
+2023-06-30 10:06:22,532 INFO preparadores get Preparador de id: 11 listado com sucesso
+2023-06-30 10:06:22,535 INFO _internal _log 127.0.0.1 - - [30/Jun/2023 10:06:22] "GET /preparadores/11 HTTP/1.1" 200 -
+2023-06-30 10:06:25,911 INFO preparadores get Preparadores de nome: di listado com sucesso
+2023-06-30 10:06:25,913 INFO _internal _log 127.0.0.1 - - [30/Jun/2023 10:06:25] "GET /preparadores/di HTTP/1.1" 200 -
+2023-06-30 10:07:12,107 INFO preparadores get Preparadores de nome: y listado com sucesso
+2023-06-30 10:07:12,108 INFO _internal _log 127.0.0.1 - - [30/Jun/2023 10:07:12] "GET /preparadores/y HTTP/1.1" 200 -
+2023-06-30 10:07:15,486 INFO preparadores get Preparadores de nome: d listado com sucesso
+2023-06-30 10:07:15,490 INFO _internal _log 127.0.0.1 - - [30/Jun/2023 10:07:15] "GET /preparadores/d HTTP/1.1" 200 -

@@ -25,7 +25,7 @@ policy = PasswordPolicy.from_names(
 class Proprietarios(Resource):
   def get(self):
     proprietarios = Proprietario.query.all()
-    
+
     logger.info("Proprietários listados com sucesso")
     return marshal(proprietarios, userFields), 200
 
@@ -136,3 +136,10 @@ class ProprietarioId(Resource):
 
     logger.info(f"Proprietário de id: {id} deletado com sucesso")
     return {}, 200
+
+class ProprietarioNome(Resource):
+  def get(self, nome):
+    proprietarioNome = Proprietario.query.filter(Proprietario.nome.ilike(f'%{nome}%')).all()
+    logger.info(f"Proprietarios com nome: {nome} listado com sucesso")
+    return marshal(proprietarioNome, userFields), 200
+

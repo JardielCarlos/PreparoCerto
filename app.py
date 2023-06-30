@@ -3,11 +3,11 @@ from flask_restful import Api
 from helpers.database import db, migrate
 from helpers.configCORS import cors
 
-from resources.preparadores import Preparadores, PreparadorId
-from resources.gestores import Gestores, GestorId
-from resources.ingredientes import Ingredientes, IngredienteId
+from resources.preparadores import Preparadores, PreparadorId, PreparadorNome
+from resources.gestores import Gestores, GestorId, GestorNome
+from resources.ingredientes import Ingredientes, IngredienteId, IngredienteNome
 from resources.empresas import Empresas, EmpresaId
-from resources.proprietarios import Proprietarios, ProprietarioId
+from resources.proprietarios import Proprietarios, ProprietarioId, ProprietarioNome
 from resources.preparacoes import Preparacoes, PreparacaoId
 from resources.cardapios import Cardapios, CardapioId
 from resources.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoIngredientesId
@@ -34,14 +34,17 @@ api = Api(app)
 #Gestor
 api.add_resource(Gestores, '/gestor')
 api.add_resource(GestorId, '/gestor/<int:id>')
+api.add_resource(GestorNome, '/gestor/<string:nome>')
 
 #Preparador
 api.add_resource(Preparadores, '/preparadores')
 api.add_resource(PreparadorId, '/preparadores/<int:id>')
+api.add_resource(PreparadorNome, '/preparadores/<string:nome>')
 
 #Ingrediente
 api.add_resource(Ingredientes, '/ingredientes')
 api.add_resource(IngredienteId, '/ingrediente/<int:id>')
+api.add_resource(IngredienteNome, '/ingrediente/<string:nome>')
 
 #Empresa
 api.add_resource(Empresas, '/empresas')
@@ -50,6 +53,7 @@ api.add_resource(EmpresaId, '/empresas/<int:id>')
 #Proprietario
 api.add_resource(Proprietarios, '/proprietarios')
 api.add_resource(ProprietarioId, '/proprietario/<int:id>')
+api.add_resource(ProprietarioNome, '/proprietario/<string:nome>')
 
 #Preparacao
 api.add_resource(Preparacoes, '/preparacoes')

@@ -153,3 +153,9 @@ class PreparadorId(Resource):
 
     logger.info(f"Preparador de id: {id} deletado com sucesso")
     return {}, 200
+
+class PreparadorNome(Resource):
+  def get(self, nome):
+    preparadorNome = Preparador.query.filter(Preparador.nome.ilike(f"%{nome}%")).all()
+    logger.info(f"Preparadores de nome: {nome} listado com sucesso")
+    return marshal(preparadorNome, preparadorFields), 200
