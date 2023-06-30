@@ -17,7 +17,7 @@ class Preparacao(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
-  criacao = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+  criacao = db.Column(db.DateTime, default=datetime.datetime.now)
   numPorcoes = db.Column(db.Float, nullable=False)
   empresa_id = db.Column(db.Integer, db.ForeignKey("tb_empresa.id"))
 
