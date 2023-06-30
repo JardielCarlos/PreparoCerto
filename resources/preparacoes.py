@@ -1,18 +1,19 @@
-from flask_restful import Resource, marshal, reqparse
+from flask_restful import Resource, marshal, reqparse, request
 from helpers.database import db
 from helpers.logger import logger
-
 from model.preparacao import Preparacao, preparacaoFields
 from model.empresa import Empresa
-
+from model.imgPreparacao import ImgPreparacao
 from model.mensagem import Message, msgFields
-
-
+from werkzeug.utils import secure_filename
+import werkzeug
+import os
 parser = reqparse.RequestParser()
 
-parser.add_argument("nome", type=str, help="Nome não informado", required=True)
-parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False)
-parser.add_argument("numPorcoes", type=float, help="Numero de porções não informado", required=True)
+# parser.add_argument("nome", type=str, help="Nome não informado", required=False, location='files')
+# parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False, location='files')
+# parser.add_argument("numPorcoes", type=float, help="Numero de porções não informado", required=False, location='files')
+parser.add_argument('fotoPerfil', type=werkzeug.datastructures.FileStorage, location='files')
 
 class Preparacoes(Resource):
   def get(self):
@@ -21,27 +22,34 @@ class Preparacoes(Resource):
 
   def post(self):
     args = parser.parse_args()
-    try:
-      empresaId = args["empresa"]["id"]
+    # try:
+    empresaId = request.form['empresa']
+    empresa = Empresa.query.get(empresaId)
 
-      empresa = Empresa.query.get(empresaId)
+    if empresa is None:
+        codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
+        return marshal(codigo, msgFields), 404
 
-      if empresa is None:
-          codigo = Message(1, f"Empresa de id: {empresaId} não encontrado")
-          return marshal(codigo, msgFields), 404
+    foto = args['fotoPerfil']
+    foto.stream.seek(0)
+    fotoPerfil = foto.stream.read()
 
-      preparacao = Preparacao(args['nome'], args['numPorcoes'], empresa)
+    imgPreparacao = ImgPreparacao(fotoPerfil)
+    db.session.add(imgPreparacao)
+    db.session.commit()
 
-      db.session.add(preparacao)
-      db.session.commit()
+    preparacao = Preparacao(request.form['nome'], request.form['numPorcoes'], empresa, imgPreparacao)
 
-      logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
-      return marshal(preparacao, preparacaoFields), 201
-    except:
-        logger.error("Error ao cadastrar preparacao")
+    db.session.add(preparacao)
+    db.session.commit()
+    
+    logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
+    return marshal(preparacao, preparacaoFields), 201
+    # except:
+    #     logger.error("Error ao cadastrar preparacao")
 
-        codigo = Message(2, "Error ao cadastrar preparacao")
-        return marshal(codigo, msgFields), 400
+    #     codigo = Message(2, "Error ao cadastrar preparacao")
+    #     return marshal(codigo, msgFields), 400
 
 class PreparacaoId(Resource):
   def get(self, id):

@@ -25,6 +25,8 @@ from resources.usuario import Usuarios
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['UPLOAD_FOLDER'] = "./uploads"
+# app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 db.init_app(app)
 cors.init_app(app)
