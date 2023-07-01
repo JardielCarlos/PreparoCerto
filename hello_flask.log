@@ -1,6 +1,6 @@
 2023-07-01 13:42:05,605 WARNING _internal _log  * Debugger is active!
 2023-07-01 13:42:05,608 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-07-01 13:42:19,180 INFO preparacoes get Preparações listadas com sucesso
+2023-07-01 13:42:19,180 INFO preparacoes get PreparaÃ§Ãµes listadas com sucesso
 2023-07-01 13:42:19,254 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:42:19] "GET /preparacoes HTTP/1.1" 200 -
 2023-07-01 13:42:23,878 ERROR preparacoes get Preparacao de id: 23 nao encontrada
 2023-07-01 13:42:23,879 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:42:23] "[33mGET /preparacao/imagem/23 HTTP/1.1[0m" 404 -
