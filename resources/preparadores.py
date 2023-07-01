@@ -14,7 +14,7 @@ parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("email", type=str, help="Email não informado", required=True)
-parser.add_argument("senha", type=str, help="Senha não informada", required=True)
+parser.add_argument("senha", type=str, help="Senha não informada", required=False)
 parser.add_argument("empresa", type=dict, help="Empresa não informada", required=False)
 
 padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
@@ -46,6 +46,10 @@ class Preparadores (Resource):
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400
 
+      if not args['senha']:
+        codigo = Message(1, "Senha não informada")
+        return marshal(codigo, msgFields), 400
+      
       verifySenha = policy.test(args['senha'])
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
@@ -118,14 +122,9 @@ class PreparadorId(Resource):
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400
 
-      verifySenha = policy.test(args['senha'])
-      if len(verifySenha) != 0:
-        codigo = Message(1, "Senha no formato errado")
-        return marshal(codigo, msgFields), 400
 
       userBd.nome = args['nome']
       userBd.email = args['email']
-      userBd.senha = args['senha']
 
       db.session.add(userBd)
       db.session.commit()
@@ -153,3 +152,9 @@ class PreparadorId(Resource):
 
     logger.info(f"Preparador de id: {id} deletado com sucesso")
     return {}, 200
+
+class PreparadorNome(Resource):
+  def get(self, nome):
+    preparadorNome = Preparador.query.filter(Preparador.nome.ilike(f"%{nome}%")).all()
+    logger.info(f"Preparadores de nome: {nome} listado com sucesso")
+    return marshal(preparadorNome, preparadorFields), 200
