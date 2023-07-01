@@ -23,8 +23,9 @@ class Preparacao(db.Model):
 
   # Empresa
   empresa = db.relationship("Empresa", uselist=False, backref= db.backref("tb_preparacao", cascade="all, delete"))
+  imagens  = db.relationship("ImgPreparacao", back_populates="preparacao", cascade="all, delete-orphan")
 
-  def __init__(self, nome, numPorcoes, empresa ):
+  def __init__(self, nome, numPorcoes, empresa):
     self.nome = nome
     self.numPorcoes = numPorcoes
     self.empresa = empresa
