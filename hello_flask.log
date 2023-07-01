@@ -1,2 +1,35 @@
-2023-07-01 13:30:14,426 WARNING _internal _log  * Debugger is active!
-2023-07-01 13:30:14,429 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-07-01 13:31:50,750 WARNING _internal _log  * Debugger is active!
+2023-07-01 13:31:50,754 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-07-01 13:32:04,266 INFO proprietarios get Proprietários listados com sucesso
+2023-07-01 13:32:04,267 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:04] "GET /proprietarios HTTP/1.1" 200 -
+2023-07-01 13:32:07,691 INFO proprietarios get Proprietarios com nome: J listado com sucesso
+2023-07-01 13:32:07,692 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:07] "GET /proprietario/J HTTP/1.1" 200 -
+2023-07-01 13:32:11,706 INFO proprietarios get Proprietarios com nome: R listado com sucesso
+2023-07-01 13:32:11,708 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:11] "GET /proprietario/R HTTP/1.1" 200 -
+2023-07-01 13:32:15,174 INFO proprietarios get Proprietarios com nome: Ro listado com sucesso
+2023-07-01 13:32:15,175 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:15] "GET /proprietario/Ro HTTP/1.1" 200 -
+2023-07-01 13:32:17,858 INFO proprietarios get Proprietarios com nome: R listado com sucesso
+2023-07-01 13:32:17,859 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:17] "GET /proprietario/R HTTP/1.1" 200 -
+2023-07-01 13:32:23,098 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:23] "[33mGET /proprietario/ HTTP/1.1[0m" 404 -
+2023-07-01 13:32:24,871 INFO proprietarios get Proprietarios com nome: RO listado com sucesso
+2023-07-01 13:32:24,872 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:24] "GET /proprietario/RO HTTP/1.1" 200 -
+2023-07-01 13:32:38,077 INFO preparacoes get Preparações listadas com sucesso
+2023-07-01 13:32:38,086 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:38] "GET /preparacoes HTTP/1.1" 200 -
+2023-07-01 13:32:44,748 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:44] "GET /preparacao/imagem/23 HTTP/1.1" 200 -
+2023-07-01 13:32:53,455 INFO preparacoes delete Preparacao de id: 23 deletada com sucesso
+2023-07-01 13:32:53,456 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:53] "DELETE /preparacao/23 HTTP/1.1" 200 -
+2023-07-01 13:32:56,807 ERROR preparacoes get Preparacao de id: 23 nao encontrada
+2023-07-01 13:32:56,808 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:32:56] "[33mGET /preparacao/imagem/23 HTTP/1.1[0m" 404 -
+2023-07-01 13:33:01,312 INFO preparacoes post Preparacao de id: 24 criada com sucesso
+2023-07-01 13:33:01,315 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:01] "[35m[1mPOST /preparacoes HTTP/1.1[0m" 201 -
+2023-07-01 13:33:03,079 ERROR preparacoes get Preparacao de id: 23 nao encontrada
+2023-07-01 13:33:03,080 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:03] "[33mGET /preparacao/imagem/23 HTTP/1.1[0m" 404 -
+2023-07-01 13:33:05,574 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:05] "GET /preparacao/imagem/24 HTTP/1.1" 200 -
+2023-07-01 13:33:09,499 INFO preparacoes put Foto da preparacao atualizada com sucesso
+2023-07-01 13:33:09,571 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:09] "[35m[1mPUT /preparacao/imagem/24 HTTP/1.1[0m" 204 -
+2023-07-01 13:33:16,376 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:16] "GET /preparacao/imagem/24 HTTP/1.1" 200 -
+2023-07-01 13:33:20,817 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:20] "DELETE /preparacao/imagem/24 HTTP/1.1" 200 -
+2023-07-01 13:33:23,145 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:23] "GET /preparacao/imagem/24 HTTP/1.1" 200 -
+2023-07-01 13:33:25,521 INFO preparacoes put Foto da preparacao atualizada com sucesso
+2023-07-01 13:33:25,591 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:25] "[35m[1mPUT /preparacao/imagem/24 HTTP/1.1[0m" 204 -
+2023-07-01 13:33:31,466 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:33:31] "GET /preparacao/imagem/24 HTTP/1.1" 200 -
