@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 2023-07-01 13:42:05,605 WARNING _internal _log  * Debugger is active!
 2023-07-01 13:42:05,608 INFO _internal _log  * Debugger PIN: 932-881-758
 2023-07-01 13:42:19,180 INFO preparacoes get Preparações listadas com sucesso
@@ -9,3 +10,5 @@
 2023-07-01 13:42:35,789 INFO preparacoes put Foto da preparacao atualizada com sucesso
 2023-07-01 13:42:35,860 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:42:35] "[35m[1mPUT /preparacao/imagem/24 HTTP/1.1[0m" 204 -
 2023-07-01 13:42:42,548 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:42:42] "GET /preparacao/imagem/24 HTTP/1.1" 200 -
+=======
+>>>>>>> Stashed changes

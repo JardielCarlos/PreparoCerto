@@ -25,19 +25,20 @@ class UtensiliosPreparacao(Resource):
     utensilioId = args['utensilio']['id']
     preparacaoId = args['preparacao']['id']
 
-    if utensilioId is None:
+    utensilioBd = Utensilio.query.get(utensilioId)
+    preparacaoBd = Preparacao.query.get(preparacaoId)
+
+    if utensilioBd is None:
       logger.error(f"Utensilio de id: {utensilioId} nao encontrado")
 
       codigo = Message(1, f"Utensilio de id: {utensilioId} não encontrado")
       return marshal(codigo, msgFields), 404
-    if preparacaoId is None:
+
+    if preparacaoBd is None:
       logger.error(f"Preparacao de id: {preparacaoId} nao encontrado")
 
       codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrado")
       return marshal(codigo, msgFields), 404
-
-    utensilioBd = Utensilio.query.get(utensilioId)
-    preparacaoBd = Preparacao.query.get(preparacaoId)
 
     utensilioPreparacao = PreparacaoUtensilio(utensilioBd, preparacaoBd)
 

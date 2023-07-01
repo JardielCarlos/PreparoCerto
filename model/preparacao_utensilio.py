@@ -21,7 +21,7 @@ class PreparacaoUtensilio(db.Model):
   utensilio_id = db.Column(db.Integer, db.ForeignKey("tb_utensilio.id"))
   preparacao_id = db.Column(db.Integer, db.ForeignKey("tb_preparacao.id"))
 
-  utensilio = db.relationship("Utensilio", uselist=False)
+  utensilio = db.relationship("Utensilio", uselist=False, backref=db.backref("tb_utensiliopreparacao", cascade="all, delete"))
   preparacao = db.relationship("Preparacao", uselist=False, backref=db.backref("tb_utensiliopreparacao", cascade="all, delete"))
 
   def __init__(self, utensilio, preparacao):
