@@ -5,7 +5,7 @@ from helpers.configCORS import cors
 
 from resources.preparadores import Preparadores, PreparadorId, PreparadorNome
 from resources.gestores import Gestores, GestorId, GestorNome
-from resources.ingredientes import Ingredientes, IngredienteId, IngredienteNome
+from resources.ingredientes import Ingredientes, IngredienteId, IngredienteNome, IngredientePagination
 from resources.empresas import Empresas, EmpresaId
 from resources.proprietarios import Proprietarios, ProprietarioId, ProprietarioNome
 from resources.preparacoes import Preparacoes, PreparacaoId, preparacaoImage
@@ -45,6 +45,7 @@ api.add_resource(PreparadorNome, '/preparadores/<string:nome>')
 api.add_resource(Ingredientes, '/ingredientes')
 api.add_resource(IngredienteId, '/ingrediente/<int:id>')
 api.add_resource(IngredienteNome, '/ingrediente/<string:nome>')
+api.add_resource(IngredientePagination, '/ingredientes/<int:id>')
 
 #Empresa
 api.add_resource(Empresas, '/empresas')

@@ -9,12 +9,6 @@ parser = reqparse.RequestParser()
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 
 class Ingredientes(Resource):
-  def get(self):
-    ingredientes = Ingrediente.query.all()
-
-    logger.info("Ingredientes listados com sucesso")
-    return marshal(ingredientes, ingredienteFields), 200
-
   def post(self):
     args = parser.parse_args()
     try:
@@ -91,3 +85,9 @@ class IngredienteNome(Resource):
     IngredienteNome = Ingrediente.query.filter(Ingrediente.nome.ilike(f'%{nome}%')).all()
     logger.info(f"Ingredinte de nome: {nome} listado")
     return marshal(IngredienteNome, ingredienteFields), 200
+
+class IngredientePagination(Resource):
+  def get(self, id):
+    ingredientes = Ingrediente.query.paginate(page=id, per_page=10, error_out=False)
+    logger.info("Ingredientes listados com sucesso")
+    return marshal(ingredientes.items, ingredienteFields), 200

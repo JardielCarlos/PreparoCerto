@@ -1,7 +1,8 @@
-2023-07-01 13:36:25,485 WARNING _internal _log  * Debugger is active!
-2023-07-01 13:36:25,488 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-07-01 13:38:28,680 ERROR preparacoes get Preparacao de id: 23 nao encontrada
-2023-07-01 13:38:28,681 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:38:28] "[33mGET /preparacao/imagem/23 HTTP/1.1[0m" 404 -
-2023-07-01 13:38:36,157 INFO preparacoes get Preparações listadas com sucesso
-2023-07-01 13:38:36,169 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:38:36] "GET /preparacoes HTTP/1.1" 200 -
-2023-07-01 13:38:45,767 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:38:45] "GET /preparacao/imagem/24 HTTP/1.1" 200 -
+2023-07-01 14:12:20,826 WARNING _internal _log  * Debugger is active!
+2023-07-01 14:12:20,829 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-07-01 14:12:22,738 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 14:12:22,739 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 14:12:22] "GET /ingredientes/1 HTTP/1.1" 200 -
+2023-07-01 14:12:26,943 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 14:12:26,944 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 14:12:26] "GET /ingredientes/2 HTTP/1.1" 200 -
+2023-07-01 14:14:15,878 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 14:14:15,878 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 14:14:15] "GET /ingredientes/1 HTTP/1.1" 200 -
