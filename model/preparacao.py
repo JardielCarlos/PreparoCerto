@@ -20,17 +20,15 @@ class Preparacao(db.Model):
   criacao = db.Column(db.DateTime, default=datetime.datetime.now)
   numPorcoes = db.Column(db.Float, nullable=False)
   empresa_id = db.Column(db.Integer, db.ForeignKey("tb_empresa.id"))
-  fotoPerfil_id = db.Column(db.Integer, db.ForeignKey("tb_imgpreparacao.id"))
 
   # Empresa
   empresa = db.relationship("Empresa", uselist=False, backref= db.backref("tb_preparacao", cascade="all, delete"))
-  fotoPerfil = db.relationship("ImgPreparacao",uselist=False)
+  imagens  = db.relationship("ImgPreparacao", back_populates="preparacao", cascade="all, delete-orphan")
 
-  def __init__(self, nome, numPorcoes, empresa, fotoPerfil):
+  def __init__(self, nome, numPorcoes, empresa):
     self.nome = nome
     self.numPorcoes = numPorcoes
     self.empresa = empresa
-    self.fotoPerfil = fotoPerfil
 
   def __repr__(self):
     return f'<Preparacao {self.nome}>'

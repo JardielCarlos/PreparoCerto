@@ -5,11 +5,13 @@ class ImgPreparacao(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   fotoPerfil = db.Column(db.LargeBinary, nullable=True)
+  preparacao_id = db.Column(db.Integer, db.ForeignKey("tb_preparacao.id"))
 
-  preparacao = db.relationship("Preparacao")
+  preparacao = db.relationship("Preparacao",uselist=False, back_populates="imagens")
 
-  def __init__(self, fotoPerfil):
+  def __init__(self, fotoPerfil, preparacao_id):
     self.fotoPerfil = fotoPerfil
+    self.preparacao = preparacao_id
 
   def __repr__(self):
     return f"<ImgPreparacao {self.fotoPerfil}"

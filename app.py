@@ -8,7 +8,7 @@ from resources.gestores import Gestores, GestorId
 from resources.ingredientes import Ingredientes, IngredienteId
 from resources.empresas import Empresas, EmpresaId
 from resources.proprietarios import Proprietarios, ProprietarioId
-from resources.preparacoes import Preparacoes, PreparacaoId
+from resources.preparacoes import Preparacoes, PreparacaoId, preparacaoImage
 from resources.cardapios import Cardapios, CardapioId
 from resources.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoIngredientesId
 from resources.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
@@ -25,8 +25,6 @@ from resources.usuario import Usuarios
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://postgres:senhasecreta@localhost:5432/PreparoCerto"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['UPLOAD_FOLDER'] = "./uploads"
-# app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 db.init_app(app)
 cors.init_app(app)
@@ -56,6 +54,7 @@ api.add_resource(ProprietarioId, '/proprietario/<int:id>')
 #Preparacao
 api.add_resource(Preparacoes, '/preparacoes')
 api.add_resource(PreparacaoId, '/preparacao/<int:id>')
+api.add_resource(preparacaoImage, '/preparacao/imagem/<int:id>')
 
 #Cardapio
 api.add_resource(Cardapios, '/cardapios')
