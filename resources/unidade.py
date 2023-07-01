@@ -1,8 +1,9 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from helpers.logger import logger
+from sqlalchemy.exc import IntegrityError
+
 from model.mensagem import Message, msgFields
-import datetime
 from model.unidade_medida import UnidadeMedida, unidadeFields
 
 parser = reqparse.RequestParser()
@@ -67,15 +68,21 @@ class UnidadeId(Resource):
       return marshal(codigo, msgFields), 400
 
   def delete(self, id):
-    unidadeBd = UnidadeMedida.query.get(id)
+    try:
+      unidadeBd = UnidadeMedida.query.get(id)
 
-    if unidadeBd is None:
-      logger.error(f"Unidade de medida de id: {id} não encontrada")
-      codigo = Message(1, f"Unidade de medida de id: {id} não encontrada")
-      return marshal(codigo, msgFields)
+      if unidadeBd is None:
+        logger.error(f"Unidade de medida de id: {id} não encontrada")
+        codigo = Message(1, f"Unidade de medida de id: {id} não encontrada")
+        return marshal(codigo, msgFields)
 
-    db.session.delete(unidadeBd)
-    db.session.commit()
+      db.session.delete(unidadeBd)
+      db.session.commit()
 
-    logger.info(f"Unidade de medida de id: {id} deletada com sucesso")
-    return {}, 200
+      logger.info(f"Unidade de medida de id: {id} deletada com sucesso")
+      return {}, 200
+    except IntegrityError:
+      logger.error(f"Unidade de medida de id: {id} nao pode ser deletada ela possui dependencia com preparacao_ingrediente")
+
+      codigo = Message(1, f"Unidade de medida de id: {id} nao pode ser deletada ela possui dependencia com a preparacao do ingrediente")
+      return marshal(codigo, msgFields), 400

@@ -19,4 +19,4 @@ class MedidaCaseira(db.Model):
     self.descricao = descricao
 
   def __repr__(self):
-    return f"<Unidade de Medida {self.id}>"
+    return f"<Medida caseira {self.id}>"

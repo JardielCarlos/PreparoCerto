@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgFields
-
+from sqlalchemy.exc import IntegrityError
 from model.medida_caseira import MedidaCaseira, medidaCaseiraFields
 
 parser = reqparse.RequestParser()
@@ -79,15 +79,22 @@ class MedidaCaseiraId(Resource):
       return marshal(codigo, msgFields)
 
   def delete(self, id):
-    medidaBd = MedidaCaseira.query.get(id)
+    try:
+      medidaBd = MedidaCaseira.query.get(id)
 
-    if medidaBd is None:
-      logger.error(f"Medida Caseira de id: {id} não encontrada")
-      codigo = Message(1, f"Medida Caseira de id: {id} não encontrada")
-      return marshal(codigo, msgFields), 404
+      if medidaBd is None:
+        logger.error(f"Medida Caseira de id: {id} não encontrada")
+        codigo = Message(1, f"Medida Caseira de id: {id} não encontrada")
+        return marshal(codigo, msgFields), 404
 
-    db.session.delete(medidaBd)
-    db.session.commit()
+      db.session.delete(medidaBd)
+      db.session.commit()
 
-    logger.info(f"Medida Caseira de id: {id} deletada com sucesso")
-    return {}, 200
+      logger.info(f"Medida Caseira de id: {id} deletada com sucesso")
+      return {}, 200
+    
+    except IntegrityError:
+      logger.error(f"Medida Caseira de id: {id} nao pode ser deletado possui dependencias com preparacao_ingrediente")
+
+      codigo = Message(1, f"Medida Caseira de id: {id} nao pode ser deletado possui dependencias com preparacao_ingrediente")
+      return marshal(codigo, msgFields), 400
