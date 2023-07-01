@@ -1,0 +1,28 @@
+2023-07-01 18:46:54,479 WARNING _internal _log  * Debugger is active!
+2023-07-01 18:46:54,483 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-07-01 18:46:54,581 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 18:46:54,582 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:46:54] "GET /ingredientes/1 HTTP/1.1" 200 -
+2023-07-01 18:47:14,077 INFO ingredientes delete Ingrediente de id: 13 deletado com sucesso
+2023-07-01 18:47:14,078 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:14] "DELETE /ingrediente/13 HTTP/1.1" 200 -
+2023-07-01 18:47:15,984 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 18:47:15,985 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:15] "GET /ingredientes/1 HTTP/1.1" 200 -
+2023-07-01 18:47:18,217 ERROR ingredientes get Ingrediente de id: 1 não encontrado
+2023-07-01 18:47:18,218 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:18] "[33mGET /ingrediente/1 HTTP/1.1[0m" 404 -
+2023-07-01 18:47:20,992 INFO ingredientes post Ingrediente de id: 14 criado com sucesso
+2023-07-01 18:47:20,993 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:20] "[35m[1mPOST /ingredientes HTTP/1.1[0m" 201 -
+2023-07-01 18:47:25,001 INFO ingredientes get Ingredinte de nome: 1ar listado
+2023-07-01 18:47:25,002 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:25] "GET /ingrediente/1ar HTTP/1.1" 200 -
+2023-07-01 18:47:27,563 INFO ingredientes get Ingredinte de nome: arr listado
+2023-07-01 18:47:27,564 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:27] "GET /ingrediente/arr HTTP/1.1" 200 -
+2023-07-01 18:47:31,175 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 18:47:31,176 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:31] "GET /ingredientes/1 HTTP/1.1" 200 -
+2023-07-01 18:47:46,355 INFO ingredientes put Ingrediente de id: 14 atualizado com sucesso
+2023-07-01 18:47:46,356 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:46] "PUT /ingrediente/14 HTTP/1.1" 200 -
+2023-07-01 18:47:48,860 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 18:47:48,861 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:48] "GET /ingredientes/1 HTTP/1.1" 200 -
+2023-07-01 18:47:58,004 INFO ingredientes put Ingrediente de id: 14 atualizado com sucesso
+2023-07-01 18:47:58,006 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:58] "PUT /ingrediente/14 HTTP/1.1" 200 -
+2023-07-01 18:47:59,769 INFO ingredientes get Ingredientes listados com sucesso
+2023-07-01 18:47:59,769 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:59] "GET /ingredientes/1 HTTP/1.1" 200 -
+2023-07-01 18:48:03,428 INFO ingredientes put Ingrediente de id: 14 atualizado com sucesso
+2023-07-01 18:48:03,430 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:48:03] "PUT /ingrediente/14 HTTP/1.1" 200 -
