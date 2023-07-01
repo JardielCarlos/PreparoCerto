@@ -8,7 +8,7 @@ from resources.gestores import Gestores, GestorId, GestorNome
 from resources.ingredientes import Ingredientes, IngredienteId, IngredienteNome
 from resources.empresas import Empresas, EmpresaId
 from resources.proprietarios import Proprietarios, ProprietarioId, ProprietarioNome
-from resources.preparacoes import Preparacoes, PreparacaoId
+from resources.preparacoes import Preparacoes, PreparacaoId, preparacaoImage
 from resources.cardapios import Cardapios, CardapioId
 from resources.preparacao_ingrediente import PreparacaoIngredientes, PreparacaoIngredientesId
 from resources.cardapio_preparacao import CardapioPreapracoes, CardapioPreapracaoId
@@ -58,6 +58,7 @@ api.add_resource(ProprietarioNome, '/proprietario/<string:nome>')
 #Preparacao
 api.add_resource(Preparacoes, '/preparacoes')
 api.add_resource(PreparacaoId, '/preparacao/<int:id>')
+api.add_resource(preparacaoImage, '/preparacao/imagem/<int:id>')
 
 #Cardapio
 api.add_resource(Cardapios, '/cardapios')
