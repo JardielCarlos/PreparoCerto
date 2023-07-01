@@ -1,16 +1,2 @@
-2023-07-01 13:19:35,511 WARNING _internal _log  * Debugger is active!
-2023-07-01 13:19:35,514 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-07-01 13:19:41,100 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:19:41] "GET /preparacao/imagem/22 HTTP/1.1" 200 -
-2023-07-01 13:19:43,080 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:19:43] "DELETE /preparacao/imagem/22 HTTP/1.1" 200 -
-2023-07-01 13:19:46,777 ERROR preparacoes put campo fotoPerfil nao informado
-2023-07-01 13:19:46,780 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:19:46] "[33mPUT /preparacao/imagem/22 HTTP/1.1[0m" 404 -
-2023-07-01 13:19:50,071 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:19:50] "GET /preparacao/imagem/22 HTTP/1.1" 200 -
-2023-07-01 13:20:02,814 INFO preparacoes put Foto da preparacao atualizada com sucesso
-2023-07-01 13:20:02,824 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:20:02] "[35m[1mPUT /preparacao/imagem/22 HTTP/1.1[0m" 204 -
-2023-07-01 13:20:05,406 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:20:05] "GET /preparacao/imagem/22 HTTP/1.1" 200 -
-2023-07-01 13:20:15,958 ERROR preparacoes put campo fotoPerfil nao informado
-2023-07-01 13:20:15,960 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:20:15] "[33mPUT /preparacao/imagem/22 HTTP/1.1[0m" 404 -
-2023-07-01 13:20:18,989 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:20:18] "GET /preparacao/imagem/22 HTTP/1.1" 200 -
-2023-07-01 13:20:25,585 INFO preparacoes put Foto da preparacao atualizada com sucesso
-2023-07-01 13:20:25,655 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:20:25] "[35m[1mPUT /preparacao/imagem/22 HTTP/1.1[0m" 204 -
-2023-07-01 13:20:34,588 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 13:20:34] "GET /preparacao/imagem/22 HTTP/1.1" 200 -
+2023-07-01 13:22:11,294 WARNING _internal _log  * Debugger is active!
+2023-07-01 13:22:11,297 INFO _internal _log  * Debugger PIN: 932-881-758
