@@ -42,7 +42,7 @@ class Proprietarios(Resource):
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400
-      
+
       if not args['senha']:
         codigo = Message(1, "Senha não informada")
         return marshal(codigo, msgFields), 400
@@ -120,21 +120,25 @@ class ProprietarioId(Resource):
       return marshal(codigo, msgFields), 400
 
   def delete(self, id):
+    try:
+      userBd = Proprietario.query.get(id)
 
-    userBd = Proprietario.query.get(id)
+      if userBd is None:
+        logger.error(f"Proprietário de id: {id} não encontrado")
 
-    if userBd is None:
-      logger.error(f"Proprietário de id: {id} não encontrado")
+        codigo = Message(1, f"Proprietário de id: {id} não encontrado")
+        return marshal(codigo, msgFields), 404
 
-      codigo = Message(1, f"Proprietário de id: {id} não encontrado")
-      return marshal(codigo, msgFields), 404
+      db.session.delete(userBd)
+      db.session.commit()
 
-    db.session.delete(userBd)
-    db.session.commit()
+      logger.info(f"Proprietário de id: {id} deletado com sucesso")
+      return {}, 200
+    except IntegrityError:
+      logger.error(f"Proprietário de id: {id} não pode ser deletado possui dependencia com a empresa")
 
-    logger.info(f"Proprietário de id: {id} deletado com sucesso")
-    return {}, 200
-
+      codigo = Message(1, f"Proprietário de id: {id} não pode ser deletado possui empresa cadastrada")
+      return marshal(codigo, msgFields), 400
 class ProprietarioNome(Resource):
   def get(self, nome):
     proprietarioNome = Proprietario.query.filter(Proprietario.nome.ilike(f'%{nome}%')).all()
