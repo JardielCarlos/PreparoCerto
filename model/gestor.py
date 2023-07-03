@@ -16,7 +16,7 @@ class Gestor(Usuario):
   usuario_id = db.Column(db.Integer ,db.ForeignKey("tb_usuario.id"), primary_key=True)
   empresa_id =  db.Column(db.Integer ,db.ForeignKey("tb_empresa.id"))
 
-  empresa = db.relationship("Empresa", uselist=False)
+  empresa = db.relationship("Empresa", uselist=False, backref= db.backref("tb_gestor", cascade="all, delete"))
 
   __mapper_args__ = {"polymorphic_identity": "gestor"}
 

@@ -2,12 +2,12 @@ from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from helpers.logger import logger
 from model.mensagem import Message, msgFields
-
+from sqlalchemy.exc import IntegrityError
 from model.medida_caseira import MedidaCaseira, medidaCaseiraFields
 
 parser = reqparse.RequestParser()
 
-parser.add_argument("quantidade", type=str, help="Quantidade não informada", required=True)
+parser.add_argument("quantidade", type=int, help="Quantidade não informada", required=True)
 parser.add_argument("descricao", type=str, help="Descricao não informada", required=True)
 
 class MedidasCaseiras(Resource):
@@ -15,11 +15,6 @@ class MedidasCaseiras(Resource):
   def get(self):
     medidasCseiras = MedidaCaseira.query.all()
 
-    if medidasCseiras == []:
-      logger.error("Não existe nenhuma medida caseira cadastrada")
-      codigo = Message(1, "Não existe nenhuma medida caseira cadastrada")
-
-      return marshal(codigo, msgFields), 404
     logger.info("Medidas caseiras listada com sucesso")
     return marshal(medidasCseiras, medidaCaseiraFields), 200
 
@@ -27,6 +22,18 @@ class MedidasCaseiras(Resource):
     args = parser.parse_args()
 
     try:
+      if args['quantidade'] <= 0:
+        logger.error("Quantidade nao informada")
+
+        codigo = Message(1, "Quantidade nao informada")
+        return marshal(codigo, msgFields), 400
+
+      if len(args['descricao']) == 0:
+        logger.error("descricao nao informado")
+
+        codigo = Message(1, "descricao nao informado")
+        return marshal(codigo, msgFields), 400
+
       medida = MedidaCaseira(args['quantidade'], args['descricao'])
 
       db.session.add(medida)
@@ -72,15 +79,22 @@ class MedidaCaseiraId(Resource):
       return marshal(codigo, msgFields)
 
   def delete(self, id):
-    medidaBd = MedidaCaseira.query.get(id)
+    try:
+      medidaBd = MedidaCaseira.query.get(id)
 
-    if medidaBd is None:
-      logger.error(f"Medida Caseira de id: {id} não encontrada")
-      codigo = Message(1, f"Medida Caseira de id: {id} não encontrada")
-      return marshal(codigo, msgFields), 404
+      if medidaBd is None:
+        logger.error(f"Medida Caseira de id: {id} não encontrada")
+        codigo = Message(1, f"Medida Caseira de id: {id} não encontrada")
+        return marshal(codigo, msgFields), 404
 
-    db.session.delete(medidaBd)
-    db.session.commit()
+      db.session.delete(medidaBd)
+      db.session.commit()
 
-    logger.info(f"Medida Caseira de id: {id} deletada com sucesso")
-    return {}, 200
+      logger.info(f"Medida Caseira de id: {id} deletada com sucesso")
+      return {}, 200
+    
+    except IntegrityError:
+      logger.error(f"Medida Caseira de id: {id} nao pode ser deletado possui dependencias com preparacao_ingrediente")
+
+      codigo = Message(1, f"Medida Caseira de id: {id} nao pode ser deletado possui dependencias com preparacao_ingrediente")
+      return marshal(codigo, msgFields), 400

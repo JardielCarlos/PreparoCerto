@@ -1,7 +1,9 @@
 from flask_restful import Resource, marshal, reqparse
-from model.cardapio import Cardapio,cardapioFields
 from helpers.database import db
 from helpers.logger import logger
+
+from model.cardapio import Cardapio,cardapioFields
+from model.cardapio_preparacao import CardapioPreparacao
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
 
@@ -12,12 +14,6 @@ parser.add_argument("empresa", type=dict, help="Empresa não informada", require
 class Cardapios(Resource):
   def get(self):
     cardapios = Cardapio.query.all()
-    if cardapios == []:
-      logger.error("Não existe nenhum cardápio cadastrado")
-      codigo = Message(1, "Não existe nenhum cardápio cadastrado")
-
-      return marshal(codigo, msgFields), 404
-
     logger.info("Cardápios listados com sucesso")
     return marshal(cardapios, cardapioFields), 200
 
@@ -62,12 +58,16 @@ class CardapioId(Resource):
 
   def delete(self, id):
     cardapioBd = Cardapio.query.get(id)
+    cardapioPreparacaoBd = CardapioPreparacao.query.filter_by(cardapio_id=id)
 
     if cardapioBd is None:
       logger.error(f"Cardápio de id: {id} não encontrado")
 
       codigo = Message(1, f"Cardápio de id: {id} não encontrado")
       return marshal(codigo, msgFields), 404
+    
+    for i in cardapioPreparacaoBd:
+        db.session.delete(i)
 
     db.session.delete(cardapioBd)
     db.session.commit()

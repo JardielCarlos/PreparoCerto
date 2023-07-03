@@ -12,7 +12,7 @@ parser = reqparse.RequestParser()
 
 parser.add_argument("nome", type=str, help="Nome não informado", required=True)
 parser.add_argument("email", type=str, help="Email não informado", required=True)
-parser.add_argument("senha", type=str, help="Senha não informado", required=True)
+parser.add_argument("senha", type=str, help="Senha não informado", required=False)
 
 padrao_email = r'^[\w\.-]+@[\w\.-]+\.\w+$'
 policy = PasswordPolicy.from_names(
@@ -26,11 +26,6 @@ class Proprietarios(Resource):
   def get(self):
     proprietarios = Proprietario.query.all()
 
-    if proprietarios == []:
-      logger.error("Não existe nenhum proprietário cadastrado")
-      codigo = Message(1, "Não existe nenhum proprietário cadastrado")
-
-      return marshal(codigo, msgFields), 404
     logger.info("Proprietários listados com sucesso")
     return marshal(proprietarios, userFields), 200
 
@@ -46,6 +41,10 @@ class Proprietarios(Resource):
 
       if re.match(padrao_email, args['email']) == None:
         codigo = Message(1, "Email no formato errado")
+        return marshal(codigo, msgFields), 400
+
+      if not args['senha']:
+        codigo = Message(1, "Senha não informada")
         return marshal(codigo, msgFields), 400
 
       verifySenha = policy.test(args['senha'])
@@ -104,15 +103,9 @@ class ProprietarioId(Resource):
         codigo = Message(1, "Email no formato errado")
         return marshal(codigo, msgFields), 400
 
-      verifySenha = policy.test(args['senha'])
-      if len(verifySenha) != 0:
-        codigo = Message(1, "Senha no formato errado")
-        return marshal(codigo, msgFields), 400
-
 
       userBd.nome = args["nome"]
       userBd.email = args["email"]
-      userBd.senha = args["senha"]
 
       db.session.add(userBd)
       db.session.commit()
@@ -127,17 +120,28 @@ class ProprietarioId(Resource):
       return marshal(codigo, msgFields), 400
 
   def delete(self, id):
+    try:
+      userBd = Proprietario.query.get(id)
 
-    userBd = Proprietario.query.get(id)
+      if userBd is None:
+        logger.error(f"Proprietário de id: {id} não encontrado")
 
-    if userBd is None:
-      logger.error(f"Proprietário de id: {id} não encontrado")
+        codigo = Message(1, f"Proprietário de id: {id} não encontrado")
+        return marshal(codigo, msgFields), 404
 
-      codigo = Message(1, f"Proprietário de id: {id} não encontrado")
-      return marshal(codigo, msgFields), 404
+      db.session.delete(userBd)
+      db.session.commit()
 
-    db.session.delete(userBd)
-    db.session.commit()
+      logger.info(f"Proprietário de id: {id} deletado com sucesso")
+      return {}, 200
+    except IntegrityError:
+      logger.error(f"Proprietário de id: {id} não pode ser deletado possui dependencia com a empresa")
 
-    logger.info(f"Proprietário de id: {id} deletado com sucesso")
-    return {}, 200
+      codigo = Message(1, f"Proprietário de id: {id} não pode ser deletado possui empresa cadastrada")
+      return marshal(codigo, msgFields), 400
+class ProprietarioNome(Resource):
+  def get(self, nome):
+    proprietarioNome = Proprietario.query.filter(Proprietario.nome.ilike(f'%{nome}%')).all()
+    logger.info(f"Proprietarios com nome: {nome} listado com sucesso")
+    return marshal(proprietarioNome, userFields), 200
+

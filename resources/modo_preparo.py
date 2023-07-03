@@ -10,16 +10,11 @@ from model.modo_preparo import ModoPreparo, modoPreparoFields
 parser = reqparse.RequestParser()
 
 parser.add_argument("text", type=str, help="text nao informada", required=True)
-parser.add_argument("preparacao", type=dict, help="preparacao nao informada", required=True)
+parser.add_argument("preparacao", type=dict, help="preparacao nao informada", required=False)
 
 class ModosPreparo(Resource):
   def get(self):
-    modosPreparo = ModoPreparo.query.filter_by(is_deleted=False).order_by(ModoPreparo.criacao).all()
-    if modosPreparo == []:
-      logger.error("Não existem nenhum modos de preparo cadastrados")
-      codigo = Message(1, "Não existe nenhumm modos de preparo cadastrados")
-
-      return marshal(codigo, msgFields), 404
+    modosPreparo = ModoPreparo.query.order_by(ModoPreparo.criacao).all()
 
     logger.info("ModosPreparo listados com sucesso")
 
@@ -32,7 +27,7 @@ class ModosPreparo(Resource):
 
       preparacao = Preparacao.query.get(preparacaoId)
       if preparacao is None:
-        codigo = Message(1, f"preparacao de id: {preparacao} não encontrado")
+        codigo = Message(1, f"preparacao de id: {preparacaoId} não encontrado")
         return marshal(codigo, msgFields), 404
 
       modoPreparo = ModoPreparo(args['text'], preparacao)
@@ -48,6 +43,11 @@ class ModosPreparo(Resource):
       codigo = Message(1, f"Id da preparacao não informado")
       return marshal(codigo, msgFields), 400
 
+    except TypeError:
+      logger.error("Preparacao nao informado")
+      codigo = Message(1, "Preparacao nao informado")
+      return marshal(codigo, msgFields), 400
+
     except:
       logger.error("Error ao cadastrar Modo de preparo")
 
@@ -57,7 +57,7 @@ class ModosPreparo(Resource):
 class ModosPreparoId(Resource):
 
   def get(self, id):
-    modopreparo = ModoPreparo.query.filter_by(preparacao_id=id, is_deleted=False).order_by(ModoPreparo.criacao).first()
+    modopreparo = ModoPreparo.query.filter_by(preparacao_id=id).order_by(ModoPreparo.criacao).all()
 
     if modopreparo is None:
       logger.error(f"Preparacao de id: {id} nao encontrada")
@@ -72,7 +72,7 @@ class ModosPreparoId(Resource):
     args = parser.parse_args()
 
     try:
-      modoPreparoBd = ModoPreparo.query.filter_by(id=id, is_deleted=False)
+      modoPreparoBd = ModoPreparo.query.get(id)
 
       if modoPreparoBd is None:
         logger.error(f"Modo de preparo de id: {id} nao encontrado")
@@ -93,15 +93,14 @@ class ModosPreparoId(Resource):
       return marshal(codigo, msgFields)
 
   def delete(self, id):
-    modoPreparoBd = ModoPreparo.query.filter_by(id=id, is_deleted=False).first()
+    modoPreparoBd = ModoPreparo.query.get(id)
 
     if modoPreparoBd is None:
-        logger.error(f"Modo de preparo de id: {id} nao encontrado")
-        codigo = Message(1, f"Modo de preparo de id: {id} nao encontrado")
-        return marshal(codigo, msgFields), 404
+      logger.error(f"Modo de preparo de id: {id} nao encontrado")
+      codigo = Message(1, f"Modo de preparo de id: {id} nao encontrado")
+      return marshal(codigo, msgFields), 404
 
-    modoPreparoBd.is_deleted = True
-    db.session.add(modoPreparoBd)
+    db.session.delete(modoPreparoBd)
     db.session.commit()
 
     logger.info(f"Modo de preparo de id: {id} deletado com sucesso")

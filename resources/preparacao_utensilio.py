@@ -16,26 +16,6 @@ parser.add_argument("preparacao", type=dict, help="Preparação não informada",
 
 class UtensiliosPreparacao(Resource):
   def get(self):
-    utensilioPreparacao = PreparacaoUtensilio.query.all()
-    utensilios = Utensilio.query.all()
-    preparacao = Preparacao.query.all()
-
-    if utensilios == []:
-      logger.error("Não existe nenhum utensílio cadastrado")
-      codigo = Message(1, "Não existe nenhum utensílio cadastrado")
-
-      return marshal(codigo, msgFields), 404
-    elif preparacao == []:
-      logger.error("Não existe nenhuma preparação cadastrada")
-      codigo = Message(1, "Não existe nenhuma preparação cadastrada")
-
-      return marshal(codigo, msgFields), 404
-    elif utensilioPreparacao == []:
-      logger.error("Não existe nenhum relacionamento Preparação-Utensilio cadastrado")
-      codigo = Message(1, "Não existe nenhum relacionamento Preparação-Utensilio cadastrado")
-
-      return marshal(codigo, msgFields), 404
-
     logger.info("Preparação-Utensilios listados com sucesso")
     return marshal(PreparacaoUtensilio.query.all(), utensilioPreparacaoFields), 200
 
@@ -45,19 +25,20 @@ class UtensiliosPreparacao(Resource):
     utensilioId = args['utensilio']['id']
     preparacaoId = args['preparacao']['id']
 
-    if utensilioId is None:
+    utensilioBd = Utensilio.query.get(utensilioId)
+    preparacaoBd = Preparacao.query.get(preparacaoId)
+
+    if utensilioBd is None:
       logger.error(f"Utensilio de id: {utensilioId} nao encontrado")
 
       codigo = Message(1, f"Utensilio de id: {utensilioId} não encontrado")
       return marshal(codigo, msgFields), 404
-    if preparacaoId is None:
+
+    if preparacaoBd is None:
       logger.error(f"Preparacao de id: {preparacaoId} nao encontrado")
 
       codigo = Message(1, f"Preparacao de id: {preparacaoId} não encontrado")
       return marshal(codigo, msgFields), 404
-
-    utensilioBd = Utensilio.query.get(utensilioId)
-    preparacaoBd = Preparacao.query.get(preparacaoId)
 
     utensilioPreparacao = PreparacaoUtensilio(utensilioBd, preparacaoBd)
 
@@ -93,14 +74,14 @@ class UtensiliosPreparacaoId(Resource):
     return marshal(utensiliosPreparacao, utensiliosFields), 200
 
   def delete(self, id):
-    utensiliopreparacaoBd = PreparacaoUtensilio.query.get(id)
-    if utensiliopreparacaoBd is None:
+    preparacaoUtensilioBd = PreparacaoUtensilio.query.get(id)
+    if preparacaoUtensilioBd is None:
       logger.error(f"UtensiliosPreparacao de id: {id} nao encontrado")
 
       codigo = Message(1, f"Utensilio da preparacao de id: {id} não encontrado")
       return marshal(codigo, msgFields), 404
 
-    db.session.delete(utensiliopreparacaoBd)
+    db.session.delete(preparacaoUtensilioBd)
     db.session.commit()
 
     logger.info(f"UtensiliosPreparacao de id: {id} deletado com sucesso")

@@ -12,6 +12,6 @@ class BlackList(db.Model):
   def __init__(self, token, exp):
     self.token = token
     self.exp = exp
-  
+
   def __repr__(self):
     return f'BlackList {self.token}'

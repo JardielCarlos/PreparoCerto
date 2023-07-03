@@ -5,11 +5,11 @@ medidaCaseiraFields = {
   'id': fields.Integer,
   'quantidade': fields.String,
   'descricao': fields.String
-  }
+}
 
 class MedidaCaseira(db.Model):
   __tablename__ = "tb_medidacaseira"
-  
+
   id = db.Column(db.Integer, primary_key=True)
   quantidade = db.Column(db.String, nullable=False)
   descricao = db.Column(db.String, nullable=False, unique=True)
@@ -19,4 +19,4 @@ class MedidaCaseira(db.Model):
     self.descricao = descricao
 
   def __repr__(self):
-    return f"<Unidade de Medida {self.id}>"
+    return f"<Medida caseira {self.id}>"

@@ -16,13 +16,13 @@ class Preparador(Usuario):
   usuario_id = db.Column(db.Integer, db.ForeignKey("tb_usuario.id"),primary_key=True)
   empresa_id = db.Column(db.Integer, db.ForeignKey("tb_empresa.id"))
 
-  empresa = db.relationship("Empresa", uselist=False)
+  empresa = db.relationship("Empresa", uselist=False, backref= db.backref("tb_preparador", cascade="all, delete"))
 
   __mapper_args__ = {"polymorphic_identity": "preparador"}
 
   def __init__(self, nome, email, senha, empresa):
     super().__init__(nome, email, senha)
     self.empresa = empresa
-    
+
   def __repr__(self):
     return f'<Preparador {self.nome}>'

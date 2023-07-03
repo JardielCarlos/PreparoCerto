@@ -6,5 +6,5 @@ from model.mensagem import Message, msgFields
 from model.usuario import Usuario, userEmailFields
 
 class Usuarios(Resource):
-    def get(self):
-        return marshal(Usuario.query.all(), userEmailFields)
+  def get(self):
+    return marshal(Usuario.query.all(), userEmailFields)
