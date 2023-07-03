@@ -1,12 +1,13 @@
 from flask import make_response
 from flask_restful import Resource, marshal, reqparse, request
 from helpers.database import db
+from helpers.auth.token_verifier import token_verify
 from helpers.logger import logger
 from werkzeug.datastructures import FileStorage
 from io import BytesIO
 from PIL import Image
 
-from model.preparacao import Preparacao, preparacaoFields
+from model.preparacao import Preparacao, preparacaoTokenFields
 from model.empresa import Empresa
 from model.imgPreparacao import ImgPreparacao
 from model.mensagem import Message, msgFields
@@ -16,11 +17,30 @@ parser = reqparse.RequestParser()
 parser.add_argument('fotoPerfil', type=FileStorage, location='files')
 
 class Preparacoes(Resource):
-  def get(self):
-    logger.info("Preparações listadas com sucesso")
-    return marshal(Preparacao.query.order_by(Preparacao.criacao).all(), preparacaoFields), 200
+  @token_verify
+  def get(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as preparacoes")
 
-  def post(self):
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
+    logger.info("Preparações listadas com sucesso")
+
+    preparacoes = Preparacao.query.order_by(Preparacao.criacao).all()
+
+    data = {'preparacao': preparacoes, 'token': refreshToken}
+
+    return marshal(data, preparacaoTokenFields), 200
+
+  @token_verify
+  def post(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as preparacoes")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
     try:
       empresaId = request.form['empresa']
@@ -64,8 +84,10 @@ class Preparacoes(Resource):
       db.session.add(imgPreparacao)
       db.session.commit()
 
+      data = {'preparacao': preparacao, 'token': refreshToken}
+
       logger.info(f"Preparacao de id: {preparacao.id} criada com sucesso")
-      return marshal(preparacao, preparacaoFields), 201
+      return marshal(data, preparacaoTokenFields), 201
     except:
       logger.error("Error ao cadastrar preparacao")
 
@@ -73,7 +95,14 @@ class Preparacoes(Resource):
       return marshal(codigo, msgFields), 400
 
 class PreparacaoId(Resource):
-  def get(self, id):
+  @token_verify
+  def get(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as preparacoes")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     preparacao = Preparacao.query.get(id)
 
     if preparacao is None:
@@ -82,12 +111,20 @@ class PreparacaoId(Resource):
       codigo = Message(1, f"Preparação de id: {id} não encontrada")
       return marshal(codigo, msgFields), 404
 
+    data = {'preparacao': preparacao, 'token': refreshToken}
+
     logger.info(f"Preparacao de id: {id} listada com sucesso")
-    return marshal(preparacao, preparacaoFields), 200
+    return marshal(data, preparacaoTokenFields), 200
 
-  def put(self, id):
-    args = parser.parse_args()
+  @token_verify
+  def put(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as preparacoes")
 
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
+    # args = parser.parse_args()
     try:
       preparacaoBd = Preparacao.query.get(id)
       if preparacaoBd is None:
@@ -96,21 +133,42 @@ class PreparacaoId(Resource):
         codigo = Message(1, f"Preparação de id: {id} não encontrada")
         return marshal(codigo, msgFields), 404
 
-      preparacaoBd.nome = args['nome']
-      preparacaoBd.numPorcoes = args['numPorcoes']
+      if not request.form['nome']:
+        logger.info("Nome nao informado")
+
+        codigo = Message(1, "Nome nao informado")
+        return marshal(codigo, msgFields), 400
+
+      if not request.form['numPorcoes']:
+        logger.info("numeros das porcoes nao informada")
+
+        codigo = Message(1, "numeros das porcoes nao informada")
+        return marshal(codigo, msgFields), 400
+
+      preparacaoBd.nome = request.form['nome']
+      preparacaoBd.numPorcoes = request.form['numPorcoes']
 
       db.session.add(preparacaoBd)
       db.session.commit()
 
+      data = {'preparacao': preparacaoBd, 'token': refreshToken}
+
       logger.info(f"Preparação de id: {id} atualizada com sucesso")
-      return marshal(preparacaoBd, preparacaoFields)
+      return marshal(data, preparacaoTokenFields)
     except:
       logger.error("Erro ao atualizar a Preparação")
 
       codigo = Message(2, "Erro ao atualizar a Preparação")
       return marshal(codigo, msgFields), 400
 
-  def delete(self, id):
+  @token_verify
+  def delete(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as preparacoes")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     preparacaoBd = Preparacao.query.get(id)
     if preparacaoBd is None:
       logger.error(f"Preparação de id: {id} não encontrada")
@@ -122,10 +180,17 @@ class PreparacaoId(Resource):
     db.session.commit()
 
     logger.info(f"Preparacao de id: {id} deletada com sucesso")
-    return {}, 200
+    return {'token': refreshToken}, 200
 
 class preparacaoImage(Resource):
-  def get(self, id):
+  @token_verify
+  def get(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as imagens das preparacoes")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     img_io = BytesIO()
 
     foto = ImgPreparacao.query.filter_by(preparacao_id=id).first()
@@ -143,7 +208,14 @@ class preparacaoImage(Resource):
     response.headers['Content-Type'] = 'image/png'
     return response
 
-  def put(self, id):
+  @token_verify
+  def put(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as imagens das preparacoes")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
 
     try:
@@ -174,8 +246,14 @@ class preparacaoImage(Resource):
 
       codigo = Message(2, "Erro ao atualizar a imagem da Preparação")
       return marshal(codigo, msgFields), 400
+  @token_verify
+  def delete(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as imagens das preparacoes")
 
-  def delete(self, id):
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     foto = ImgPreparacao.query.filter_by(preparacao_id=id).first()
 
     if foto is None:

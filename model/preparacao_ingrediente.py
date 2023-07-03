@@ -11,6 +11,11 @@ preparacaoIngredienteFields = {
   'ingrediente': fields.Nested(ingredienteFields),
 }
 
+preparacaoIngredienteToken = {
+  'preparacaoIngrediente': fields.Nested(preparacaoIngredienteFields),
+  'token': fields.String
+}
+
 ingredientesFields = {
   'id': fields.Integer,
   'ingrediente': fields.Nested(ingredienteFields),
@@ -24,6 +29,10 @@ ingredientesFields = {
   'custoPreparacao': fields.Float
 }
 
+ingredientesTokenFields = {
+  'ingredientes': fields.Nested(ingredientesFields),
+  'token': fields.String
+}
 
 class PreparacaoIngrediente(db.Model):
   __tablename__ = "tb_preparacao_ingrediente"

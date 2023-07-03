@@ -29,7 +29,7 @@ cnpjValidate = CNPJ()
 
 class Empresas(Resource):
   @token_verify
-  def get(self, tipo, token):
+  def get(self, tipo, refreshToken):
     if tipo != 'proprietario':
       logger.error("Usuario sem autorização suficiente!")
       codigo = Message(1, "Usuario sem autorização suficiente!")
@@ -37,13 +37,13 @@ class Empresas(Resource):
 
     empresa = Empresa.query.all()
 
-    data = {'empresa': empresa, 'token': token}
+    data = {'empresa': empresa, 'token': refreshToken}
 
     logger.info("Empresas listadas com Sucesso")
     return marshal(data, empresaFieldsToken), 200
 
   @token_verify
-  def post(self, tipo, token):
+  def post(self, tipo, refreshToken):
     args = parser.parse_args()
 
     if tipo != 'proprietario':
@@ -81,7 +81,7 @@ class Empresas(Resource):
 
       logger.info(f"Empresa de id: {empresa.id} criada com sucesso")
 
-      data = {'empresa': empresa, 'token': token}
+      data = {'empresa': empresa, 'token': refreshToken}
 
       return marshal(data, empresaFieldsToken), 201
     except IntegrityError:
@@ -100,7 +100,7 @@ class Empresas(Resource):
 
 class EmpresaId(Resource):
   @token_verify
-  def get(self, tipo, token, id):
+  def get(self, tipo, refreshToken, id):
     if tipo != 'proprietario':
       logger.error("Usuario sem autorização suficiente!")
 
@@ -113,13 +113,13 @@ class EmpresaId(Resource):
 
       codigo = Message(1, f"Empresa de id: {id} não encontrada")
       return marshal(codigo, msgFields), 404
-    data = {'empresa': empresa, 'token': token}
+    data = {'empresa': empresa, 'token': refreshToken}
 
     logger.info(f"Empresa de id: {empresa.id} listada com sucesso")
     return marshal(data, empresaFieldsToken), 200
 
   @token_verify
-  def put(self, tipo, token, id):
+  def put(self, tipo, refreshToken, id):
     args = parser.parse_args()
 
     if tipo != 'proprietario':
@@ -146,7 +146,7 @@ class EmpresaId(Resource):
 
       db.session.add(empresaBd)
       db.session.commit()
-      data = {'empresa': empresaBd, 'token': token}
+      data = {'empresa': empresaBd, 'token': refreshToken}
 
       logger.info(f"Empresa de id: {id} atualizada com sucesso")
       return marshal(data, empresaFieldsToken), 200
@@ -162,7 +162,7 @@ class EmpresaId(Resource):
       return marshal(codigo, msgFields), 400
 
   @token_verify
-  def delete(self, tipo, token, id):
+  def delete(self, tipo, refreshToken, id):
     if tipo != 'proprietario':
       logger.error("Usuario sem autorização suficiente!")
 
@@ -181,4 +181,4 @@ class EmpresaId(Resource):
     db.session.commit()
 
     logger.info(f"Empresa de id: {id} deletada com sucesso")
-    return {'token': token}, 200
+    return {'token': refreshToken}, 200

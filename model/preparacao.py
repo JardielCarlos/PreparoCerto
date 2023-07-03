@@ -11,6 +11,11 @@ preparacaoFields = {
   'empresa': fields.Nested(empresaFields)
 }
 
+preparacaoTokenFields = {
+  'preparacao': fields.Nested(preparacaoFields),
+  'token': fields.String
+}
+
 
 class Preparacao(db.Model):
   __tablename__ = "tb_preparacao"

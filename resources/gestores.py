@@ -1,12 +1,14 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
-from model.gestor import Gestor, gestorFields
+from helpers.auth.token_verifier import token_verify
 from helpers.logger import logger
+from password_strength import PasswordPolicy
+from sqlalchemy.exc import IntegrityError
+import re
+
+from model.gestor import Gestor, gestorTokenFields
 from model.mensagem import Message, msgFields
 from model.empresa import Empresa
-from sqlalchemy.exc import IntegrityError
-from password_strength import PasswordPolicy
-import re
 
 
 parser = reqparse.RequestParser()
@@ -25,13 +27,28 @@ policy = PasswordPolicy.from_names(
 )
 
 class Gestores(Resource):
-  def get(self):
+  @token_verify
+  def get(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os gestores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     gestores = Gestor.query.all()
 
-    logger.info("Gestores listados com sucesso")
-    return marshal(gestores, gestorFields), 200
+    data = {'gestor': gestores, 'token': refreshToken}
 
-  def post(self):
+    logger.info("Gestores listados com sucesso")
+    return marshal(data, gestorTokenFields), 200
+
+  @token_verify
+  def post(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os gestores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
     args = parser.parse_args()
     try:
       if len(args['nome']) == 0:
@@ -66,8 +83,10 @@ class Gestores(Resource):
       db.session.add(gestor)
       db.session.commit()
 
+      data = {'gestor': gestor, 'token': refreshToken}
+
       logger.info(f"Gestor de id: {gestor.id} criado com sucesso")
-      return marshal(gestor, gestorFields), 201
+      return marshal(data, gestorTokenFields), 201
 
     except TypeError:
       codigo = Message(1, "Empresa não informada")
@@ -86,7 +105,14 @@ class Gestores(Resource):
       return marshal(codigo, msgFields), 400
 
 class GestorId(Resource):
-  def get(self, id):
+  @token_verify
+  def get(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os gestores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     gestor = Gestor.query.get(id)
 
     if gestor is None:
@@ -95,10 +121,19 @@ class GestorId(Resource):
       codigo = Message(1, f"Gestor de id: {id} não encontrado")
       return marshal(codigo, msgFields), 404
 
-    logger.info(f"Gestor de id: {gestor.id} listado com sucesso")
-    return marshal(gestor, gestorFields), 200
+    data = {'gestor': gestor, 'token': refreshToken}
 
-  def put(self, id):
+    logger.info(f"Gestor de id: {gestor.id} listado com sucesso")
+    return marshal(data, gestorTokenFields), 200
+
+  @token_verify
+  def put(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os gestores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
 
     try:
@@ -126,8 +161,11 @@ class GestorId(Resource):
       db.session.add(userBd)
       db.session.commit()
 
+      data = {'gestor': userBd, 'token': refreshToken}
+
+
       logger.info(f"Gestor de id: {id} atualizado com sucesso")
-      return marshal(userBd, gestorFields), 200
+      return marshal(data, gestorTokenFields), 200
 
     except:
       logger.error("Error ao atualizar o Gestor")
@@ -135,7 +173,13 @@ class GestorId(Resource):
       codigo = Message(2, "Error ao atualizar o Gestor")
       return marshal(codigo, msgFields), 400
 
-  def delete(self, id):
+  @token_verify
+  def delete(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os gestores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
 
     userBd = Gestor.query.get(id)
 
@@ -149,10 +193,20 @@ class GestorId(Resource):
     db.session.commit()
 
     logger.info(f"Gestor de id: {id} deletado com sucesso")
-    return {}, 200
+    return {'token': refreshToken}, 200
 
 class GestorNome(Resource):
-  def get(self, nome):
+  @token_verify
+  def get(self, tipo, refreshToken, nome):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os gestores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     gestorNome = Gestor.query.filter(Gestor.nome.ilike(f"%{nome}%")).all()
     logger.info(f"Gestores de nome com: {nome} listado com sucesso")
-    return marshal(gestorNome, gestorFields), 200
+
+    data = {'gestor': gestorNome, 'token': refreshToken}
+
+    return marshal(data, gestorTokenFields), 200

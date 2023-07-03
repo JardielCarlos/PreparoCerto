@@ -5,7 +5,12 @@ from model.empresa import empresaFields
 cardapioFields = {
   'id': fields.Integer,
   'empresa': fields.Nested(empresaFields)
-  }
+}
+
+cardapioTokenFields ={
+  'cardapio': fields.Nested(cardapioFields),
+  'token': fields.String
+}
 
 class Cardapio(db.Model):
   __tablename__="tb_cardapio"

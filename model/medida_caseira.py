@@ -7,6 +7,11 @@ medidaCaseiraFields = {
   'descricao': fields.String
 }
 
+medidaCaseiraTokenFields = {
+  'medidaCaseira': fields.Nested(medidaCaseiraFields),
+  'token': fields.String
+}
+
 class MedidaCaseira(db.Model):
   __tablename__ = "tb_medidacaseira"
 

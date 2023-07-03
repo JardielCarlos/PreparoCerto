@@ -1,28 +1,49 @@
-2023-07-01 18:46:54,479 WARNING _internal _log  * Debugger is active!
-2023-07-01 18:46:54,483 INFO _internal _log  * Debugger PIN: 932-881-758
-2023-07-01 18:46:54,581 INFO ingredientes get Ingredientes listados com sucesso
-2023-07-01 18:46:54,582 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:46:54] "GET /ingredientes/1 HTTP/1.1" 200 -
-2023-07-01 18:47:14,077 INFO ingredientes delete Ingrediente de id: 13 deletado com sucesso
-2023-07-01 18:47:14,078 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:14] "DELETE /ingrediente/13 HTTP/1.1" 200 -
-2023-07-01 18:47:15,984 INFO ingredientes get Ingredientes listados com sucesso
-2023-07-01 18:47:15,985 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:15] "GET /ingredientes/1 HTTP/1.1" 200 -
-2023-07-01 18:47:18,217 ERROR ingredientes get Ingrediente de id: 1 não encontrado
-2023-07-01 18:47:18,218 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:18] "[33mGET /ingrediente/1 HTTP/1.1[0m" 404 -
-2023-07-01 18:47:20,992 INFO ingredientes post Ingrediente de id: 14 criado com sucesso
-2023-07-01 18:47:20,993 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:20] "[35m[1mPOST /ingredientes HTTP/1.1[0m" 201 -
-2023-07-01 18:47:25,001 INFO ingredientes get Ingredinte de nome: 1ar listado
-2023-07-01 18:47:25,002 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:25] "GET /ingrediente/1ar HTTP/1.1" 200 -
-2023-07-01 18:47:27,563 INFO ingredientes get Ingredinte de nome: arr listado
-2023-07-01 18:47:27,564 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:27] "GET /ingrediente/arr HTTP/1.1" 200 -
-2023-07-01 18:47:31,175 INFO ingredientes get Ingredientes listados com sucesso
-2023-07-01 18:47:31,176 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:31] "GET /ingredientes/1 HTTP/1.1" 200 -
-2023-07-01 18:47:46,355 INFO ingredientes put Ingrediente de id: 14 atualizado com sucesso
-2023-07-01 18:47:46,356 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:46] "PUT /ingrediente/14 HTTP/1.1" 200 -
-2023-07-01 18:47:48,860 INFO ingredientes get Ingredientes listados com sucesso
-2023-07-01 18:47:48,861 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:48] "GET /ingredientes/1 HTTP/1.1" 200 -
-2023-07-01 18:47:58,004 INFO ingredientes put Ingrediente de id: 14 atualizado com sucesso
-2023-07-01 18:47:58,006 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:58] "PUT /ingrediente/14 HTTP/1.1" 200 -
-2023-07-01 18:47:59,769 INFO ingredientes get Ingredientes listados com sucesso
-2023-07-01 18:47:59,769 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:47:59] "GET /ingredientes/1 HTTP/1.1" 200 -
-2023-07-01 18:48:03,428 INFO ingredientes put Ingrediente de id: 14 atualizado com sucesso
-2023-07-01 18:48:03,430 INFO _internal _log 127.0.0.1 - - [01/Jul/2023 18:48:03] "PUT /ingrediente/14 HTTP/1.1" 200 -
+2023-07-03 13:46:10,423 WARNING _internal _log  * Debugger is active!
+2023-07-03 13:46:10,431 INFO _internal _log  * Debugger PIN: 932-881-758
+2023-07-03 13:47:02,266 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:02] "[35m[1mGET /cardapio_preparacao HTTP/1.1[0m" 500 -
+2023-07-03 13:47:02,826 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:02] "GET /cardapio_preparacao?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2023-07-03 13:47:02,826 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:02] "GET /cardapio_preparacao?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2023-07-03 13:47:03,027 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:03] "GET /cardapio_preparacao?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2023-07-03 13:47:11,111 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:11] "[36mGET /cardapio_preparacao?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-07-03 13:47:11,425 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:11] "[36mGET /cardapio_preparacao?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-07-03 13:47:11,768 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:11] "[36mGET /cardapio_preparacao?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-07-03 13:47:16,113 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
+2023-07-03 13:47:16,114 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:16] "GET /cardapio_preparacao HTTP/1.1" 200 -
+2023-07-03 13:47:27,406 ERROR cardapio_preparacao get Cardápio de id: 4 não encontrado
+2023-07-03 13:47:27,407 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:47:27] "[33mGET /cardapio_preparacao/4 HTTP/1.1[0m" 404 -
+2023-07-03 13:48:43,647 INFO cardapios get Cardápios listados com sucesso
+2023-07-03 13:48:43,648 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:48:43] "GET /cardapios HTTP/1.1" 200 -
+2023-07-03 13:48:46,119 INFO cardapios post Cardápio de id: 2 criado com sucesso
+2023-07-03 13:48:46,126 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:48:46] "[35m[1mPOST /cardapios HTTP/1.1[0m" 201 -
+2023-07-03 13:48:53,759 INFO cardapio_preparacao post Cardápio-Preparação de id: 1 criada com sucesso
+2023-07-03 13:48:53,764 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:48:53] "POST /cardapio_preparacao HTTP/1.1" 200 -
+2023-07-03 13:49:04,135 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
+2023-07-03 13:49:04,142 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:49:04] "GET /cardapio_preparacao HTTP/1.1" 200 -
+2023-07-03 13:49:06,359 ERROR cardapio_preparacao get Cardápio de id: 4 não encontrado
+2023-07-03 13:49:06,359 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:49:06] "[33mGET /cardapio_preparacao/4 HTTP/1.1[0m" 404 -
+2023-07-03 13:49:08,220 ERROR cardapio_preparacao get Cardápio de id: 1 não encontrado
+2023-07-03 13:49:08,221 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:49:08] "[33mGET /cardapio_preparacao/1 HTTP/1.1[0m" 404 -
+2023-07-03 13:49:11,835 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:49:11] "GET /cardapio_preparacao/2 HTTP/1.1" 200 -
+2023-07-03 13:50:21,098 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:21] "[35m[1mPUT /cardapio_preparacao/1 HTTP/1.1[0m" 500 -
+2023-07-03 13:50:21,601 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:21] "GET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2023-07-03 13:50:21,602 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:21] "GET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2023-07-03 13:50:21,866 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:21] "GET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2023-07-03 13:50:40,183 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:40] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-07-03 13:50:40,497 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:40] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-07-03 13:50:40,840 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:40] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-07-03 13:50:44,069 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:44] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-07-03 13:50:44,384 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:44] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-07-03 13:50:44,726 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:44] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-07-03 13:50:46,107 INFO cardapio_preparacao put Cardápio-Preparação de id: 1 atualizada com sucesso
+2023-07-03 13:50:46,112 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:46] "PUT /cardapio_preparacao/1 HTTP/1.1" 200 -
+2023-07-03 13:50:53,502 INFO cardapio_preparacao get Todos os cardápios e suas preparações listados com sucesso
+2023-07-03 13:50:53,506 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:50:53] "GET /cardapio_preparacao HTTP/1.1" 200 -
+2023-07-03 13:51:02,286 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:02] "[35m[1mDELETE /cardapio_preparacao/1 HTTP/1.1[0m" 500 -
+2023-07-03 13:51:02,551 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:02] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-07-03 13:51:02,866 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:02] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-07-03 13:51:03,206 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:03] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-07-03 13:51:12,245 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:12] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2023-07-03 13:51:12,561 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:12] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2023-07-03 13:51:13,124 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:13] "[36mGET /cardapio_preparacao/1?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2023-07-03 13:51:15,029 INFO cardapio_preparacao delete Cardápio-Preparação de id: 1 deletado com sucesso
+2023-07-03 13:51:15,029 INFO _internal _log 127.0.0.1 - - [03/Jul/2023 13:51:15] "DELETE /cardapio_preparacao/1 HTTP/1.1" 200 -

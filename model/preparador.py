@@ -8,7 +8,12 @@ preparadorFields = {
   'nome': fields.String,
   'email': fields.String,
   'empresa': fields.Nested(empresaFields)
-  }
+}
+
+preparadorTokenFields = {
+  'preparador': fields.Nested(preparadorFields),
+  'token': fields.String
+}
 
 class Preparador(Usuario):
   __tablename__="tb_preparador"

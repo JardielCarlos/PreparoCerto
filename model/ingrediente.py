@@ -3,8 +3,13 @@ from helpers.database import db
 
 ingredienteFields = {
   'id': fields.Integer,
-  'codigo': fields.String,
-  'nome': fields.String
+  'nome': fields.String,
+  'codigo': fields.String
+}
+
+ingredienteTokenFields = {
+  'ingrediente': fields.Nested(ingredienteFields),
+  'token': fields.String
 }
 
 class Ingrediente(db.Model):
