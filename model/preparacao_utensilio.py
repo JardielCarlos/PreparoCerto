@@ -7,11 +7,21 @@ utensilioPreparacaoFields = {
   'id': fields.Integer,
   'utensilio': fields.Nested(utensilioFields),
   'preparacao': fields.Nested(preparacaoFields)
-  }
+}
+
+utensilioPreparacaoTokenFields = {
+  'utensilioPreparacao': fields.Nested(utensilioPreparacaoFields),
+  'token': fields.String
+}
 
 utensiliosFields = {
   'id': fields.Integer,
   'utensilio': fields.Nested(utensilioFields),
+}
+
+utensiliosTokenFields = {
+  'utensilios': fields.Nested(utensiliosFields),
+  'token': fields.String
 }
 
 class PreparacaoUtensilio(db.Model):

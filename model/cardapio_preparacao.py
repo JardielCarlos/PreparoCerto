@@ -7,12 +7,22 @@ cardapioPreparacaoFields = {
   'id': fields.Integer,
   'cardapio': fields.Nested(cardapioFields),
   'preparacao': fields.Nested(preparacaoFields)
-  }
+}
+
+cardapioPreparacaoTokenFields = {
+  'cardapioPreparacao': fields.Nested(cardapioPreparacaoFields),
+  'token': fields.String
+}
 
 preparacoesFields = {
   'id': fields.Integer,
   'preparacao': fields.Nested(preparacaoFields)
-  }
+}
+
+preparacoesTokenFields = {
+  'preparacao': fields.Nested(preparacoesFields),
+  'token': fields.String
+}
 
 class CardapioPreparacao(db.Model):
   __tablename__ = "tb_cardapiopreparacao"

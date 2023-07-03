@@ -12,6 +12,12 @@ userFields = {
 userEmailFields = {
   'email': fields.String
 }
+
+userTokenFields = {
+  'user': fields.Nested(userFields),
+  'token': fields.String
+}
+
 class Usuario(db.Model):
   __tablename__ = "tb_usuario"
 

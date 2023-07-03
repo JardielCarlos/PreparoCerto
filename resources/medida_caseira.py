@@ -1,9 +1,11 @@
 from flask_restful import Resource, reqparse, marshal
 from helpers.database import db
 from helpers.logger import logger
-from model.mensagem import Message, msgFields
 from sqlalchemy.exc import IntegrityError
-from model.medida_caseira import MedidaCaseira, medidaCaseiraFields
+from helpers.auth.token_verifier import token_verify
+
+from model.mensagem import Message, msgFields
+from model.medida_caseira import MedidaCaseira, medidaCaseiraTokenFields
 
 parser = reqparse.RequestParser()
 
@@ -11,14 +13,29 @@ parser.add_argument("quantidade", type=int, help="Quantidade não informada", re
 parser.add_argument("descricao", type=str, help="Descricao não informada", required=True)
 
 class MedidasCaseiras(Resource):
+  @token_verify
+  def get(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as medidas caseira")
 
-  def get(self):
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     medidasCseiras = MedidaCaseira.query.all()
 
-    logger.info("Medidas caseiras listada com sucesso")
-    return marshal(medidasCseiras, medidaCaseiraFields), 200
+    data ={'medidaCaseira': medidasCseiras, 'token': refreshToken}
 
-  def post(self):
+    logger.info("Medidas caseiras listada com sucesso")
+    return marshal(data, medidaCaseiraTokenFields), 200
+
+  @token_verify
+  def post(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as medidas caseira")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
 
     try:
@@ -39,8 +56,10 @@ class MedidasCaseiras(Resource):
       db.session.add(medida)
       db.session.commit()
 
+      data ={'medidaCaseira': medida, 'token': refreshToken}
+
       logger.info(f"Medida Caseira de id: {medida.id} criada com sucesso")
-      return marshal(medida, medidaCaseiraFields), 201
+      return marshal(data, medidaCaseiraTokenFields), 201
     except:
       logger.error("Error ao cadastrar a Medida Caseira")
 
@@ -48,12 +67,29 @@ class MedidasCaseiras(Resource):
       return marshal(codigo, msgFields), 400
 
 class MedidaCaseiraId(Resource):
-  def get(self, id):
+  @token_verify
+  def get(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as medidas caseira")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
+    medida = MedidaCaseira.query.get(id)
+
+    data ={'medidaCaseira': medida, 'token': refreshToken}
+
     logger.info(f"Medida Caseira de id: {id} listada com sucesso")
+    return marshal(data, medidaCaseiraTokenFields), 200
 
-    return marshal(MedidaCaseira.query.get(id), medidaCaseiraFields), 200
+  @token_verify
+  def put(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as medidas caseira")
 
-  def put(self, id):
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
 
     try:
@@ -71,14 +107,23 @@ class MedidaCaseiraId(Resource):
       db.session.add(medidaBd)
       db.session.commit()
 
+      data ={'medidaCaseira': medidaBd, 'token': refreshToken}
+
+
       logger.info(f"Medida caseira de id: {id} atualizada com sucesso")
-      return marshal(medidaBd, medidaCaseiraFields), 200
+      return marshal(data, medidaCaseiraTokenFields), 200
     except:
       logger.error("Erro ao atualizar a Medida Caseira")
       codigo = Message(2, "Erro ao atualizar a Medida Caseira")
       return marshal(codigo, msgFields)
 
-  def delete(self, id):
+  @token_verify
+  def delete(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar as medidas caseira")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
     try:
       medidaBd = MedidaCaseira.query.get(id)
 
@@ -91,8 +136,8 @@ class MedidaCaseiraId(Resource):
       db.session.commit()
 
       logger.info(f"Medida Caseira de id: {id} deletada com sucesso")
-      return {}, 200
-    
+      return {'token': refreshToken}, 200
+
     except IntegrityError:
       logger.error(f"Medida Caseira de id: {id} nao pode ser deletado possui dependencias com preparacao_ingrediente")
 

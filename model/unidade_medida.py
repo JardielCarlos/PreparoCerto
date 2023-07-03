@@ -4,11 +4,16 @@ from helpers.database import db
 unidadeFields = {
   'id': fields.Integer,
   'sigla': fields.String
-  }
+}
+
+unidadeTokenFields = {
+  'unidade': fields.Nested(unidadeFields),
+  'token': fields.String
+}
 
 class UnidadeMedida(db.Model):
   __tablename__ = "tb_unidademedida"
-  
+
   id = db.Column(db.Integer, primary_key=True)
   sigla = db.Column(db.String, nullable=False, unique=True)
 

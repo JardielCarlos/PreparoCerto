@@ -10,6 +10,11 @@ gestorFields = {
   'empresa': fields.Nested(empresaFields)
 }
 
+gestorTokenFields = {
+  'gestor': fields.Nested(gestorFields),
+  'token': fields.String
+}
+
 class Gestor(Usuario):
   __tablename__ = "tb_gestor"
 

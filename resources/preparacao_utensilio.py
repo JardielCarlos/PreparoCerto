@@ -1,10 +1,10 @@
 from flask_restful import Resource, marshal, reqparse
 from helpers.database import db
 from helpers.logger import logger
+from helpers.auth.token_verifier import token_verify
 
 from model.mensagem import Message, msgFields
-
-from model.preparacao_utensilio import PreparacaoUtensilio, utensilioPreparacaoFields, utensiliosFields
+from model.preparacao_utensilio import PreparacaoUtensilio, utensilioPreparacaoTokenFields, utensiliosTokenFields
 from model.utensilio import Utensilio
 from model.preparacao import Preparacao
 
@@ -15,11 +15,29 @@ parser.add_argument("preparacao", type=dict, help="Preparação não informada",
 
 
 class UtensiliosPreparacao(Resource):
-  def get(self):
-    logger.info("Preparação-Utensilios listados com sucesso")
-    return marshal(PreparacaoUtensilio.query.all(), utensilioPreparacaoFields), 200
+  @token_verify
+  def get(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os utensilios da preparacao")
 
-  def post(self):
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
+    preparacaoUtensilio = PreparacaoUtensilio.query.all()
+
+    data = {'utensilioPreparacao': preparacaoUtensilio, 'token': refreshToken}
+
+    logger.info("Preparação-Utensilios listados com sucesso")
+    return marshal(data, utensilioPreparacaoTokenFields), 200
+
+  @token_verify
+  def post(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os utensilios da preparacao")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
 
     utensilioId = args['utensilio']['id']
@@ -45,11 +63,20 @@ class UtensiliosPreparacao(Resource):
     db.session.add(utensilioPreparacao)
     db.session.commit()
 
+    data = {'utensilioPreparacao': utensilioPreparacao, 'token': refreshToken}
+
     logger.info(f"Preparação-Utensilio de id: {utensilioPreparacao.id} criado com sucesso")
-    return marshal(utensilioPreparacao, utensilioPreparacaoFields), 201
+    return marshal(data, utensilioPreparacaoTokenFields), 201
 
 class UtensiliosPreparacaoId(Resource):
-  def get(self, id):
+  @token_verify
+  def get(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os utensilios da preparacao")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     utensiliosPreparacao = PreparacaoUtensilio.query.filter_by(preparacao_id=id).all()
     preparacao = Preparacao.query.get(id)
     utensilios = Utensilio.query.get(id)
@@ -70,10 +97,19 @@ class UtensiliosPreparacaoId(Resource):
 
       return marshal(codigo, msgFields), 404
 
-    logger.info(f"Todos os utensilios da preparação de id: {id} listados com sucesso")
-    return marshal(utensiliosPreparacao, utensiliosFields), 200
+    data = {'utensilios': utensiliosPreparacao, 'token': refreshToken}
 
-  def delete(self, id):
+    logger.info(f"Todos os utensilios da preparação de id: {id} listados com sucesso")
+    return marshal(data, utensiliosTokenFields), 200
+
+  @token_verify
+  def delete(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar os utensilios da preparacao")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     preparacaoUtensilioBd = PreparacaoUtensilio.query.get(id)
     if preparacaoUtensilioBd is None:
       logger.error(f"UtensiliosPreparacao de id: {id} nao encontrado")
@@ -85,4 +121,4 @@ class UtensiliosPreparacaoId(Resource):
     db.session.commit()
 
     logger.info(f"UtensiliosPreparacao de id: {id} deletado com sucesso")
-    return {}, 200
+    return {'token': refreshToken}, 200

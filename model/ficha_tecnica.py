@@ -32,10 +32,20 @@ fichaTecnicaOperacionalFields = {
   'numPorcoes': fields.Float
 }
 
+fichaTecnicaOperacionalTokenFields ={
+  'fichaTecnicaOperacional': fields.Nested(fichaTecnicaOperacionalFields),
+  'token': fields.String
+}
+
 fichaTecnicaGerencialFields = {
   'ingredientes': fields.Nested(ingredienteGerencialFields),
   'numPorcoes': fields.Float,
   'total': fields.Float,
   'valorPorcao': fields.Float,
   'valorSugerido': fields.Float
+}
+
+fichaTecnicaGerencialTokenFields = {
+  'fichaTecnicaGerencial': fields.Nested(fichaTecnicaGerencialFields),
+  'token': fields.String
 }

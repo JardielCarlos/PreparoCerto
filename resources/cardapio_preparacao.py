@@ -1,9 +1,10 @@
 from flask_restful import Resource, marshal, reqparse
-from helpers.database import db
+from helpers.auth.token_verifier import token_verify
 from helpers.logger import logger
-from model.mensagem import Message, msgFields
+from helpers.database import db
 
-from model.cardapio_preparacao import CardapioPreparacao, cardapioPreparacaoFields, preparacoesFields
+from model.mensagem import Message, msgFields
+from model.cardapio_preparacao import CardapioPreparacao, cardapioPreparacaoTokenFields, preparacoesTokenFields
 from model.cardapio import Cardapio
 from model.preparacao import Preparacao
 
@@ -13,13 +14,29 @@ parser.add_argument("cardapio",  type=dict, help="Cardápio não informado", req
 parser.add_argument("preparacao",  type=dict, help="Preparação não informada", required=True)
 
 class CardapioPreapracoes(Resource):
-  def get(self):
+  @token_verify
+  def get(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar o cardapio")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     cardapioPreparacao = CardapioPreparacao.query.all()
 
-    logger.info("Todos os cardápios e suas preparações listados com sucesso")
-    return marshal(cardapioPreparacao, cardapioPreparacaoFields), 200
+    data = {'cardapioPreparacao': cardapioPreparacao, 'token': refreshToken}
 
-  def post(self):
+    logger.info("Todos os cardápios e suas preparações listados com sucesso")
+    return marshal(data, cardapioPreparacaoTokenFields), 200
+
+  @token_verify
+  def post(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar o cardapio")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
 
     try:
@@ -43,8 +60,11 @@ class CardapioPreapracoes(Resource):
       db.session.add(cardapioPreparacao)
       db.session.commit()
 
+      data = {'cardapioPreparacao': cardapioPreparacao, 'token': refreshToken}
+
+
       logger.info(f"Cardápio-Preparação de id: {cardapioPreparacao.id} criada com sucesso")
-      return marshal(cardapioPreparacao, cardapioPreparacaoFields), 200
+      return marshal(data, cardapioPreparacaoTokenFields), 200
 
     except:
       logger.error(f"Error ao cadastrar o Cardápio-Preparação")
@@ -53,7 +73,14 @@ class CardapioPreapracoes(Resource):
       return marshal(codigo, msgFields), 400
 
 class CardapioPreapracaoId(Resource):
-  def get(self, id):
+  @token_verify
+  def get(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar o cardapio")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     cardapio = Cardapio.query.get(id)
     preparacoes = CardapioPreparacao.query.filter_by(cardapio_id=id).all()
 
@@ -69,9 +96,18 @@ class CardapioPreapracaoId(Resource):
       codigo = Message(1, f"O cardápio de id: {id} não possui preparações cadastradas")
       return marshal(codigo, msgFields), 404
 
-    return marshal(preparacoes, preparacoesFields), 200
+    data = {'preparacao': preparacoes, 'token': refreshToken}
 
-  def put(self, id):
+    return marshal(data, preparacoesTokenFields), 200
+
+  @token_verify
+  def put(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar o cardapio")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
 
     try:
@@ -108,15 +144,25 @@ class CardapioPreapracaoId(Resource):
       db.session.add(cardapioPreparacaoBd)
       db.session.commit()
 
+      data = {'cardapioPreparacao': cardapioPreparacaoBd, 'token': refreshToken}
+
+
       logger.info(f"Cardápio-Preparação de id: {id} atualizada com sucesso")
-      return marshal(cardapioPreparacaoBd, cardapioPreparacaoFields), 200
+      return marshal(data, cardapioPreparacaoTokenFields), 200
     except:
       logger.error("Erro ao atualizar o Cardápio-Preparação")
 
       codigo = Message(2, "Erro ao atualizar o Cardápio-Preparação")
       return marshal(codigo, msgFields), 400
 
-  def delete(self, id):
+  @token_verify
+  def delete(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor':
+      logger.error("Usuario sem autorizacao para acessar o cardapio")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     cardapioPreparacao = CardapioPreparacao.query.get(id)
 
     if cardapioPreparacao is None:
@@ -129,4 +175,4 @@ class CardapioPreapracaoId(Resource):
     db.session.commit()
 
     logger.info(f"Cardápio-Preparação de id: {id} deletado com sucesso")
-    return {}, 200
+    return {'token': refreshToken}, 200

@@ -10,9 +10,19 @@ modoPreparoFields = {
   "preparacao": fields.Nested(preparacaoFields)
 }
 
+modoPreparoTokenFields ={
+  'modoPreparo': fields.Nested(modoPreparoFields),
+  'token': fields.String
+}
+
 modoPreparoFichaTecnicaFields = {
   "id": fields.Integer,
   "text": fields.String,
+}
+
+modoPreparoFichaTecnicaTokenFields = {
+  'modoPrepFicha': fields.Nested(modoPreparoFichaTecnicaFields),
+  'token': fields.String
 }
 
 class ModoPreparo(db.Model):

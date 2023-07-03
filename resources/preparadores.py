@@ -1,14 +1,15 @@
 from flask_restful import Resource, marshal, reqparse
 from helpers.database import db
 from helpers.logger import logger
+from helpers.auth.token_verifier import token_verify
 from sqlalchemy.exc import IntegrityError
-
-from model.preparador import Preparador, preparadorFields
-from model.mensagem import Message, msgFields
-from model.empresa import Empresa
-
 from password_strength import PasswordPolicy
 import re
+
+
+from model.preparador import Preparador, preparadorTokenFields
+from model.mensagem import Message, msgFields
+from model.empresa import Empresa
 
 parser = reqparse.RequestParser()
 
@@ -26,14 +27,29 @@ policy = PasswordPolicy.from_names(
 )
 
 class Preparadores (Resource):
-  def get(self):
+  @token_verify
+  def get(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor' and tipo != 'preparador':
+      logger.error("Usuario sem autorizacao para acessar os preparadores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     preparadores = Preparador.query.all()
+
+    data= {'preparador': preparadores, 'token': refreshToken}
+
     logger.info("Preparadores listados com sucesso")
-    return marshal(preparadores, preparadorFields), 200
+    return marshal(data, preparadorTokenFields), 200
+  @token_verify
+  def post(self, tipo, refreshToken):
+    if tipo != 'proprietario' and tipo != 'gestor' and 'preparador':
+      logger.error("Usuario sem autorizacao para acessar os preparadores")
 
-  def post(self):
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
-
     try:
 
       if len(args['nome']) == 0:
@@ -49,7 +65,7 @@ class Preparadores (Resource):
       if not args['senha']:
         codigo = Message(1, "Senha não informada")
         return marshal(codigo, msgFields), 400
-      
+
       verifySenha = policy.test(args['senha'])
       if len(verifySenha) != 0:
         codigo = Message(1, "Senha no formato errado")
@@ -75,8 +91,10 @@ class Preparadores (Resource):
       db.session.add(preparador)
       db.session.commit()
 
+      data = {'preparador': preparador, 'token': refreshToken}
+
       logger.info(f"Preparador de id: {preparador.id} criado com sucesso")
-      return marshal(preparador, preparadorFields), 201
+      return marshal(data, preparadorTokenFields), 201
 
     except IntegrityError:
       codigo = Message(1, "Email ja cadastrado no sistema")
@@ -89,7 +107,14 @@ class Preparadores (Resource):
       return marshal(codigo, msgFields), 400
 
 class PreparadorId(Resource):
-  def get(self, id):
+  @token_verify
+  def get(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor' and 'preparador':
+      logger.error("Usuario sem autorizacao para acessar os preparadores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     preparador = Preparador.query.get(id)
 
     if preparador is None:
@@ -98,12 +123,20 @@ class PreparadorId(Resource):
       codigo = Message(1, f"Preparador de id: {id} não encontrado")
       return marshal(codigo, msgFields), 404
 
+    data = {'preparador': preparador, 'token': refreshToken}
+
     logger.info(f"Preparador de id: {id} listado com sucesso")
-    return marshal(preparador, preparadorFields), 200
+    return marshal(data, preparadorTokenFields), 200
 
-  def put(self, id):
+  @token_verify
+  def put(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor' and 'preparador':
+      logger.error("Usuario sem autorizacao para acessar os preparadores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     args = parser.parse_args()
-
     try:
       userBd = Preparador.query.get(id)
       if userBd is None:
@@ -129,16 +162,25 @@ class PreparadorId(Resource):
       db.session.add(userBd)
       db.session.commit()
 
+      data = {'preparador': userBd, 'token': refreshToken}
+
+
       logger.info(f"Preparador de id: {id} atualizado com sucesso")
-      return marshal(userBd, preparadorFields)
+      return marshal(data, preparadorTokenFields)
 
     except:
       logger.error("Erro ao atualizar o Preparador")
 
       codigo = Message(2, "Erro ao atualizar o Preparador")
       return marshal(codigo, msgFields), 400
+  @token_verify
+  def delete(self, tipo, refreshToken, id):
+    if tipo != 'proprietario' and tipo != 'gestor' and 'preparador':
+      logger.error("Usuario sem autorizacao para acessar os preparadores")
 
-  def delete(self, id):
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     userBd = Preparador.query.get(id)
 
     if userBd is None:
@@ -151,10 +193,20 @@ class PreparadorId(Resource):
     db.session.commit()
 
     logger.info(f"Preparador de id: {id} deletado com sucesso")
-    return {}, 200
+    return {'token': refreshToken}, 200
 
 class PreparadorNome(Resource):
-  def get(self, nome):
+  @token_verify
+  def get(self, tipo, refreshToken, nome):
+    if tipo != 'proprietario' and tipo != 'gestor' and 'preparador':
+      logger.error("Usuario sem autorizacao para acessar os preparadores")
+
+      codigo = Message(1, "Usuario sem autorização suficiente!")
+      return marshal(codigo, msgFields), 403
+
     preparadorNome = Preparador.query.filter(Preparador.nome.ilike(f"%{nome}%")).all()
+
+    data = {'preparador': preparadorNome, 'token': refreshToken}
+
     logger.info(f"Preparadores de nome: {nome} listado com sucesso")
-    return marshal(preparadorNome, preparadorFields), 200
+    return marshal(data, preparadorTokenFields), 200

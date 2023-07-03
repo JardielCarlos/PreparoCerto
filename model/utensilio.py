@@ -4,12 +4,17 @@ from helpers.database import db
 utensilioFields = {
   'id': fields.Integer,
   'nome': fields.String
-  }
+}
+
+utensilioTokenFields = {
+  "utensilio": fields.Nested(utensilioFields),
+  'token': fields.String
+}
 
 
 class Utensilio(db.Model):
   __tablename__ = "tb_utensilio"
-  
+
   id = db.Column(db.Integer, primary_key=True)
   nome = db.Column(db.String, nullable=False)
 
